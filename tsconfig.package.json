@@ -8,6 +8,7 @@
     "src/index.ts",
     "src/shared/**/*.ts",
     "src/features/vitest/index.ts",
+    "src/features/vitest/modules/**/*.ts",
     "src/features/vitest/types.d.ts",
     "src/features/vitest/utils/**/*.ts",
     "src/features/playwright/index.ts",

@@ -3,6 +3,11 @@
  *
  * @param value The value with which the promise is fulfilled.
  * @returns A fulfilled Promise<T> with `status: "fulfilled"` and its `value`.
+ * @example
+ * ```ts
+ * const payload = await resolvedPromise({ id: 1 });
+ * expect(payload).toEqual({ id: 1 });
+ * ```
  */
 export function resolvedPromise<T>(
   value: T,

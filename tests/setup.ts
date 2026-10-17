@@ -1,6 +1,7 @@
-import { resetConsole, shutConsole } from "@/features/vitest";
 import "@testing-library/jest-dom/vitest";
 import { afterEach, beforeEach, vi } from "vitest";
+
+import { resetConsole, shutConsole } from "@/features/vitest";
 
 // Environment variables to isolate across all tests
 const GHA_ENV_VARS = [

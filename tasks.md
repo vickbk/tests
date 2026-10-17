@@ -172,8 +172,8 @@
 
 ---
 
-- [ ] **Task 9: Extract the Vitest DOM Helpers**
-- **Status**: 🧑‍💻 In Progress
+- [x] **Task 9: Extract the Vitest DOM Helpers**
+- **Status**: ✅ Done
 - **Target**: 2026-10-17
 - **Description**: Move the reusable DOM assertion and interaction helpers into the Vitest feature.
 - **Steps**:
@@ -195,12 +195,12 @@
 - **Completion Criteria**:
   - [x] All intended helpers are exported from `@vickbk/tests/vitest`.
   - [x] No reference to `@/tests/common` remains.
-  - [ ] DOM helper tests pass.
+  - [x] DOM helper tests pass.
 
 ---
 
-- [ ] **Task 10: Extract the Vitest Promise Helpers**
-- **Status**: ⬜ In Progress
+- [x] **Task 10: Extract the Vitest Promise Helpers**
+- **Status**: ✅ Done
 - **Target**: 2026-10-17
 - **Description**: Move `resolvedPromise` and `rejectedPromise` into their own focused Vitest module.
 - **Steps**:
@@ -214,7 +214,7 @@
 - **Completion Criteria**:
   - [x] Both helpers are publicly available.
   - [x] Existing rejection-handling behavior is preserved.
-  - [ ] Tests cover both helpers.
+  - [x] Tests cover both helpers.
 
 ---
 
