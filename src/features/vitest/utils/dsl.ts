@@ -1,5 +1,5 @@
-import { patternToRegex } from "../../../shared";
-import type { TEXT_MATCHER, TEXT_PATTERN } from "../../../shared";
+import type { TEXT_MATCHER, TEXT_PATTERN } from "@/shared/regex";
+import { patternToRegex } from "@/shared/regex";
 import { fireEvent, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { expect } from "vitest";

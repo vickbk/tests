@@ -43,14 +43,14 @@
         "default": "./dist/index.cjs"
       }
     },
-    "./shared": {
+    "./regex": {
       "import": {
-        "types": "./dist/shared.d.mts",
-        "default": "./dist/shared.mjs"
+        "types": "./dist/regex.d.mts",
+        "default": "./dist/regex.mjs"
       },
       "require": {
-        "types": "./dist/shared.d.cts",
-        "default": "./dist/shared.cjs"
+        "types": "./dist/regex.d.cts",
+        "default": "./dist/regex.cjs"
       }
     },
     "./vitest": {

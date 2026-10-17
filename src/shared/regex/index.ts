@@ -4,4 +4,4 @@ export type {
   TEXT_PATTERN,
   TEXT_WITH_NTH,
 } from "./types";
-export { patternToRegex } from "./utils";
+export { patternToRegex } from "./utils/pattern-to-regex";

@@ -1,9 +1,9 @@
 import {
-  LABEL_LOCATOR,
-  patternToRegex,
-  TEXT_MATCHER,
-  TEXT_PATTERN,
-} from "../../../shared";
+    LABEL_LOCATOR,
+    patternToRegex,
+    TEXT_MATCHER,
+    TEXT_PATTERN,
+} from "@/shared/regex";
 import type { Locator, Page } from "@playwright/test";
 import test, { expect } from "@playwright/test";
 import type { SimpleTest } from "../types";

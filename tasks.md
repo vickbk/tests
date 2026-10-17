@@ -2,150 +2,150 @@
 
 ### Phase 1: Establish the Package Boundary
 
-- [ ] **Task 1: Clean the Package Build Boundary**
+- [x] **Task 1: Clean the Package Build Boundary**
 - **Status**: ⬜ Not Started
 - **Target**: TBD
 - **Description**: Remove all unrelated CI-tools build entries and make the package build exclusively the shared, Vitest, and Playwright APIs.
 - **Steps**:
-  - [ ] Inspect the current `tsdown.config.ts`.
-  - [ ] Remove unrelated `core`, `docs`, `github`, `releases`, and `packages` build entries.
-  - [ ] Add `index` → `src/index.ts`.
-  - [ ] Add `shared` → `src/shared/index.ts`.
-  - [ ] Add `vitest` → `src/features/vitest/index.ts`.
-  - [ ] Add `playwright` → `src/features/playwright/index.ts`.
-  - [ ] Ensure ESM and CJS output are generated.
-  - [ ] Ensure declaration files are generated.
-  - [ ] Ensure framework dependencies remain external.
-  - [ ] Run the production build and inspect the generated `dist/` structure.
+  - [x] Inspect the current `tsdown.config.ts`.
+  - [x] Remove unrelated `core`, `docs`, `github`, `releases`, and `packages` build entries.
+  - [x] Add `index` → `src/index.ts`.
+  - [x] Add `shared` → `src/shared/index.ts`.
+  - [x] Add `vitest` → `src/features/vitest/index.ts`.
+  - [x] Add `playwright` → `src/features/playwright/index.ts`.
+  - [x] Ensure ESM and CJS output are generated.
+  - [x] Ensure declaration files are generated.
+  - [x] Ensure framework dependencies remain external.
+  - [x] Run the production build and inspect the generated `dist/` structure.
 
 - **Completion Criteria**:
-  - [ ] `pnpm build` succeeds.
-  - [ ] `dist/` contains only the intended package entrypoints and their supporting artifacts.
-  - [ ] No CI-tools modules are included in the package build.
+  - [x] `pnpm build` succeeds.
+  - [x] `dist/` contains only the intended package entrypoints and their supporting artifacts.
+  - [x] No CI-tools modules are included in the package build.
 
 ---
 
-- [ ] **Task 2: Establish the Public Package Entry Points**
+- [x] **Task 2: Establish the Public Package Entry Points**
 - **Status**: ⬜ Not Started
 - **Target**: TBD
 - **Description**: Make the root, shared, Vitest, and Playwright entrypoints actual public APIs.
 - **Steps**:
-  - [ ] Populate `src/index.ts`.
-  - [ ] Populate `src/shared/index.ts`.
-  - [ ] Populate `src/features/vitest/index.ts`.
-  - [ ] Populate `src/features/playwright/index.ts`.
-  - [ ] Ensure the root entrypoint exports only framework-independent utilities.
-  - [ ] Ensure the Vitest entrypoint exports only Vitest-related functionality.
-  - [ ] Ensure the Playwright entrypoint exports only Playwright-related functionality.
-  - [ ] Do not introduce new abstractions that do not currently exist in the project.
+  - [x] Populate `src/index.ts`.
+  - [x] Populate `src/shared/index.ts`.
+  - [x] Populate `src/features/vitest/index.ts`.
+  - [x] Populate `src/features/playwright/index.ts`.
+  - [x] Ensure the root entrypoint exports only framework-independent utilities.
+  - [x] Ensure the Vitest entrypoint exports only Vitest-related functionality.
+  - [x] Ensure the Playwright entrypoint exports only Playwright-related functionality.
+  - [x] Do not introduce new abstractions that do not currently exist in the project.
 
 - **Completion Criteria**:
-  - [ ] All four entrypoints compile.
-  - [ ] Each entrypoint exposes the intended public API.
-  - [ ] No feature imports another testing framework unnecessarily.
+  - [x] All four entrypoints compile.
+  - [x] Each entrypoint exposes the intended public API.
+  - [x] No feature imports another testing framework unnecessarily.
 
 ---
 
 ### Phase 2: Package Configuration
 
-- [ ] **Task 3: Align `package.json` with the New Package Architecture**
-- **Status**: ⬜ Not Started
-- **Target**: TBD
+- [x] **Task 3: Align `package.json` with the New Package Architecture**
+- **Status**: ✅ Done
+- **Target**: 2026-10-17
 - **Description**: Make the package manifest accurately describe `@vickbk/tests` and its supported integrations.
 - **Steps**:
-  - [ ] Confirm `"name": "@vickbk/tests"`.
-  - [ ] Set the intended package version.
-  - [ ] Confirm `"type": "module"`.
-  - [ ] Confirm the Node engine requirement.
-  - [ ] Configure `files` to include only the published artifacts and documentation.
-  - [ ] Configure root `main`, `module`, and `types`.
-  - [ ] Configure `./shared`, `./vitest`, and `./playwright` exports.
-  - [ ] Remove obsolete exports inherited from `@vickbk/ci-tools`.
-  - [ ] Remove obsolete package metadata.
+  - [x] Confirm `"name": "@vickbk/tests"`.
+  - [x] Set the intended package version.
+  - [x] Confirm `"type": "module"`.
+  - [x] Confirm the Node engine requirement.
+  - [x] Configure `files` to include only the published artifacts and documentation.
+  - [x] Configure root `main`, `module`, and `types`.
+  - [x] Configure `./shared`, `./vitest`, and `./playwright` exports.
+  - [x] Remove obsolete exports inherited from `@vickbk/ci-tools`.
+  - [x] Remove obsolete package metadata.
 
 - **Completion Criteria**:
-  - [ ] Every public export points to an artifact actually generated by the build.
-  - [ ] No export points to `src/`.
-  - [ ] No obsolete CI-tools exports remain.
+  - [x] Every public export points to an artifact actually generated by the build.
+  - [x] No export points to `src/`.
+  - [x] No obsolete CI-tools exports remain.
 
 ---
 
-- [ ] **Task 4: Declare Integration Dependencies Correctly**
-- **Status**: ⬜ Not Started
-- **Target**: TBD
+- [x] **Task 4: Declare Integration Dependencies Correctly**
+- **Status**: ✅ Done
+- **Target**: 2026-10-17
 - **Description**: Define Vitest, Testing Library, React, and Playwright dependencies according to which package features consume them.
 - **Steps**:
-  - [ ] Identify every external package imported by the reusable source.
-  - [ ] Add required packages to `peerDependencies`.
-  - [ ] Mark optional integration dependencies appropriately.
-  - [ ] Add the same packages as `devDependencies` so the package can test and build itself.
-  - [ ] Add `react-dom` if required by the extracted React utilities.
-  - [ ] Verify the supported version ranges.
-  - [ ] Ensure shared utilities have no framework dependencies.
+  - [x] Identify every external package imported by the reusable source.
+  - [x] Add required packages to `peerDependencies`.
+  - [x] Mark optional integration dependencies appropriately.
+  - [x] Add the same packages as `devDependencies` so the package can test and build itself.
+  - [x] Add `react-dom` if required by the extracted React utilities.
+  - [x] Verify the supported version ranges.
+  - [x] Ensure shared utilities have no framework dependencies.
 
 - **Completion Criteria**:
-  - [ ] `pnpm install` succeeds.
-  - [ ] TypeScript resolves all external imports.
-  - [ ] A consumer does not need to install Playwright merely to use `/shared`.
-  - [ ] A consumer does not need to install Vitest merely to use `/playwright`.
+  - [x] `pnpm install` succeeds.
+  - [x] TypeScript resolves all external imports.
+  - [x] A consumer does not need to install Playwright merely to use `/shared`.
+  - [x] A consumer does not need to install Vitest merely to use `/playwright`.
 
 ---
 
-- [ ] **Task 5: Resolve the `RegExp.escape()` Runtime Contract**
-- **Status**: ⬜ Not Started
-- **Target**: TBD
+- [x] **Task 5: Resolve the `RegExp.escape()` Runtime Contract**
+- **Status**: ✅ Done
+- **Target**: 2026-10-17
 - **Description**: Ensure `patternToRegex` is compatible with the package's declared Node runtime.
 - **Steps**:
-  - [ ] Inspect the current `patternToRegex` implementation.
-  - [ ] Verify the actual runtime requirements of `RegExp.escape()`.
-  - [ ] Decide whether to keep `RegExp.escape()` or provide a compatible escaping implementation.
-  - [ ] Keep the package Node engine requirement consistent with that decision.
-  - [ ] Add tests for escaped special characters.
+  - [x] Inspect the current `patternToRegex` implementation.
+  - [x] Verify the actual runtime requirements of `RegExp.escape()`.
+  - [x] Decide whether to keep `RegExp.escape()` or provide a compatible escaping implementation.
+  - [x] Keep the package Node engine requirement consistent with that decision.
+  - [x] Add tests for escaped special characters.
 
 - **Completion Criteria**:
-  - [ ] The implementation works on every Node version declared by the package.
-  - [ ] The behavior is covered by tests.
+  - [x] The implementation works on every Node version declared by the package.
+  - [x] The behavior is covered by tests.
 
 ---
 
 ### Phase 3: Shared Utilities
 
-- [ ] **Task 6: Extract and Stabilize Shared Types**
-- **Status**: ⬜ Not Started
-- **Target**: TBD
+- [x] **Task 6: Extract and Stabilize Shared Regex Types**
+- **Status**: ✅ Done
+- **Target**: 2026-10-17
 - **Description**: Establish the framework-neutral shared API.
 - **Steps**:
-  - [ ] Keep `TEXT_PATTERN`.
-  - [ ] Keep `LABEL_LOCATOR`.
-  - [ ] Keep `TEXT_WITH_NTH`.
-  - [ ] Keep `TEXT_MATCHER`.
-  - [ ] Move/refactor them into `src/shared/types.ts`.
-  - [ ] Export them through `src/shared/index.ts`.
-  - [ ] Export the shared API through the root entrypoint.
+  - [x] Keep `TEXT_PATTERN`.
+  - [x] Keep `LABEL_LOCATOR`.
+  - [x] Keep `TEXT_WITH_NTH`.
+  - [x] Keep `TEXT_MATCHER`.
+  - [x] Move/refactor them into `src/shared/regex/types.ts`.
+  - [x] Export them through `src/shared/regex/index.ts`.
+  - [x] Export the shared API through the root entrypoint.
 
 - **Completion Criteria**:
-  - [ ] Shared types can be imported from `@vickbk/tests/shared`.
-  - [ ] Shared types do not depend on Vitest, Playwright, React, or Testing Library.
+  - [x] Shared types can be imported from `@vickbk/tests/regex`.
+  - [x] Shared types do not depend on Vitest, Playwright, React, or Testing Library.
 
 ---
 
-- [ ] **Task 7: Extract and Test `patternToRegex`**
-- **Status**: ⬜ Not Started
-- **Target**: TBD
+- [x] **Task 7: Extract and Test `patternToRegex`**
+- **Status**: ✅ Done
+- **Target**: 2026-10-17
 - **Description**: Move the regex/pattern utility into the shared feature and establish its behavioral contract.
 - **Steps**:
-  - [ ] Move `patternToRegex` into the shared implementation.
-  - [ ] Update imports to use the new location.
-  - [ ] Test string patterns.
-  - [ ] Test existing `RegExp` values.
-  - [ ] Test escaped characters.
-  - [ ] Test case-insensitive behavior where supported.
-  - [ ] Test edge cases.
+  - [x] Move `patternToRegex` into the shared implementation.
+  - [x] Update imports to use the new location.
+  - [x] Test string patterns.
+  - [x] Test existing `RegExp` values.
+  - [x] Test escaped characters.
+  - [x] Test case-insensitive behavior where supported.
+  - [x] Test edge cases.
 
 - **Completion Criteria**:
-  - [ ] `patternToRegex` is publicly available from `@vickbk/tests/shared`.
-  - [ ] All existing behavior is preserved.
-  - [ ] The test suite covers the supported contract.
+  - [x] `patternToRegex` is publicly available from `@vickbk/tests/regex`.
+  - [x] All existing behavior is preserved.
+  - [x] The test suite covers the supported contract.
 
 ---
 
