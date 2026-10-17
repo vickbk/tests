@@ -151,69 +151,69 @@
 
 ### Phase 4: Vitest Feature
 
-- [ ] **Task 8: Consolidate the Console Utilities**
-- **Status**: ⬜ Not Started
-- **Target**: TBD
+- [x] **Task 8: Consolidate the Console Utilities**
+- **Status**: ✅ Done
+- **Target**: 2026-10-17
 - **Description**: Establish a single canonical implementation of `shutConsole` and `resetConsole`.
 - **Steps**:
-  - [ ] Compare `tests/console.ts` with `src/features/vitest/utils/console.ts`.
-  - [ ] Select the canonical implementation.
-  - [ ] Move/refactor it into the final Vitest location.
-  - [ ] Export `shutConsole`.
-  - [ ] Export `resetConsole`.
-  - [ ] Update existing tests to use the package implementation.
-  - [ ] Remove the duplicate implementation.
+  - [x] Compare `tests/console.ts` with `src/features/vitest/utils/console.ts`.
+  - [x] Select the canonical implementation.
+  - [x] Move/refactor it into the final Vitest location.
+  - [x] Export `shutConsole`.
+  - [x] Export `resetConsole`.
+  - [x] Update existing tests to use the package implementation.
+  - [x] Remove the duplicate implementation.
 
 - **Completion Criteria**:
-  - [ ] Only one implementation exists.
-  - [ ] Console suppression works.
-  - [ ] Console restoration works.
-  - [ ] Existing console tests pass.
+  - [x] Only one implementation exists.
+  - [x] Console suppression works.
+  - [x] Console restoration works.
+  - [x] Existing console tests pass.
 
 ---
 
 - [ ] **Task 9: Extract the Vitest DOM Helpers**
-- **Status**: ⬜ Not Started
-- **Target**: TBD
+- **Status**: 🧑‍💻 In Progress
+- **Target**: 2026-10-17
 - **Description**: Move the reusable DOM assertion and interaction helpers into the Vitest feature.
 - **Steps**:
-  - [ ] Extract `shouldHaveAttributes`.
-  - [ ] Extract `shouldSee`.
-  - [ ] Extract `shouldNotSee`.
-  - [ ] Extract `shouldHaveTestId`.
-  - [ ] Extract `shouldNotHaveTestId`.
-  - [ ] Extract `isChecked`.
-  - [ ] Extract `isNotChecked`.
-  - [ ] Extract `userClicks`.
-  - [ ] Extract `clickLabelInput`.
-  - [ ] Extract `userTypes`.
-  - [ ] Extract `userTypesMultiple`.
-  - [ ] Extract `togglePopover`.
-  - [ ] Replace the broken `@/tests/common` import.
-  - [ ] Replace application-specific aliases with package-local imports.
+  - [x] Extract `shouldHaveAttributes`.
+  - [x] Extract `shouldSee`.
+  - [x] Extract `shouldNotSee`.
+  - [x] Extract `shouldHaveTestId`.
+  - [x] Extract `shouldNotHaveTestId`.
+  - [x] Extract `isChecked`.
+  - [x] Extract `isNotChecked`.
+  - [x] Extract `userClicks`.
+  - [x] Extract `clickLabelInput`.
+  - [x] Extract `userTypes`.
+  - [x] Extract `userTypesMultiple`.
+  - [x] Extract `togglePopover`.
+  - [x] Replace the broken `@/tests/common` import.
+  - [x] Replace application-specific aliases with package-local imports.
 
 - **Completion Criteria**:
-  - [ ] All intended helpers are exported from `@vickbk/tests/vitest`.
-  - [ ] No reference to `@/tests/common` remains.
+  - [x] All intended helpers are exported from `@vickbk/tests/vitest`.
+  - [x] No reference to `@/tests/common` remains.
   - [ ] DOM helper tests pass.
 
 ---
 
 - [ ] **Task 10: Extract the Vitest Promise Helpers**
-- **Status**: ⬜ Not Started
-- **Target**: TBD
+- **Status**: ⬜ In Progress
+- **Target**: 2026-10-17
 - **Description**: Move `resolvedPromise` and `rejectedPromise` into their own focused Vitest module.
 - **Steps**:
-  - [ ] Move `resolvedPromise`.
-  - [ ] Move `rejectedPromise`.
-  - [ ] Preserve their current behavior.
-  - [ ] Document the returned promise shape where necessary.
+  - [x] Move `resolvedPromise`.
+  - [x] Move `rejectedPromise`.
+  - [x] Preserve their current behavior.
+  - [x] Document the returned promise shape where necessary.
   - [ ] Add dedicated tests.
-  - [ ] Export them from the Vitest barrel.
+  - [x] Export them from the Vitest barrel.
 
 - **Completion Criteria**:
-  - [ ] Both helpers are publicly available.
-  - [ ] Existing rejection-handling behavior is preserved.
+  - [x] Both helpers are publicly available.
+  - [x] Existing rejection-handling behavior is preserved.
   - [ ] Tests cover both helpers.
 
 ---
