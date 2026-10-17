@@ -5,6 +5,7 @@ export default defineConfig({
     index: "src/index.ts",
     regex: "src/shared/regex/index.ts",
     vitest: "src/features/vitest/index.ts",
+    "vitest/react": "src/features/vitest/modules/react/index.ts",
     playwright: "src/features/playwright/index.ts",
   },
   format: ["cjs", "esm"],

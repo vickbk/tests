@@ -36,6 +36,15 @@ generateCoverageSummary();
 await postCoverageComment();
 ```
 
+React Server Component resolution is provided by a separate entrypoint so the
+general Vitest entrypoint does not import React:
+
+```ts
+import { resolveRscTree } from "@vickbk/tests/vitest/react";
+
+const resolvedTree = await resolveRscTree(<ServerPage />);
+```
+
 ## Required environment variables
 
 - `GITHUB_TOKEN`

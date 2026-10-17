@@ -55,8 +55,22 @@
     },
     "./vitest": {
       "import": {
-        "types": "./dist/vitest.d.mts",
-        "default": "./dist/vitest.mjs"
+        "types": "./dist/vitest/index.d.mts",
+        "default": "./dist/vitest/index.mjs"
+      },
+      "require": {
+        "types": "./dist/vitest/index.d.cts",
+        "default": "./dist/vitest/index.cjs"
+      }
+    },
+    "./vitest/react": {
+      "import": {
+        "types": "./dist/vitest/react.d.mts",
+        "default": "./dist/vitest/react.mjs"
+      },
+      "require": {
+        "types": "./dist/vitest/react.d.cts",
+        "default": "./dist/vitest/react.cjs"
       }
     },
     "./playwright": {

@@ -218,24 +218,22 @@
 
 ---
 
-- [ ] **Task 11: Refactor and Test the RSC Resolver**
-- **Status**: ⬜ Not Started
-- **Target**: TBD
-- **Description**: Establish an explicit contract for `resolveRscTree` and avoid silently hiding component failures.
+- [ ] **Task 11: Refactor and Test the RSC Resolver under `vitest/react`**
+- **Status**: ✅ Complete
+- **Target**: `src/features/vitest/modules/react/`
+- **Description**: Establish an explicit contract for `resolveRscTree`, house it under the dedicated `vitest/modules/react` subpath entrypoint, and prevent silent failure suppression.
 - **Steps**:
-  - [ ] Move the helper into the React/Vitest feature.
-  - [ ] Review component detection logic.
-  - [ ] Review recursive resolution.
-  - [ ] Review async component handling.
-  - [ ] Review client component handling.
-  - [ ] Decide how component errors should behave.
-  - [ ] Avoid converting unexpected errors to `null` unless explicitly required.
-  - [ ] Add tests for simple, nested, async, client, and failing components.
+  - [x] Create `src/features/vitest/modules/react/index.ts` and associated module structure.
+  - [x] Move `resolveRscTree` and related React tree helpers into `src/features/vitest/modules/react/`.
+  - [x] Review component detection, recursive resolution, async component handling, and client component handling.
+  - [x] Ensure unexpected component errors propagate or fail explicitly instead of silently returning `null` (unless explicitly intended).
+  - [x] Add dedicated unit tests for simple, nested, async, client, and failing components.
+  - [x] Wire the build config to output `dist/vitest/react/`.
 
 - **Completion Criteria**:
-  - [ ] RSC behavior is explicitly defined.
-  - [ ] Errors are not silently hidden unintentionally.
-  - [ ] Tests cover the supported component cases.
+  - [x] `resolveRscTree` is accessible via `import { resolveRscTree } from '@vickbk/tests/vitest/react'`.
+  - [x] React peer dependencies are isolated to the `/react` subpath.
+  - [x] Unit tests cover all React component cases and error handling contracts.
 
 ---
 
