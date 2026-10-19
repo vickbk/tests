@@ -286,50 +286,44 @@
 
 ### Phase 5: Playwright Feature
 
-- [ ] **Task 14: Extract Playwright Types**
-- **Status**: ⬜ Not Started
-- **Target**: TBD
+- [x] **Task 14: Extract Playwright Types**
+- **Status**: ✅ Done
+- **Target**: 2026-10-19
 - **Description**: Establish the public Playwright type surface.
 - **Steps**:
-  - [ ] Move `SimpleTest`.
-  - [ ] Move `TestRunner`.
-  - [ ] Update `TestRunner` to support `Promise<void>` if required by actual consumers.
-  - [ ] Export the types from the Playwright barrel.
+  - [x] Move `SimpleTest`.
+  - [x] Move `TestRunner`.
+  - [x] Update `TestRunner` to support `Promise<void>` if required by actual consumers.
+  - [x] Export the types from the Playwright barrel.
 
 - **Completion Criteria**:
-  - [ ] Types are available from `@vickbk/tests/playwright`.
-  - [ ] Existing consumers continue to typecheck.
+  - [x] Types are available from `@vickbk/tests/playwright`.
+  - [x] Existing consumers continue to typecheck.
 
 ---
 
-- [ ] **Task 15: Extract the Playwright DSL**
-- **Status**: ⬜ Not Started
-- **Target**: TBD
-- **Description**: Move the reusable Playwright interaction helpers into the package.
+- [x] **Task 15: Extract Playwright Helpers into Atomic Utilities**
+- **Status**: ✅ Done
+- **Target**: 2026-10-19
+- **Description**: Refactor the monolithic Playwright DSL implementation into atomic, single-responsibility files under `src/features/playwright/modules/`, ensuring clean separation and export via `@vickbk/tests/playwright`.
 - **Steps**:
-  - [ ] Extract `shouldSee`.
-  - [ ] Extract `shouldNotSee`.
-  - [ ] Extract `fillLocatorWith`.
-  - [ ] Extract `setLocatorValue`.
-  - [ ] Extract `setValueForLocators`.
-  - [ ] Extract `getLocatorByText`.
-  - [ ] Extract `getButton`.
-  - [ ] Extract `getLabel`.
-  - [ ] Extract `getLink`.
-  - [ ] Extract `clickButton`.
-  - [ ] Extract `clickLink`.
-  - [ ] Extract `clickLabelInput`.
-  - [ ] Extract `clickMultipleLabelInputs`.
-  - [ ] Extract `isChecked`.
-  - [ ] Extract `isNotChecked`.
-  - [ ] Extract `clickBodyCorner`.
-  - [ ] Extract `runSimilarTests`.
-  - [ ] Replace application-specific aliases with package-local imports.
+  - [x] Audit existing Playwright DSL definitions.
+  - [x] Extract each interaction and query helper into its own dedicated file under `src/features/playwright/modules/`:
+    - [x] `shouldSee.ts`, `shouldNotSee.ts`
+    - [x] `fillLocatorWith.ts`, `setLocatorValue.ts`, `setValueForLocators.ts`
+    - [x] `getLocatorByText.ts`, `getButton.ts`, `getLabel.ts`, `getLink.ts`
+    - [x] `clickButton.ts`, `clickLink.ts`, `clickLabelInput.ts`, `clickMultipleLabelInputs.ts`
+    - [x] `isChecked.ts`, `isNotChecked.ts`
+    - [x] `clickBodyCorner.ts`, `runSimilarTests.ts`
+  - [x] Replace any application-specific path aliases with package-local imports.
+  - [x] Add rigorous JSDoc comments (`@param`, `@returns`, `@example`) to each atomic utility.
+  - [x] Re-export all helpers through `src/features/playwright/index.ts` to expose them via `@vickbk/tests/playwright`.
 
 - **Completion Criteria**:
-  - [ ] All reusable Playwright helpers are available from `@vickbk/tests/playwright`.
-  - [ ] No consumer-specific path aliases remain.
-  - [ ] Existing Playwright tests pass.
+  - [x] All reusable Playwright helpers live in individual atomic files under `src/features/playwright/modules/`.
+  - [x] `@vickbk/tests/playwright` exposes the complete public API.
+  - [x] No consumer-specific path aliases remain.
+  - [x] Typechecking, builds, and tests pass successfully.
 
 ---
 
