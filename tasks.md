@@ -347,83 +347,83 @@
 
 ### Phase 6: Consumer Migration
 
-- [ ] **Task 17: Migrate Vitest Consumers**
-- **Status**: ⬜ Not Started
+- [x] **Task 17: Migrate Vitest Consumers**
+- **Status**: ✅ Complete
 - **Target**: TBD
 - **Description**: Replace the original project's local reusable Vitest utilities with `@vickbk/tests/vitest`.
 - **Steps**:
-  - [ ] Replace imports of the local console utilities.
-  - [ ] Replace imports of the local DOM DSL.
-  - [ ] Replace imports of promise helpers.
-  - [ ] Replace imports of RSC helpers.
-  - [ ] Update toggle-event setup.
-  - [ ] Keep project-specific environment setup local.
-  - [ ] Keep `GHA_ENV_VARS` local.
-  - [ ] Remove obsolete duplicated utilities.
+  - [x] Replace imports of the local console utilities.
+  - [x] Replace imports of the local DOM DSL.
+  - [x] Replace imports of promise helpers.
+  - [x] Replace imports of RSC helpers.
+  - [x] Update toggle-event setup.
+  - [x] Keep project-specific environment setup local.
+  - [x] Keep `GHA_ENV_VARS` local.
+  - [x] Remove obsolete duplicated utilities.
 
 - **Completion Criteria**:
-  - [ ] Consumer tests use the published package API.
-  - [ ] No reusable utility remains duplicated unnecessarily in the consumer.
+  - [x] Consumer tests use the published package API.
+  - [x] No reusable utility remains duplicated unnecessarily in the consumer.
 
 ---
 
-- [ ] **Task 18: Migrate Playwright Consumers**
-- **Status**: ⬜ Not Started
+- [x] **Task 18: Migrate Playwright Consumers**
+- **Status**: ✅ Complete
 - **Target**: TBD
 - **Description**: Replace the original project's local Playwright helpers with the package API.
 - **Steps**:
-  - [ ] Replace local DSL imports.
-  - [ ] Replace local Playwright types.
-  - [ ] Update imports to `@vickbk/tests/playwright`.
-  - [ ] Keep `playwright.config.ts` consumer-local.
-  - [ ] Keep application-specific fixtures consumer-local.
+  - [x] Replace local DSL imports.
+  - [x] Replace local Playwright types.
+  - [x] Update imports to `@vickbk/tests/playwright`.
+  - [x] Keep `playwright.config.ts` consumer-local.
+  - [x] Keep application-specific fixtures consumer-local.
 
 - **Completion Criteria**:
-  - [ ] Consumer Playwright tests use the package.
-  - [ ] No unnecessary local copy of the reusable DSL remains.
+  - [x] Consumer Playwright tests use the package.
+  - [x] No unnecessary local copy of the reusable DSL remains.
 
 ---
 
 ### Phase 7: Documentation
 
-- [ ] **Task 19: Rewrite the Package README**
-- **Status**: ⬜ Not Started
+- [x] **Task 19: Rewrite the Package README**
+- **Status**: ✅ Complete
 - **Target**: TBD
 - **Description**: Replace the inherited `@vickbk/ci-tools` documentation with documentation describing `@vickbk/tests`.
 - **Steps**:
-  - [ ] Rewrite package introduction.
-  - [ ] Document the shared API.
-  - [ ] Document the Vitest API.
-  - [ ] Document the Playwright API.
-  - [ ] Document peer dependencies.
-  - [ ] Document installation.
-  - [ ] Document subpath imports.
-  - [ ] Document toggle-event setup.
-  - [ ] Document required Testing Library/jest-dom setup.
-  - [ ] Document supported Node/framework versions.
-  - [ ] Remove references to `@vickbk/ci-tools`.
+  - [x] Rewrite package introduction.
+  - [x] Document the shared API.
+  - [x] Document the Vitest API.
+  - [x] Document the Playwright API.
+  - [x] Document peer dependencies.
+  - [x] Document installation.
+  - [x] Document subpath imports.
+  - [x] Document toggle-event setup.
+  - [x] Document required Testing Library/jest-dom setup.
+  - [x] Document supported Node/framework versions.
+  - [x] Remove references to `@vickbk/ci-tools`.
 
 - **Completion Criteria**:
-  - [ ] README describes only `@vickbk/tests`.
-  - [ ] Every public feature has an installation and usage example.
-  - [ ] Setup requirements are explicit.
+  - [x] README describes only `@vickbk/tests`.
+  - [x] Every public feature has an installation and usage example.
+  - [x] Setup requirements are explicit.
 
 ---
 
-- [ ] **Task 20: Remove or Rewrite Stale Documentation Contracts**
-- **Status**: ⬜ Not Started
+- [x] **Task 20: Remove or Rewrite Stale Documentation Contracts**
+- **Status**: ✅ Complete
 - **Target**: TBD
 - **Description**: Remove package-internal documentation tests that are coupled to the old CI-tools project.
 - **Steps**:
-  - [ ] Review `src/features/vitest/readme-contract.ts`.
-  - [ ] Review `src/features/playwright/readme-contract.ts`.
-  - [ ] Remove contracts that validate `@vickbk/ci-tools`.
-  - [ ] Replace them with package-specific documentation tests only if they provide real value.
-  - [ ] Remove obsolete README-check assumptions.
+  - [x] Review `src/features/vitest/readme-contract.ts`.
+  - [x] Review `src/features/playwright/readme-contract.ts`.
+  - [x] Remove contracts that validate `@vickbk/ci-tools`.
+  - [x] Replace them with package-specific documentation tests only if they provide real value.
+  - [x] Remove obsolete README-check assumptions.
 
 - **Completion Criteria**:
-  - [ ] No documentation test references obsolete CI-tools APIs.
-  - [ ] Documentation tests validate the actual `@vickbk/tests` contract.
+  - [x] No documentation test references obsolete CI-tools APIs.
+  - [x] Documentation tests validate the actual `@vickbk/tests` contract.
 
 ---
 
