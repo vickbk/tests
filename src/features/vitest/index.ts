@@ -1,6 +1,9 @@
-import "./utils/toggle-event";
-
-export { resetConsole, shutConsole } from "./utils/console";
 export * from "./modules/dom";
+export { installToggleEvent } from "./modules/dom";
+export type {
+  ToggleConfig,
+  ToggleFireEventExtensions,
+  ToggleState,
+} from "./modules/dom";
 export * from "./modules/promises";
-export type { ToggleConfig } from "./types";
+export { resetConsole, shutConsole } from "./utils/console";

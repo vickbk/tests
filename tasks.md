@@ -218,7 +218,7 @@
 
 ---
 
-- [ ] **Task 11: Refactor and Test the RSC Resolver under `vitest/react`**
+- [x] **Task 11: Refactor and Test the RSC Resolver under `vitest/react`**
 - **Status**: ✅ Complete
 - **Target**: `src/features/vitest/modules/react/`
 - **Description**: Establish an explicit contract for `resolveRscTree`, house it under the dedicated `vitest/modules/react` subpath entrypoint, and prevent silent failure suppression.

@@ -1,16 +1,7 @@
-import type { FireFunction, FireObject } from "@testing-library/react";
-
-export type ToggleState = "open" | "closed";
-
-export type ToggleConfig = Record<"oldState" | "newState", ToggleState>;
-
-type CustomFireExtensions = {
-  toggle: (
-    element: Document | Element | Window | Node,
-    initDict?: Partial<ToggleConfig>,
-  ) => boolean;
-};
+export type { ToggleConfig, ToggleState, ToggleFireEventExtensions } from "./modules/toggle-event/utils/types";
 
 declare module "@testing-library/react" {
-  export const fireEvent: FireFunction & FireObject & CustomFireExtensions;
+  export const fireEvent: FireFunction & FireObject & ToggleFireEventExtensions;
 }
+
+import type { FireFunction, FireObject } from "@testing-library/react";

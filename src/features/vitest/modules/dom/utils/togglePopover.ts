@@ -1,5 +1,5 @@
 import { fireEvent } from "@testing-library/react";
-import type { ToggleState } from "../../../types";
+import type { ToggleState } from "../modules/toggle-event";
 
 /**
  * Dispatches a toggle event on the first element matching a selector.
