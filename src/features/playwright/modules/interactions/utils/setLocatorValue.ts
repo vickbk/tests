@@ -1,6 +1,5 @@
+import { type LABEL_LOCATOR, patternToRegex } from "@/shared/regex";
 import type { Page } from "@playwright/test";
-import { patternToRegex } from "../../../../../shared/regex";
-import type { LABEL_LOCATOR } from "../types";
 
 /**
  * Clicks the label matching the pattern and fills it with the supplied value.

@@ -1,6 +1,6 @@
 import { getLink } from "@/features/playwright/shared/locators";
+import { TEXT_PATTERN } from "@/shared/regex";
 import type { Page } from "@playwright/test";
-import type { TEXT_PATTERN } from "../types";
 
 /**
  * Clicks a link matching the supplied accessible name.

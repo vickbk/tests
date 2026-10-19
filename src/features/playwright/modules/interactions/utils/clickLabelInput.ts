@@ -1,6 +1,6 @@
 import { getLabel } from "@/features/playwright/shared/locators";
+import { TEXT_PATTERN } from "@/shared/regex";
 import type { Page } from "@playwright/test";
-import type { TEXT_PATTERN } from "../types";
 
 /**
  * Clicks the label matching the supplied text.

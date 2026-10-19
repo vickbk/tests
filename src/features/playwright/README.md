@@ -35,4 +35,6 @@ await clickButton(page, "Save");
 
 The entrypoint exports all atomic utilities from the `assertions`, `locators`,
 `interactions`, and `runners` modules. `SimpleTest` and `TestRunner` are also
-available as types.
+available as types, along with `LocatorWithText`, `TEXT_MATCHER`,
+`TEXT_WITH_NTH`, `TEXT_PATTERN`, and `LABEL_LOCATOR`. The `test` and `expect`
+exports are direct re-exports from `@playwright/test`.

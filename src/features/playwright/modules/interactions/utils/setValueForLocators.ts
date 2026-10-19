@@ -1,5 +1,5 @@
+import { LABEL_LOCATOR } from "@/shared/regex";
 import type { Page } from "@playwright/test";
-import type { LABEL_LOCATOR } from "../types";
 import { setLocatorValue } from "./setLocatorValue";
 
 /**

@@ -327,21 +327,21 @@
 
 ---
 
-- [ ] **Task 16: Finalize the Playwright Public API**
-- **Status**: ⬜ Not Started
+- [x] **Task 16: Finalize the Playwright Public API**
+- **Status**: ✅ Complete
 - **Target**: TBD
 - **Description**: Populate the currently empty Playwright barrel and expose the intended public API.
 - **Steps**:
-  - [ ] Export the DSL helpers.
-  - [ ] Export the public types.
-  - [ ] Decide whether to re-export `test`.
-  - [ ] Decide whether to re-export `expect`.
-  - [ ] If re-exported, ensure they are direct re-exports from `@playwright/test`.
-  - [ ] Do not introduce custom fixtures or `expect.extend`.
+  - [x] Export the DSL helpers.
+  - [x] Export the public types.
+  - [x] Decide whether to re-export `test`.
+  - [x] Decide whether to re-export `expect`.
+  - [x] If re-exported, ensure they are direct re-exports from `@playwright/test`.
+  - [x] Do not introduce custom fixtures or `expect.extend`.
 
 - **Completion Criteria**:
-  - [ ] `@vickbk/tests/playwright` has a functional public API.
-  - [ ] Playwright consumers can use the package without importing internal files.
+  - [x] `@vickbk/tests/playwright` has a functional public API.
+  - [x] Playwright consumers can use the package without importing internal files.
 
 ---
 

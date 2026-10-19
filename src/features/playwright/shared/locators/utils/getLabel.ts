@@ -1,5 +1,5 @@
+import { TEXT_PATTERN } from "@/shared/regex";
 import type { Page } from "@playwright/test";
-import type { TEXT_PATTERN } from "../types";
 import { getLocatorByText } from "./getLocatorByText";
 
 /**
