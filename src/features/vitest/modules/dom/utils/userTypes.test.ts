@@ -1,6 +1,7 @@
 // @vitest-environment jsdom
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
+import { getTextBox } from "./getTextBox";
 import { userTypes } from "./userTypes";
 
 describe("userTypes", () => {
@@ -22,7 +23,22 @@ describe("userTypes", () => {
     expect(input).toHaveValue("");
   });
 
-  it("rejects when no matching textbox exists", async () => {
+  it("uses the textbox resolved by getTextBox and supports textareas", async () => {
+    document.body.innerHTML =
+      '<label for="notes">Notes</label><textarea id="notes">prior</textarea>';
+    const textBox = getTextBox("Notes");
+
+    const result = await userTypes("Notes", "updated");
+
+    expect(result).toBe(textBox);
+    expect(result).toHaveValue("updated");
+  });
+
+  it("rejects for a non-text placeholder match or a missing textbox", async () => {
+    document.body.innerHTML =
+      '<input type="checkbox" placeholder="Alerts" /><button>Save</button>';
+
+    await expect(userTypes("Alerts", "yes")).rejects.toThrow(/not a text-entry/i);
     await expect(userTypes("Missing", "text")).rejects.toThrow();
   });
 });

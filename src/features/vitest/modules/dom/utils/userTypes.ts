@@ -1,6 +1,6 @@
-import { patternToRegex } from "../../../../../shared/regex";
-import { screen, within } from "@testing-library/react";
+import { TEXT_PATTERN } from "@/shared/regex";
 import userEvent from "@testing-library/user-event";
+import { getTextBox } from "./getTextBox";
 
 /**
  * Replaces the value of a textbox found by its label, placeholder, or textbox name.
@@ -16,17 +16,12 @@ import userEvent from "@testing-library/user-event";
  * ```
  */
 export const userTypes = async (
-  target: string | RegExp,
+  target: TEXT_PATTERN,
   text: string,
   container?: HTMLElement,
   user = userEvent.setup(),
 ) => {
-  const regex = patternToRegex(target);
-  const searchArea = container ? within(container) : screen;
-  const element =
-    searchArea.queryByLabelText(regex) ||
-    searchArea.queryByPlaceholderText(regex) ||
-    searchArea.getByRole("textbox", { name: regex });
+  const element = getTextBox(target, container);
 
   await user.clear(element);
   if (text) await user.type(element, text);

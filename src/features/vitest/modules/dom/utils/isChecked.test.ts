@@ -10,6 +10,13 @@ describe("isChecked", () => {
     expect(() => isChecked("Accept terms")).not.toThrow();
   });
 
+  it("passes for a checked radio button", () => {
+    document.body.innerHTML =
+      '<label><input type="radio" name="plan" checked /> Pro</label>';
+
+    expect(() => isChecked("Pro")).not.toThrow();
+  });
+
   it("supports query scoping and throws for an unchecked or absent control", () => {
     document.body.innerHTML =
       '<section><label><input type="checkbox" checked /> In scope</label></section><label><input type="checkbox" /> Outside</label>';
@@ -25,5 +32,11 @@ describe("isChecked", () => {
       '<label><input type="checkbox" /> Unchecked</label>';
 
     expect(() => isChecked("Unchecked")).toThrow();
+  });
+
+  it("throws when the accessible name belongs to a non-checkbox/radio control", () => {
+    document.body.innerHTML = '<label>Name<input type="text" /></label>';
+
+    expect(() => isChecked("Name")).toThrow(/checkbox or radio/i);
   });
 });

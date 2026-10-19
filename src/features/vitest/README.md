@@ -19,7 +19,9 @@ The Vitest entrypoint exports:
 - Console control: `shutConsole`, `resetConsole`.
 - DOM queries and assertions: `shouldSee`, `shouldNotSee`,
   `shouldHaveAttributes`, `shouldHaveTestId`, `shouldNotHaveTestId`,
-  `isChecked`, `isNotChecked`.
+  `isChecked`, `isNotChecked`. Text-entry and checkbox/radio lookups are
+  performed by internal `getTextBox` and `getCheckboxRadio` helpers; these
+  implementation helpers are not exported publicly.
 - DOM interactions: `clickLabelInput`, `userClicks`, `userTypes`,
   `userTypesMultiple`, `togglePopover`.
 - Toggle support: `installToggleEvent`, `ToggleConfig`, `ToggleState`.
@@ -98,7 +100,10 @@ expect(screen.getByRole("button", { name: "Save" })).toBeInTheDocument();
 returns the located elements. `isChecked` and `isNotChecked` accept an
 accessible label, optionally scoped to a container. `userTypesMultiple` accepts
 an object mapping labels or placeholders to values and returns the updated
-inputs.
+inputs. `userTypes` supports text inputs, textareas, accessible textbox-role
+elements, and placeholder lookup; it rejects non-text placeholder matches.
+Checkbox/radio assertions reject non-checkbox/radio controls rather than
+applying a checked-state assertion to them.
 
 ## Toggle events
 

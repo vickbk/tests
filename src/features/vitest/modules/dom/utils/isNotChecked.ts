@@ -1,7 +1,6 @@
-import type { TEXT_PATTERN } from "../../../../../shared/regex";
-import { patternToRegex } from "../../../../../shared/regex";
+import type { TEXT_PATTERN } from "@/shared/regex";
 import { expect } from "vitest";
-import { getSearchArea } from "./getSearchArea";
+import { getCheckboxRadio } from "./getCheckboxRadio";
 
 /**
  * Asserts that the radio button or checkbox matching the accessible name is unchecked.
@@ -15,11 +14,5 @@ import { getSearchArea } from "./getSearchArea";
  * ```
  */
 export function isNotChecked(selector: TEXT_PATTERN, container?: HTMLElement) {
-  const searchArea = getSearchArea(container);
-  const name = patternToRegex(selector);
-  const element =
-    searchArea.getByLabelText(name) ||
-    searchArea.getByRole("radio", { name }) ||
-    searchArea.getByRole("checkbox", { name });
-  expect(element).not.toBeChecked();
+  expect(getCheckboxRadio(selector, container)).not.toBeChecked();
 }
