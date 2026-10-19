@@ -36,16 +36,13 @@ TypeScript).
 
 ## Public entrypoints
 
-| Import path | Purpose |
-| --- | --- |
-| `@vickbk/tests` | Shared text-pattern utilities and types |
-| `@vickbk/tests/regex` | Explicit subpath for the shared text-pattern utilities and types |
-| `@vickbk/tests/vitest` | Vitest console, DOM, promise, and toggle-event helpers |
-| `@vickbk/tests/vitest/react` | React Server Component tree resolution |
-| `@vickbk/tests/playwright` | Playwright assertions, locators, interactions, and runner |
-
-There is no `@vickbk/tests/shared` entrypoint. Use the package root or
-`@vickbk/tests/regex` for the shared API.
+| Import path                  | Purpose                                                          |
+| ---------------------------- | ---------------------------------------------------------------- |
+| `@vickbk/tests`              | Shared text-pattern utilities and types                          |
+| `@vickbk/tests/regex`        | Explicit subpath for the shared text-pattern utilities and types |
+| `@vickbk/tests/vitest`       | Vitest console, DOM, promise, and toggle-event helpers           |
+| `@vickbk/tests/vitest/react` | React Server Component tree resolution                           |
+| `@vickbk/tests/playwright`   | Playwright assertions, locators, interactions, and runner        |
 
 ## Shared text-pattern helpers
 
@@ -63,15 +60,15 @@ const caseInsensitive = patternToRegex("Welcome");
 
 The package supports Node.js 20 and newer. Its peer dependency ranges are:
 
-| Peer dependency | Supported range | Used for |
-| --- | --- | --- |
-| `vitest` | `^5.0.4` | Vitest helpers |
-| `@testing-library/react` | `^16.0.0` | DOM queries, interactions, and toggle events |
-| `@testing-library/user-event` | `^14.6.8` | User-like DOM interactions |
-| `@testing-library/jest-dom` | `^7.0.1` | DOM matcher setup used by the DOM assertion helpers |
-| `@playwright/test` | `^1.64.0` | Playwright helpers and direct `test`/`expect` exports |
-| `react`, `react-dom` | `^18.0.0` or `^19.0.0` | React integrations and RSC helpers |
-| `@types/react` | `^18.0.0` or `^19.0.0` | React TypeScript types |
+| Peer dependency               | Supported range        | Used for                                              |
+| ----------------------------- | ---------------------- | ----------------------------------------------------- |
+| `vitest`                      | `^5.0.4`               | Vitest helpers                                        |
+| `@testing-library/react`      | `^16.0.0`              | DOM queries, interactions, and toggle events          |
+| `@testing-library/user-event` | `^14.6.8`              | User-like DOM interactions                            |
+| `@testing-library/jest-dom`   | `^7.0.1`               | DOM matcher setup used by the DOM assertion helpers   |
+| `@playwright/test`            | `^1.64.0`              | Playwright helpers and direct `test`/`expect` exports |
+| `react`, `react-dom`          | `^18.0.0` or `^19.0.0` | React integrations and RSC helpers                    |
+| `@types/react`                | `^18.0.0` or `^19.0.0` | React TypeScript types                                |
 
 All peers are optional at the package level. Install the peers for the
 entrypoints your project imports.
@@ -104,10 +101,7 @@ elements located by test ID.
 
 ```tsx
 import { render } from "@testing-library/react";
-import {
-  shouldHaveTestId,
-  shouldSee,
-} from "@vickbk/tests/vitest";
+import { shouldHaveTestId, shouldSee } from "@vickbk/tests/vitest";
 
 render(
   <main>

@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { escapeRegExp } from "./escape-regex";
 
 describe("escapeRegExp", () => {
@@ -76,6 +76,31 @@ describe("escapeRegExp", () => {
       expect(escapeRegExp("🚀 [Launch Ready]!")).toBe(
         "🚀\\x20\\[Launch\\x20Ready\\]\\x21",
       );
+    });
+  });
+
+  describe("Fallback Implementation (RegExp.escape undefined)", () => {
+    let originalEscape: typeof RegExp.escape;
+
+    beforeEach(() => {
+      originalEscape = RegExp.escape;
+      // Temporarily remove RegExp.escape to force the fallback block
+      // @ts-expect-error: Testing fallback behavior
+      delete RegExp.escape;
+    });
+
+    afterEach(() => {
+      if (originalEscape) {
+        RegExp.escape = originalEscape;
+      }
+    });
+
+    it("should use the string replace fallback when RegExp.escape is not available", () => {
+      expect(typeof RegExp.escape).toBe("undefined");
+      const input = "test.value[0]+(optional)?";
+      const expected = "test\\.value\\[0\\]\\+\\(optional\\)\\?";
+
+      expect(escapeRegExp(input)).toBe(expected);
     });
   });
 
