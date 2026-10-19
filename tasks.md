@@ -237,25 +237,25 @@
 
 ---
 
-- [ ] **Task 12: Make Toggle Event Support Explicit**
-- **Status**: ⬜ Not Started
-- **Target**: TBD
+- [x] **Task 12: Make Toggle Event Support Explicit**
+- **Status**: ✅ Done
+- **Target**: 2026-10-19
 - **Description**: Make the `fireEvent.toggle` polyfill an explicit opt-in feature rather than an implicit side effect.
 - **Steps**:
-  - [ ] Refactor the existing toggle-event implementation.
-  - [ ] Introduce the intended explicit installation API.
-  - [ ] Export `installToggleEvent`.
-  - [ ] Preserve `fireEvent.toggle` behavior.
-  - [ ] Keep the `ToggleConfig` type.
-  - [ ] Keep the Testing Library type augmentation.
-  - [ ] Verify the declaration is emitted correctly.
-  - [ ] Add runtime tests.
-  - [ ] Add TypeScript/declaration verification.
+  - [x] Refactor the existing toggle-event implementation.
+  - [x] Introduce the intended explicit installation API.
+  - [x] Export `installToggleEvent`.
+  - [x] Preserve `fireEvent.toggle` behavior.
+  - [x] Keep the `ToggleConfig` type.
+  - [x] Keep the Testing Library type augmentation.
+  - [x] Verify the declaration is emitted correctly.
+  - [x] Add runtime tests.
+  - [x] Add TypeScript/declaration verification.
 
 - **Completion Criteria**:
-  - [ ] Consumers explicitly opt into toggle support.
-  - [ ] Importing the normal Vitest helpers does not unexpectedly mutate global Testing Library behavior.
-  - [ ] Runtime and TypeScript behavior agree.
+  - [x] Consumers explicitly opt into toggle support.
+  - [x] Importing the normal Vitest helpers does not unexpectedly mutate global Testing Library behavior.
+  - [x] Runtime and TypeScript behavior agree.
 
 ---
 

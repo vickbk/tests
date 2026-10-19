@@ -1,7 +1,6 @@
 // @vitest-environment jsdom
-import { afterEach, describe, expect, it, vi } from "vitest";
 import { fireEvent } from "@testing-library/react";
-import { installToggleEvent } from "../modules/toggle-event";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { togglePopover } from "./togglePopover";
 
 describe("togglePopover", () => {
@@ -10,7 +9,6 @@ describe("togglePopover", () => {
   });
 
   it("dispatches a toggle event with the requested state and returns the element", () => {
-    installToggleEvent();
     const popover = document.createElement("div");
     popover.id = "help";
     document.body.append(popover);
@@ -25,7 +23,6 @@ describe("togglePopover", () => {
   });
 
   it("uses the supplied container and returns undefined for a missing element", () => {
-    installToggleEvent();
     const container = document.createElement("section");
     container.innerHTML = '<div class="popover"></div>';
 
