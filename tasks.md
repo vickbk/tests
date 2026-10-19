@@ -259,22 +259,28 @@
 
 ---
 
-- [ ] **Task 13: Finalize the Vitest Public API**
+- [ ] **Task 13: Finalize the Vitest Public API & Bottom-Up Documentation**
 - **Status**: ⬜ Not Started
-- **Target**: TBD
-- **Description**: Make `@vickbk/tests/vitest` the complete public Vitest API.
+- **Target**: `src/features/vitest/` and documentation contracts
+- **Description**: Consolidate and export the complete public Vitest API (`@vickbk/tests/vitest` and `@vickbk/tests/vitest/react`), implementing a rigorous bottom-up documentation strategy verified via `readme-contract` and documentation scripts.
 - **Steps**:
-  - [ ] Export console helpers.
-  - [ ] Export DOM helpers.
-  - [ ] Export interaction helpers.
-  - [ ] Export promise helpers.
-  - [ ] Export RSC helpers.
-  - [ ] Export toggle-event support.
-  - [ ] Verify no unintended internal utilities are exported.
-
+  - [ ] **Public API Export Audit:**
+    - [ ] Export console helpers (`shutConsole`, `resetConsole`).
+    - [ ] Export DOM helpers (`shouldSee`, `shouldHaveTestId`, `togglePopover`, etc.).
+    - [ ] Export interaction helpers and user-event utilities.
+    - [ ] Export promise helpers (`resolvedPromise`, `rejectedPromise`).
+    - [ ] Export RSC helpers via `@vickbk/tests/vitest/react` (`resolveRscTree`).
+    - [ ] Export toggle-event support (`installToggleEvent`, `ToggleConfig`).
+    - [ ] Ensure no internal/private utilities leak into public barrels.
+  - [ ] **Bottom-Up Documentation Pipeline:**
+    - [ ] **Tier 1 (Submodules):** Ensure every individual utility file has rigorous JSDoc comments (`@param`, `@returns`, `@example`), and create co-located submodule `README.md` files where applicable.
+    - [ ] **Tier 2 (Modules):** Write/update module-level `README.md` files for `dom`, `promises`, `react`, and `toggle-event`.
+    - [ ] **Tier 3 (Feature Root):** Finalize `src/features/vitest/README.md` detailing the complete Vitest testing suite.
+    - [ ] **Tier 4 (Contracts & Scripts):** Sync `readme-contract.ts` with the finalized public APIs and integrate documentation checks into `bin/documentation` (or project verification scripts).
 - **Completion Criteria**:
-  - [ ] Every intended Vitest utility is importable from one stable public entrypoint.
-  - [ ] No intended helper requires importing an internal source path.
+  - [ ] Every intended Vitest utility is importable from its stable public entrypoint.
+  - [ ] Bottom-up documentation hierarchy (submodules -> modules -> feature -> contracts) is complete and validated.
+  - [ ] Typechecking, tests, and documentation verification scripts pass successfully.
 
 ---
 

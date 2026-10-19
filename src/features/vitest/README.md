@@ -1,55 +1,182 @@
-# Vitest Coverage Reporting
-
-This entrypoint converts Vitest coverage output into GitHub-friendly summary
-content and pull-request comments.
+# @vickbk/tests/vitest
 
 ## Overview
 
-The coverage subsystem is responsible for:
+The Vitest feature provides reusable DOM testing helpers, asynchronous value
+helpers, console spies, and explicit toggle-event support. React Server
+Component (RSC) tree resolution is isolated in `@vickbk/tests/vitest/react` so
+the primary Vitest entrypoint does not load React.
 
-- reading the generated coverage summary JSON,
-- building markdown tables and step-summary output,
-- exporting `TOTAL_PCT` into the workflow environment,
-- finding or updating a sticky PR comment for the current run,
-- keeping the report content deterministic and readable.
+## Public entrypoints
 
-## Key modules
+| Import | Purpose |
+| --- | --- |
+| `@vickbk/tests/vitest` | Console, DOM, promise, and toggle-event helpers |
+| `@vickbk/tests/vitest/react` | React Server Component tree resolution |
 
-| File                                                                       | Responsibility                                             |
-| -------------------------------------------------------------------------- | ---------------------------------------------------------- |
-| [index.ts](./index.ts)                                                     | Public export surface for coverage workflow actions.       |
-| [types.ts](./types.ts)                                                     | Type contracts for coverage metrics and report payloads.   |
-| [utils/format.ts](./utils/format.ts)                                       | Builds markdown rows for coverage tables.                  |
-| [utils/report.ts](./utils/report.ts)                                       | Parses coverage JSON and assembles summary/comment output. |
-| [utils/generate-coverage-summary.ts](./utils/generate-coverage-summary.ts) | Writes summary output and env export data.                 |
-| [utils/post-coverage-comment.ts](./utils/post-coverage-comment.ts)         | Creates or updates the PR coverage comment.                |
+The Vitest entrypoint exports:
 
-## Usage example
+- Console control: `shutConsole`, `resetConsole`.
+- DOM queries and assertions: `shouldSee`, `shouldNotSee`,
+  `shouldHaveAttributes`, `shouldHaveTestId`, `shouldNotHaveTestId`,
+  `isChecked`, `isNotChecked`.
+- DOM interactions: `clickLabelInput`, `userClicks`, `userTypes`,
+  `userTypesMultiple`, `togglePopover`.
+- Toggle support: `installToggleEvent`, `ToggleConfig`, `ToggleState`.
+- Promise helpers: `resolvedPromise`, `rejectedPromise`.
 
-```ts
-import {
-  generateCoverageSummary,
-  postCoverageComment,
-} from "@vickbk/ci-tools/vitest";
+The React entrypoint exports `resolveRscTree`.
 
-generateCoverageSummary();
-await postCoverageComment();
+## Installation and setup
+
+Install Vitest and the integrations your tests use. DOM helpers rely on
+Testing Library and `@testing-library/jest-dom`; the RSC entrypoint additionally
+requires React.
+
+```sh
+pnpm add -D vitest @testing-library/react @testing-library/user-event @testing-library/jest-dom jsdom @vickbk/tests
 ```
 
-React Server Component resolution is provided by a separate entrypoint so the
-general Vitest entrypoint does not import React:
+Configure Vitest to use a DOM environment for tests that render components, and
+load the jest-dom matchers in a setup file:
 
 ```ts
+// vitest.config.ts
+import { defineConfig } from "vitest/config";
+
+export default defineConfig({
+  test: {
+    environment: "jsdom",
+    setupFiles: ["./tests/setup.ts"],
+  },
+});
+```
+
+```ts
+// tests/setup.ts
+import "@testing-library/jest-dom/vitest";
+```
+
+## DOM assertions and interactions
+
+DOM helpers are imported directly from the Vitest subpath. Text arguments may
+be strings or regular expressions; string searches are converted to
+case-insensitive regular expressions. `shouldSee` also accepts
+`[text, occurrenceIndex]` tuples for duplicate matches.
+
+```tsx
+import { render, screen } from "@testing-library/react";
+import {
+  isChecked,
+  shouldHaveAttributes,
+  shouldSee,
+  userClicks,
+  userTypes,
+} from "@vickbk/tests/vitest";
+
+render(
+  <form>
+    <label>
+      Email <input placeholder="Email address" />
+    </label>
+    <label>
+      <input type="checkbox" /> Subscribe
+    </label>
+    <button type="button">Save</button>
+  </form>,
+);
+
+const [email] = shouldSee("Email address");
+shouldHaveAttributes(email!, { placeholder: "Email address" });
+await userTypes("Email address", "person@example.com");
+await userClicks("Save");
+isChecked("Subscribe");
+expect(screen.getByRole("button", { name: "Save" })).toBeInTheDocument();
+```
+
+`shouldNotSee` and `shouldNotHaveTestId` assert absence. `shouldHaveTestId`
+returns the located elements. `isChecked` and `isNotChecked` accept an
+accessible label, optionally scoped to a container. `userTypesMultiple` accepts
+an object mapping labels or placeholders to values and returns the updated
+inputs.
+
+## Toggle events
+
+Importing the Vitest package or its DOM utilities does not install
+`fireEvent.toggle`. Install it explicitly in a setup file or in a test that
+needs the polyfill. The optional config provides default states for events;
+per-call state values take precedence.
+
+```ts
+import { fireEvent } from "@testing-library/react";
+import {
+  installToggleEvent,
+  type ToggleConfig,
+} from "@vickbk/tests/vitest";
+
+const defaults: ToggleConfig = { oldState: "closed", newState: "open" };
+installToggleEvent(defaults);
+
+fireEvent.toggle(document.body, { newState: "closed" });
+```
+
+`togglePopover({ selector, container?, newState? })` is a convenience helper
+that locates one element, installs toggle support when called, dispatches its
+event, and returns the matched element (or `undefined` if no element matches).
+
+## React Server Components
+
+RSC tree resolution has its own entrypoint. It resolves nested synchronous and
+asynchronous server components while preserving client boundaries. Component
+errors reject the returned promise.
+
+```tsx
 import { resolveRscTree } from "@vickbk/tests/vitest/react";
 
 const resolvedTree = await resolveRscTree(<ServerPage />);
 ```
 
-## Required environment variables
+## Promise helpers
 
-- `GITHUB_TOKEN`
-- `GITHUB_REPOSITORY`
-- `GITHUB_EVENT_PATH`
-- `GITHUB_ENV`
-- `GITHUB_STEP_SUMMARY`
-- optionally `COVERAGE_PATH`
+`resolvedPromise(value)` and `rejectedPromise(reason)` produce settled promises
+with Vitest-style `status` and `value`/`reason` properties. They are useful when
+testing consumers that inspect promise state.
+
+```ts
+import { rejectedPromise, resolvedPromise } from "@vickbk/tests/vitest";
+
+const ready = resolvedPromise({ id: "item-1" });
+expect(ready.status).toBe("fulfilled");
+expect(ready.value.id).toBe("item-1");
+
+await expect(rejectedPromise(new Error("unavailable"))).rejects.toThrow(
+  "unavailable",
+);
+```
+
+## Console control
+
+`shutConsole()` temporarily spies on `console.log`, `console.warn`, and
+`console.error`; `resetConsole()` restores their original implementations.
+These helpers are opt-in and do not suppress output on import.
+
+```ts
+import { afterEach, beforeEach } from "vitest";
+import { resetConsole, shutConsole } from "@vickbk/tests/vitest";
+
+beforeEach(shutConsole);
+afterEach(resetConsole);
+```
+
+## API reference
+
+Detailed module guides:
+
+- [DOM helpers](./modules/dom/README.md)
+- [Promise helpers](./modules/promises/README.md)
+- [React RSC helpers](./modules/react/README.md)
+- [Toggle event support](./modules/dom/modules/toggle-event/README.md)
+
+The package exports only the supported feature API from these entrypoints.
+Implementation utilities such as internal DOM queries and RSC traversal
+functions are not public exports.

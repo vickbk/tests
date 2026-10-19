@@ -1,4 +1,4 @@
-import type { TEXT_MATCHER } from "../../../../../shared/regex";
+import type { TEXT_MATCHER } from "@/shared/regex";
 import { shouldGetByText } from "./shouldGetByText";
 
 /**

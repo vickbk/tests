@@ -1,5 +1,5 @@
-import type { TEXT_MATCHER } from "../../../../../shared/regex";
-import { patternToRegex } from "../../../../../shared/regex";
+import type { TEXT_MATCHER } from "@/shared/regex";
+import { patternToRegex } from "@/shared/regex";
 import { screen } from "@testing-library/react";
 import { expect } from "vitest";
 

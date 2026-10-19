@@ -2,7 +2,9 @@ export type {
   ToggleConfig,
   ToggleFireEventExtensions,
   ToggleState,
-} from "./modules/dom";
+} from "./modules/dom/modules/toggle-event/utils/types";
+
+import type { ToggleFireEventExtensions } from "./modules/dom/modules/toggle-event/utils/types";
 
 declare module "@testing-library/react" {
   export const fireEvent: FireFunction & FireObject & ToggleFireEventExtensions;

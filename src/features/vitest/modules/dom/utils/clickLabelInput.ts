@@ -1,5 +1,5 @@
-import type { TEXT_PATTERN } from "../../../../../shared/regex";
-import { patternToRegex } from "../../../../../shared/regex";
+import type { TEXT_PATTERN } from "@/shared/regex";
+import { patternToRegex } from "@/shared/regex";
 import { screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
@@ -23,7 +23,9 @@ export async function clickLabelInput(
   const searchArea = container ? within(container) : screen;
   const element =
     typeof label === "string" && label.length === 0
-      ? searchArea.queryByPlaceholderText(regex) || searchArea.getByLabelText(regex)
-      : searchArea.queryByLabelText(regex) || searchArea.getByPlaceholderText(regex);
+      ? searchArea.queryByPlaceholderText(regex) ||
+        searchArea.getByLabelText(regex)
+      : searchArea.queryByLabelText(regex) ||
+        searchArea.getByPlaceholderText(regex);
   await user.click(element);
 }

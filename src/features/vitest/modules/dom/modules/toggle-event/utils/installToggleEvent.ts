@@ -1,10 +1,11 @@
 import { fireEvent } from "@testing-library/react";
 import { togglePolyfill } from "./togglePolyfill";
-import type { ToggleConfig } from "./types";
+import type { ToggleConfig, ToggleFireEventExtensions } from "./types";
 
 /**
  * Installs the explicit `fireEvent.toggle` polyfill for the current test runtime.
  *
+ * @param config - Optional default old/new states used for each dispatched event.
  * @returns The augmented `fireEvent` object with a `toggle` method attached.
  * @example
  * ```ts
@@ -14,7 +15,9 @@ import type { ToggleConfig } from "./types";
  * fireEvent.toggle(document.body, { newState: "open" });
  * ```
  */
-export function installToggleEvent(config?: ToggleConfig): typeof fireEvent {
+export function installToggleEvent(
+  config?: ToggleConfig,
+): typeof fireEvent & ToggleFireEventExtensions {
   Object.assign(fireEvent, {
     toggle: (
       element: Document | Element | Node | Window,

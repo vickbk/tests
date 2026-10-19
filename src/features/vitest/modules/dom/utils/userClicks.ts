@@ -1,4 +1,4 @@
-import { patternToRegex } from "../../../../../shared/regex";
+import { patternToRegex } from "@/shared/regex";
 import { screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
