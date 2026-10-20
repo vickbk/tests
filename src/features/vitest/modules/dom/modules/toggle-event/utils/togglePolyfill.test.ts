@@ -29,6 +29,13 @@ describe("togglePolyfill", () => {
     expect(event.newState).toBe("open");
   });
 
+  it("uses defaults when an empty state is provided", () => {
+    const event = createToggleEvent("toggle", {});
+
+    expect(event.oldState).toBe("closed");
+    expect(event.newState).toBe("open");
+  });
+
   it("does not throw for a valid DOM node", () => {
     const element = document.createElement("button");
     expect(() => togglePolyfill(element, { newState: "open" })).not.toThrow();

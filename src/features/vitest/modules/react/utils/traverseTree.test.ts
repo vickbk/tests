@@ -54,7 +54,15 @@ describe("traverseTree", () => {
     await expect(
       traverseTree(React.createElement(Component), resolver),
     ).rejects.toBe(failure);
-    await expect(traverseTree([React.createElement("span")], resolver)).rejects
-      .toBe(failure);
+    await expect(
+      traverseTree([React.createElement("span")], resolver),
+    ).rejects.toBe(failure);
+  });
+
+  it("returns an object that is not a React element or array unchanged", async () => {
+    const resolver = async (node: React.ReactNode) => node;
+    const obj = { key: "value" };
+    // @ts-expect-error - testing non-element object behavior
+    await expect(traverseTree(obj, resolver)).resolves.toBe(obj);
   });
 });

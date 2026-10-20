@@ -29,5 +29,8 @@ describe("shouldGetByText", () => {
       null,
     ]);
     expect(shouldGetByText()).toEqual([]);
+    expect(
+      shouldGetByText(["Missing", 0]).map(({ element }) => element),
+    ).toEqual([null]);
   });
 });

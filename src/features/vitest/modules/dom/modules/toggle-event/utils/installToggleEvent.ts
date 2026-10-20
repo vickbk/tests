@@ -18,6 +18,8 @@ import type { ToggleConfig, ToggleFireEventExtensions } from "./types";
 export function installToggleEvent(
   config?: ToggleConfig,
 ): typeof fireEvent & ToggleFireEventExtensions {
+  if ("toggle" in fireEvent) return fireEvent;
+
   Object.assign(fireEvent, {
     toggle: (
       element: Document | Element | Node | Window,
