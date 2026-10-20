@@ -43,16 +43,6 @@
         "default": "./dist/index.cjs"
       }
     },
-    "./regex": {
-      "import": {
-        "types": "./dist/regex.d.mts",
-        "default": "./dist/regex.mjs"
-      },
-      "require": {
-        "types": "./dist/regex.d.cts",
-        "default": "./dist/regex.cjs"
-      }
-    },
     "./vitest": {
       "import": {
         "types": "./dist/vitest/index.d.mts",

@@ -36,13 +36,12 @@ TypeScript).
 
 ## Public entrypoints
 
-| Import path                  | Purpose                                                          |
-| ---------------------------- | ---------------------------------------------------------------- |
-| `@vickbk/tests`              | Shared text-pattern utilities and types                          |
-| `@vickbk/tests/regex`        | Explicit subpath for the shared text-pattern utilities and types |
-| `@vickbk/tests/vitest`       | Vitest console, DOM, promise, and toggle-event helpers           |
-| `@vickbk/tests/vitest/react` | React Server Component tree resolution                           |
-| `@vickbk/tests/playwright`   | Playwright assertions, locators, interactions, and runner        |
+| Import path                  | Purpose                                                   |
+| ---------------------------- | --------------------------------------------------------- |
+| `@vickbk/tests`              | Shared text-pattern utilities and types                   |
+| `@vickbk/tests/vitest`       | Vitest console, DOM, promise, and toggle-event helpers    |
+| `@vickbk/tests/vitest/react` | React Server Component tree resolution                    |
+| `@vickbk/tests/playwright`   | Playwright assertions, locators, interactions, and runner |
 
 ## Shared text-pattern helpers
 
@@ -139,7 +138,13 @@ fireEvent.toggle(document.body);
 The Vitest entrypoint also exports `shouldNotSee`, `isChecked`,
 `isNotChecked`, `shouldHaveAttributes`, `shouldNotHaveTestId`, `userClicks`,
 `userTypes`, `userTypesMultiple`, `togglePopover`, `resolvedPromise`, and
-`rejectedPromise`. The React entrypoint exposes `resolveRscTree`:
+`rejectedPromise`.
+
+[For more details on Vitest API](./src/features/vitest/README.md)
+
+### React utilities
+
+The React entrypoint exposes `resolveRscTree`:
 
 ```tsx
 import { resolveRscTree } from "@vickbk/tests/vitest/react";
@@ -147,19 +152,15 @@ import { resolveRscTree } from "@vickbk/tests/vitest/react";
 const resolved = await resolveRscTree(<ServerPage />);
 ```
 
+[For more on react API](./src/features/vitest/modules/react/README.md)
+
 ## Playwright utilities
 
-Playwright helpers are imported from `@vickbk/tests/playwright`. The entrypoint
-also directly re-exports `test` and `expect` from `@playwright/test`.
+Playwright helpers are imported from `@vickbk/tests/playwright`.
 
 ```ts
-import {
-  clickButton,
-  expect,
-  getButton,
-  shouldSee,
-  test,
-} from "@vickbk/tests/playwright";
+import { except, test } from "@playwright/test";
+import { clickButton, getButton, shouldSee } from "@vickbk/tests/playwright";
 
 test("saves the page", async ({ page }) => {
   await page.goto("/");
@@ -173,6 +174,8 @@ The public API also includes `shouldNotSee`, `isChecked`, `isNotChecked`,
 `getLocatorByText`, `getLabel`, `getLink`, `fillLocatorWith`,
 `setLocatorValue`, `setValueForLocators`, `clickLink`, `clickLabelInput`,
 `clickMultipleLabelInputs`, `clickBodyCorner`, and `runSimilarTests`.
+
+[For more details on the playwright API](./src/features/playwright/README.md)
 
 ## License
 
