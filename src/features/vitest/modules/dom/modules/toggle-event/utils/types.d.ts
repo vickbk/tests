@@ -1,3 +1,5 @@
+import type { FireFunction, FireObject } from "@testing-library/react";
+
 /**
  * Possible states for a disclosure or popover toggle transition.
  *
@@ -33,3 +35,7 @@ export type ToggleFireEventExtensions = {
     initDict?: Partial<ToggleConfig>,
   ) => boolean;
 };
+
+declare module "@testing-library/react" {
+  const fireEvent: FireFunction & FireObject & ToggleFireEventExtensions;
+}

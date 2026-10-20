@@ -429,25 +429,25 @@
 
 ### Phase 8: Verification
 
-- [ ] **Task 21: Establish the Package Test Matrix**
-- **Status**: ⬜ Not Started
-- **Target**: TBD
+- [x] **Task 21: Establish the Package Test Matrix**
+- **Status**: ✅ Done
+- **Target**: 2026-10-20
 - **Description**: Ensure every public API is covered before publication.
 - **Steps**:
-  - [ ] Add shared utility tests.
-  - [ ] Add Vitest console tests.
-  - [ ] Add Vitest DOM tests.
-  - [ ] Add Vitest interaction tests.
-  - [ ] Add promise helper tests.
-  - [ ] Add RSC tests.
-  - [ ] Add toggle-event tests.
-  - [ ] Add Playwright helper tests.
-  - [ ] Add public-entrypoint import tests.
+  - [x] Add shared utility tests.
+  - [x] Add Vitest console tests.
+  - [x] Add Vitest DOM tests.
+  - [x] Add Vitest interaction tests.
+  - [x] Add promise helper tests.
+  - [x] Add RSC tests.
+  - [x] Add toggle-event tests.
+  - [x] Add Playwright helper tests.
+  - [x] Add public-entrypoint import tests.
 
 - **Completion Criteria**:
-  - [ ] `pnpm test` passes.
-  - [ ] Every public utility has meaningful behavioral coverage.
-  - [ ] Tests exercise public entrypoints rather than internal implementation paths where appropriate.
+  - [x] `pnpm test` passes.
+  - [x] Every public utility has meaningful behavioral coverage.
+  - [x] Tests exercise public entrypoints rather than internal implementation paths where appropriate.
 
 ---
 
@@ -456,13 +456,13 @@
 - **Target**: TBD
 - **Description**: Ensure generated declarations accurately represent every public entrypoint and the toggle-event augmentation.
 - **Steps**:
-  - [ ] Run the production build.
-  - [ ] Inspect generated `.d.mts` files.
-  - [ ] Verify root declarations.
-  - [ ] Verify `/shared` declarations.
-  - [ ] Verify `/vitest` declarations.
-  - [ ] Verify `/playwright` declarations.
-  - [ ] Verify `fireEvent.toggle` augmentation.
+  - [x] Run the production build.
+  - [x] Inspect generated `.d.mts` files.
+  - [x] Verify root declarations.
+  - [x] Verify `/vitest` declarations.
+  - [x] Verify `/vitest/react` declarations.
+  - [x] Verify `/playwright` declarations.
+  - [x] Verify `fireEvent.toggle` augmentation.
   - [ ] Test declarations from a clean consumer project.
 
 - **Completion Criteria**:
@@ -478,8 +478,8 @@
 - **Description**: Verify that every declared package export works in the module systems supported by the package.
 - **Steps**:
   - [ ] Test `@vickbk/tests`.
-  - [ ] Test `@vickbk/tests/shared`.
   - [ ] Test `@vickbk/tests/vitest`.
+  - [ ] Test `@vickbk/tests/vitest/react`.
   - [ ] Test `@vickbk/tests/playwright`.
   - [ ] Test ESM imports.
   - [ ] Test CJS `require` where supported by the generated output.
