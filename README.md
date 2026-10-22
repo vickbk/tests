@@ -10,7 +10,7 @@ The package is organized around stable public entrypoints:
 
 - Shared text-pattern helpers and types are available from the package root.
 - Vitest utilities provide DOM assertions and interactions, console controls,
-  promise helpers, and opt-in toggle-event support.
+  promise helpers, and a package-provided toggle-event helper.
 - React Server Component helpers have a separate Vitest entrypoint.
 - Playwright utilities provide assertions, locators, interactions, and a
   reusable runner.
@@ -124,14 +124,14 @@ beforeEach(shutConsole);
 afterEach(resetConsole);
 ```
 
-Toggle-event support is opt-in. Call `installToggleEvent` in a setup file (or
-in an individual test) before dispatching `fireEvent.toggle`:
+The Vitest entrypoint provides its own `fireEvent`, combining standard Testing
+Library event helpers with `toggle`. Import it directly; no separate toggle
+installation is needed:
 
 ```ts
-import { fireEvent } from "@testing-library/react";
-import { installToggleEvent } from "@vickbk/tests/vitest";
+import { fireEvent } from "@vickbk/tests/vitest";
 
-installToggleEvent({ oldState: "closed", newState: "open" });
+fireEvent.click(document.body);
 fireEvent.toggle(document.body);
 ```
 

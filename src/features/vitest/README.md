@@ -3,16 +3,14 @@
 ## Overview
 
 The Vitest feature provides reusable DOM testing helpers, asynchronous value
-helpers, console spies, and explicit toggle-event support. React Server
-Component (RSC) tree resolution is isolated in `@vickbk/tests/vitest/react` so
-the primary Vitest entrypoint does not load React.
+helpers, console spies, and a package-provided toggle-event helper. React Server Component (RSC) tree resolution is isolated in `@vickbk/tests/vitest/react` so the primary Vitest entrypoint does not load React.
 
 ## Public entrypoints
 
-| Import | Purpose |
-| --- | --- |
-| `@vickbk/tests/vitest` | Console, DOM, promise, and toggle-event helpers |
-| `@vickbk/tests/vitest/react` | React Server Component tree resolution |
+| Import                       | Purpose                                         |
+| ---------------------------- | ----------------------------------------------- |
+| `@vickbk/tests/vitest`       | Console, DOM, promise, and toggle-event helpers |
+| `@vickbk/tests/vitest/react` | React Server Component tree resolution          |
 
 The Vitest entrypoint exports:
 
@@ -24,7 +22,7 @@ The Vitest entrypoint exports:
   implementation helpers are not exported publicly.
 - DOM interactions: `clickLabelInput`, `userClicks`, `userTypes`,
   `userTypesMultiple`, `togglePopover`.
-- Toggle support: `installToggleEvent`, `ToggleConfig`, `ToggleState`.
+- Toggle events: package-owned `fireEvent`, `ToggleConfig`, `ToggleState`.
 - Promise helpers: `resolvedPromise`, `rejectedPromise`.
 
 The React entrypoint exports `resolveRscTree`.
@@ -107,27 +105,30 @@ applying a checked-state assertion to them.
 
 ## Toggle events
 
-Importing the Vitest package or its DOM utilities does not install
-`fireEvent.toggle`. Install it explicitly in a setup file or in a test that
-needs the polyfill. The optional config provides default states for events;
-per-call state values take precedence.
+The Vitest entrypoint exports its own `fireEvent`, which combines the standard
+Testing Library event helpers with the package's `toggle` helper. Import and
+use it directly; no separate toggle-event installation is required. This
+package-owned export does not augment or modify Testing Library's original
+`fireEvent`.
 
 ```ts
-import { fireEvent } from "@testing-library/react";
-import {
-  installToggleEvent,
-  type ToggleConfig,
-} from "@vickbk/tests/vitest";
+import { fireEvent } from "@vickbk/tests/vitest";
 
-const defaults: ToggleConfig = { oldState: "closed", newState: "open" };
-installToggleEvent(defaults);
+const button = document.querySelector("button")!;
+const disclosure = document.querySelector("details")!;
 
-fireEvent.toggle(document.body, { newState: "closed" });
+fireEvent.click(button);
+fireEvent.toggle(disclosure);
+fireEvent.toggle(disclosure, { oldState: "open", newState: "closed" });
 ```
 
+`fireEvent.toggle(element, config?)` defaults to `oldState: "closed"` and
+`newState: "open"`. Its optional configuration accepts either state
+independently; supplied values override the defaults for that call.
+
 `togglePopover({ selector, container?, newState? })` is a convenience helper
-that locates one element, installs toggle support when called, dispatches its
-event, and returns the matched element (or `undefined` if no element matches).
+that dispatches a toggle event to the first matching element and returns that
+element (or `undefined` if no element matches).
 
 ## React Server Components
 

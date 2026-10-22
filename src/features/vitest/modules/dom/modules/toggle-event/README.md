@@ -3,16 +3,16 @@
 ## Overview
 
 Toggle-event support adds a `fireEvent.toggle` helper for test environments
-without a native `ToggleEvent`. It is opt-in; importing `@vickbk/tests/vitest`
-or its DOM helpers does not mutate Testing Library or the global event
-environment.
+without a native `ToggleEvent`. The package provides its own `fireEvent` export
+from `@vickbk/tests/vitest`, combining Testing Library's standard event helpers
+with `toggle`. It does not augment or modify Testing Library's original export.
 
 ## Public API
 
-- `installToggleEvent(config?)` installs the helper and returns Testing
-  Library's augmented `fireEvent`.
-- `ToggleConfig` describes `oldState` and `newState`, each either `"open"` or
-  `"closed"`.
+- `fireEvent` provides Testing Library's standard event helpers and
+  `fireEvent.toggle(element, config?)`.
+- `ToggleConfig` describes `oldState` and `newState`; each may be `"open"` or
+  `"closed"`. The `toggle` config accepts either property independently.
 
 Underlying event construction and polyfill functions are module internals and
 are not exported from the public package entrypoints.
@@ -20,22 +20,15 @@ are not exported from the public package entrypoints.
 ## Usage
 
 ```ts
-import { fireEvent } from "@testing-library/react";
-import {
-  installToggleEvent,
-  type ToggleConfig,
-} from "@vickbk/tests/vitest";
+import { fireEvent } from "@vickbk/tests/vitest";
 
-const defaults: ToggleConfig = { oldState: "closed", newState: "open" };
-installToggleEvent(defaults);
-
+fireEvent.click(document.body);
 fireEvent.toggle(document.body);
-fireEvent.toggle(document.body, { newState: "closed" });
+fireEvent.toggle(document.body, { oldState: "open", newState: "closed" });
 ```
 
-The installer defaults to a `"closed"` to `"open"` transition. Configuration
-values supply defaults, and values passed to `fireEvent.toggle` override them.
-Repeated installation is safe.
+`fireEvent.toggle` defaults to `oldState: "closed"` and `newState: "open"`.
+Optional per-call state values override those defaults.
 
 ## Dependencies
 

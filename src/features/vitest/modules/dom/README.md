@@ -7,18 +7,18 @@ interactions exposed by `@vickbk/tests/vitest`.
 
 ## Public API
 
-| Export | Purpose |
-| --- | --- |
-| `clickLabelInput` | Click an input by label or placeholder |
-| `isChecked`, `isNotChecked` | Assert a labeled radio or checkbox state |
-| `shouldHaveAttributes` | Check an element's expected attributes |
-| `shouldHaveTestId`, `shouldNotHaveTestId` | Assert test-id presence or absence |
-| `shouldSee`, `shouldNotSee` | Assert text presence or absence |
-| `togglePopover` | Dispatch a toggle event to a selected element |
-| `userClicks` | Click a button by name or matching text |
-| `userTypes`, `userTypesMultiple` | Fill one or more labeled textboxes |
-| `installToggleEvent` | Explicitly install `fireEvent.toggle` support |
-| `ToggleConfig`, `ToggleState` | Toggle transition types |
+| Export                                    | Purpose                                                    |
+| ----------------------------------------- | ---------------------------------------------------------- |
+| `clickLabelInput`                         | Click an input by label or placeholder                     |
+| `isChecked`, `isNotChecked`               | Assert a labeled radio or checkbox state                   |
+| `shouldHaveAttributes`                    | Check an element's expected attributes                     |
+| `shouldHaveTestId`, `shouldNotHaveTestId` | Assert test-id presence or absence                         |
+| `shouldSee`, `shouldNotSee`               | Assert text presence or absence                            |
+| `fireEvent`                               | Dispatch standard Testing Library events and toggle events |
+| `togglePopover`                           | Dispatch a toggle event to a selected element              |
+| `userClicks`                              | Click a button by name or matching text                    |
+| `userTypes`, `userTypesMultiple`          | Fill one or more labeled textboxes                         |
+| `ToggleConfig`, `ToggleState`             | Toggle transition types                                    |
 
 ## Element lookup helpers
 
@@ -86,9 +86,10 @@ Text helpers accept strings or regular expressions. `shouldSee` supports
 that search the document also accept an optional container where documented by
 their function signature.
 
-Toggle-event installation is explicit: normal imports do not modify
-Testing Library. See [toggle event support](./modules/toggle-event/README.md)
-for installation and configuration details.
+The Vitest package provides its own `fireEvent` export, which combines
+Testing Library's standard event helpers with `fireEvent.toggle`. No separate
+toggle setup is needed. See [toggle event support](./modules/toggle-event/README.md)
+for usage and configuration details.
 
 ## Dependencies
 
