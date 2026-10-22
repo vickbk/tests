@@ -1,5 +1,4 @@
-import { fireEvent } from "@testing-library/react";
-import { installToggleEvent, type ToggleState } from "../modules/toggle-event";
+import { fireEvent, type ToggleState } from "../modules/toggle-event";
 
 /**
  * Dispatches a toggle event on the first element matching a selector.
@@ -20,7 +19,6 @@ export function togglePopover({
   selector: string;
   newState?: ToggleState;
 }) {
-  installToggleEvent();
   const element = (container ?? document).querySelector(selector);
   if (!element) return;
   fireEvent.toggle(element, { newState });

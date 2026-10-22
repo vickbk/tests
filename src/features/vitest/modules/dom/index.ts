@@ -1,4 +1,4 @@
-export { installToggleEvent } from "./modules/toggle-event";
+export { fireEvent } from "./modules/toggle-event";
 export type { ToggleConfig, ToggleState } from "./modules/toggle-event";
 export { clickLabelInput } from "./utils/clickLabelInput";
 export { isChecked } from "./utils/isChecked";

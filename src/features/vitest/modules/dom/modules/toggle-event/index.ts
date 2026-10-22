@@ -1,2 +1,2 @@
-export { installToggleEvent } from "./utils/installToggleEvent";
+export { fireEvent } from "./utils/fireEvent";
 export { type ToggleConfig, type ToggleState } from "./utils/types";
