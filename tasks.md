@@ -451,10 +451,10 @@
 
 ---
 
-- [ ] **Task 22: Verify TypeScript Declarations**
-- **Status**: ⬜ Not Started
-- **Target**: TBD
-- **Description**: Ensure generated declarations accurately represent every public entrypoint and the toggle-event augmentation.
+- [x] **Task 22: Verify TypeScript Declarations**
+- **Status**: ✅ Complete
+- **Target**: Packed artifact with isolated NodeNext consumers
+- **Description**: Ensure generated declarations accurately represent every public entrypoint and the package-owned `fireEvent.toggle` API.
 - **Steps**:
   - [x] Run the production build.
   - [x] Inspect generated `.d.mts` files.
@@ -462,52 +462,55 @@
   - [x] Verify `/vitest` declarations.
   - [x] Verify `/vitest/react` declarations.
   - [x] Verify `/playwright` declarations.
-  - [x] Verify `fireEvent.toggle` augmentation.
-  - [ ] Test declarations from a clean consumer project.
+  - [x] Verify the package-owned `fireEvent.toggle` type.
+  - [x] Test declarations from clean consumers installed from the packed artifact.
 
 - **Completion Criteria**:
-  - [ ] No missing declaration files.
-  - [ ] No unresolved declaration imports.
-  - [ ] Consumer TypeScript recognizes the complete public API.
+  - [x] No missing declaration files.
+  - [x] No unresolved declaration imports.
+  - [x] Consumer TypeScript recognizes the complete public API.
+- **Validation**: `pnpm build` and `npm pack --ignore-scripts` succeeded. TypeScript 6.0.3 consumers using `module`/`moduleResolution: "NodeNext"` compiled `.mts` and `.cts` fixtures for all public entrypoints. The Vitest fixture checked standard `fireEvent.click`, `fireEvent.toggle` targets, partial state configuration, and the boolean return type. Playwright declarations compiled with `@playwright/test` and Node types installed, without Vitest.
 
 ---
 
 - [ ] **Task 23: Verify ESM/CJS Package Imports**
-- **Status**: ⬜ Not Started
-- **Target**: TBD
+- **Status**: ⬜ Blocked — declared CJS and Playwright runtime imports fail
+- **Target**: Packed artifact in isolated consumers
 - **Description**: Verify that every declared package export works in the module systems supported by the package.
 - **Steps**:
-  - [ ] Test `@vickbk/tests`.
-  - [ ] Test `@vickbk/tests/vitest`.
-  - [ ] Test `@vickbk/tests/vitest/react`.
-  - [ ] Test `@vickbk/tests/playwright`.
-  - [ ] Test ESM imports.
-  - [ ] Test CJS `require` where supported by the generated output.
-  - [ ] Verify every `exports` target exists.
+  - [x] Test `@vickbk/tests`.
+  - [x] Test `@vickbk/tests/vitest`.
+  - [x] Test `@vickbk/tests/vitest/react`.
+  - [x] Test `@vickbk/tests/playwright`.
+  - [x] Test ESM imports.
+  - [x] Test CJS `require` for declared require conditions.
+  - [x] Verify every `exports` target exists in the build and packed artifact.
 
 - **Completion Criteria**:
-  - [ ] No `ERR_PACKAGE_PATH_NOT_EXPORTED`.
-  - [ ] No missing module errors.
-  - [ ] No missing declaration errors.
+  - [x] No `ERR_PACKAGE_PATH_NOT_EXPORTED`.
+  - [ ] No missing module or unsupported CommonJS errors.
+  - [x] No missing declaration errors.
+- **Blocker**: In the packed Vitest consumer, `require("@vickbk/tests/vitest")` fails because Vitest throws that it cannot be imported in a CommonJS module; the package nevertheless declares a `require` target for this subpath. In the Playwright-only consumer, ESM and CJS imports fail because the built Playwright entrypoint imports `vitest`, which is absent and is declared only as an optional peer. No runtime or package configuration changes were made in this verification task.
 
 ---
 
 - [ ] **Task 24: Verify Framework Dependency Isolation**
-- **Status**: ⬜ Not Started
-- **Target**: TBD
+- **Status**: ⬜ Blocked — Playwright entrypoint loads Vitest
+- **Target**: Packed artifact in three isolated consumers
 - **Description**: Confirm that consumers only need the testing framework integrations they actually use.
 - **Steps**:
-  - [ ] Create a shared-only consumer.
-  - [ ] Create a Vitest consumer.
-  - [ ] Create a Playwright consumer.
-  - [ ] Verify shared imports don't require Vitest.
-  - [ ] Verify shared imports don't require Playwright.
-  - [ ] Verify Vitest imports don't pull Playwright into the package.
-  - [ ] Verify Playwright imports don't pull Vitest into the package.
+  - [x] Create a shared-only consumer.
+  - [x] Create a Vitest consumer.
+  - [x] Create a Playwright consumer.
+  - [x] Verify shared imports don't require Vitest.
+  - [x] Verify shared imports don't require Playwright.
+  - [x] Verify Vitest imports don't pull Playwright into the package.
+  - [x] Test whether Playwright imports require Vitest.
 
 - **Completion Criteria**:
   - [ ] Feature isolation is confirmed.
   - [ ] Optional peer dependencies behave as intended.
+- **Blocker**: Shared runtime/type checks passed with neither framework installed. Vitest runtime/type checks passed with Vitest, React, and Testing Library peers installed but Playwright absent. Playwright declarations compiled with Playwright and Node types installed but Vitest absent; runtime import failed with `ERR_MODULE_NOT_FOUND`/`MODULE_NOT_FOUND` for `vitest`, confirming that its optional peer is currently required by the built Playwright entrypoint.
 
 ---
 

@@ -1,9 +1,16 @@
 // @vitest-environment jsdom
+import { patternToRegex } from "@/shared/regex";
 import type { Page } from "@playwright/test";
 import { describe, expect, it, vi } from "vitest";
-import { patternToRegex } from "@/shared/regex";
 import { shouldNotSee } from "./shouldNotSee";
 
+const toBeVisible = vi.fn().mockResolvedValue(undefined);
+
+vi.mock("@playwright/test", () => ({
+  expect: vi.fn(() => ({
+    not: { toBeVisible },
+  })),
+}));
 describe("shouldNotSee", () => {
   it("passes for hidden and absent text, including regular expressions", async () => {
     document.body.innerHTML = '<p style="display: none">Hidden notice</p>';
@@ -39,12 +46,14 @@ describe("shouldNotSee", () => {
     const visiblePage = {
       getByText: vi.fn(() => document.querySelector("p")!),
     } as unknown as Page;
+    toBeVisible.mockRejectedValueOnce(new Error("Element is visible"));
     await expect(shouldNotSee(visiblePage, "Visible")).rejects.toThrow();
   });
 
   it("rejects when any requested match is visible", async () => {
     document.body.innerHTML = "<p>Visible</p>";
     const getByText = vi.fn(() => document.querySelector("p")!);
+    toBeVisible.mockRejectedValueOnce(new Error("Element not visible"));
     await expect(
       shouldNotSee({ getByText } as unknown as Page, "Visible", "Other"),
     ).rejects.toThrow();

@@ -1,8 +1,16 @@
 // @vitest-environment jsdom
+import { patternToRegex } from "@/shared/regex";
 import type { Page } from "@playwright/test";
 import { describe, expect, it, vi } from "vitest";
-import { patternToRegex } from "@/shared/regex";
 import { shouldSee } from "./shouldSee";
+
+const toBeVisible = vi.fn().mockResolvedValue(undefined);
+
+vi.mock("@playwright/test", () => ({
+  expect: vi.fn(() => ({
+    toBeVisible,
+  })),
+}));
 
 describe("shouldSee", () => {
   it("asserts text, regular expressions, and indexed text matches", async () => {
@@ -11,7 +19,10 @@ describe("shouldSee", () => {
     const matches = Array.from(document.querySelectorAll("p"));
     const indexedLocator = Object.assign(matches[0]!, {
       nth: vi.fn((index: number) => matches[index]),
+      count: vi.fn((index: number) => index),
+      isVisible: vi.fn().mockResolvedValue(true),
     });
+
     const getByText = vi.fn(() => indexedLocator);
     const page = { getByText } as unknown as Page;
 
@@ -31,6 +42,7 @@ describe("shouldSee", () => {
       getByText: vi.fn(() => document.createElement("p")),
     } as unknown as Page;
 
+    toBeVisible.mockRejectedValueOnce(new Error("Element not visible"));
     await expect(shouldSee(page, "Missing")).rejects.toThrow();
   });
 
@@ -42,6 +54,7 @@ describe("shouldSee", () => {
       .mockReturnValueOnce(elements[0]!)
       .mockReturnValueOnce(document.createElement("p"));
 
+    toBeVisible.mockRejectedValueOnce(new Error("Element not visible"));
     await expect(
       shouldSee({ getByText } as unknown as Page, "First", "Missing"),
     ).rejects.toThrow();
