@@ -1,5 +1,5 @@
 import { patternToRegex } from "@/shared/regex";
-import { expect, Locator, Page } from "@playwright/test";
+import { expect, type Locator, type Page } from "@playwright/test";
 import { TEXT_MATCHER } from "../types";
 
 export function getMatcher(

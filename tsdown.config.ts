@@ -3,7 +3,7 @@ import { defineConfig } from "tsdown";
 export default defineConfig({
   entry: {
     index: "src/index.ts",
-    "vitest/index": "src/features/vitest/index.ts",
+    vitest: "src/features/vitest/index.ts",
     "vitest/react": "src/features/vitest/modules/react/index.ts",
     playwright: "src/features/playwright/index.ts",
   },

@@ -45,12 +45,12 @@
     },
     "./vitest": {
       "import": {
-        "types": "./dist/vitest/index.d.mts",
-        "default": "./dist/vitest/index.mjs"
+        "types": "./dist/vitest.d.mts",
+        "default": "./dist/vitest.mjs"
       },
       "require": {
-        "types": "./dist/vitest/index.d.cts",
-        "default": "./dist/vitest/index.cjs"
+        "types": "./dist/vitest.d.cts",
+        "default": "./dist/vitest.cjs"
       }
     },
     "./vitest/react": {
