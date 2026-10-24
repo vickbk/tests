@@ -1,5 +1,10 @@
 # @vickbk/tests
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![npm version](https://img.shields.io/npm/v/@vickbk/tests.svg)](https://www.npmjs.com/package/@vickbk/tests)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/vickbk/tests/lint-test-docs.yml?branch=main)](https://github.com/vickbk/tests/actions)
+[![Test Coverage](https://img.shields.io/badge/coverage-100%25-brightgreen.svg)](https://github.com/vickbk/tests)
+
 Reusable testing utilities for TypeScript projects: framework-agnostic shared
 helpers, a collection of Vitest utilities, and a Playwright DSL. Import only the
 entrypoint that matches the testing tools used by your project.
@@ -42,6 +47,10 @@ TypeScript).
 | `@vickbk/tests/vitest`       | Vitest console, DOM, promise, and toggle-event helpers    |
 | `@vickbk/tests/vitest/react` | React Server Component tree resolution                    |
 | `@vickbk/tests/playwright`   | Playwright assertions, locators, interactions, and runner |
+
+**Module format:** The `@vickbk/tests/vitest` entrypoint is ESM-only. Use
+`import` to consume it; CommonJS `require()` is not supported. The other
+entrypoints retain their existing module-format support.
 
 ## Shared text-pattern helpers
 
