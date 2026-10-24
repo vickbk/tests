@@ -23,8 +23,8 @@ The scripts in this directory are not business-logic implementations. They are t
 ## Invocation pattern
 
 ```ts
-import { runTask } from "../core/errors";
-import { generateCoverageSummary } from "../features/vitest";
+import { runTask } from "@vickbk/ci-tools/core";
+import { generateCoverageSummary } from "@vickbk/ci-tools/vitest";
 
 await runTask(
   "coverage-summary",

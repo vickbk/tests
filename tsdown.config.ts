@@ -26,7 +26,7 @@ export default defineConfig([
     ...shared,
     entry: {
       index: "src/index.ts",
-      "vitest/react": "src/features/vitest/modules/react/index.ts",
+      react: "src/features/react/index.ts",
       playwright: "src/features/playwright/index.ts",
     },
     format: ["cjs", "esm"],

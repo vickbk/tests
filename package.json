@@ -49,14 +49,14 @@
         "default": "./dist/vitest.mjs"
       }
     },
-    "./vitest/react": {
+    "./react": {
       "import": {
-        "types": "./dist/vitest/react.d.mts",
-        "default": "./dist/vitest/react.mjs"
+        "types": "./dist/react.d.mts",
+        "default": "./dist/react.mjs"
       },
       "require": {
-        "types": "./dist/vitest/react.d.cts",
-        "default": "./dist/vitest/react.cjs"
+        "types": "./dist/react.d.cts",
+        "default": "./dist/react.cjs"
       }
     },
     "./playwright": {

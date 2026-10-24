@@ -1,11 +1,11 @@
-# Vitest React helpers
+# React helpers
 
 ## Overview
 
 The React module provides React Server Component (RSC) tree resolution through
-the isolated `@vickbk/tests/vitest/react` entrypoint. Keeping React integration
-separate means consumers of the main Vitest entrypoint do not load this module
-unless they import it.
+the isolated `@vickbk/tests/react` entrypoint. Keeping React integration
+separate means consumers of other entrypoints do not load this module unless
+they import it.
 
 ## Public API
 
@@ -19,7 +19,7 @@ returned promise rather than being replaced with an empty node.
 ## Usage
 
 ```tsx
-import { resolveRscTree } from "@vickbk/tests/vitest/react";
+import { resolveRscTree } from "@vickbk/tests/react";
 
 async function Greeting({ name }: { name: string }) {
   return <h1>Hello, {name}</h1>;

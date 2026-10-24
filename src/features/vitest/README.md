@@ -3,14 +3,16 @@
 ## Overview
 
 The Vitest feature provides reusable DOM testing helpers, asynchronous value
-helpers, console spies, and a package-provided toggle-event helper. React Server Component (RSC) tree resolution is isolated in `@vickbk/tests/vitest/react` so the primary Vitest entrypoint does not load React.
+helpers, console spies, and a package-provided toggle-event helper.
 
-## Public entrypoints
+## Public entrypoint
 
-| Import                       | Purpose                                         |
-| ---------------------------- | ----------------------------------------------- |
-| `@vickbk/tests/vitest`       | Console, DOM, promise, and toggle-event helpers |
-| `@vickbk/tests/vitest/react` | React Server Component tree resolution          |
+| Import                 | Purpose                                         |
+| ---------------------- | ----------------------------------------------- |
+| `@vickbk/tests/vitest` | Console, DOM, promise, and toggle-event helpers |
+
+The `@vickbk/tests/vitest` entrypoint is ESM-only. Use `import` to consume it;
+CommonJS `require()` is not supported.
 
 The Vitest entrypoint exports:
 
@@ -25,13 +27,10 @@ The Vitest entrypoint exports:
 - Toggle events: package-owned `fireEvent`, `ToggleConfig`, `ToggleState`.
 - Promise helpers: `resolvedPromise`, `rejectedPromise`.
 
-The React entrypoint exports `resolveRscTree`.
-
 ## Installation and setup
 
 Install Vitest and the integrations your tests use. DOM helpers rely on
-Testing Library and `@testing-library/jest-dom`; the RSC entrypoint additionally
-requires React.
+Testing Library and `@testing-library/jest-dom`.
 
 ```sh
 pnpm add -D vitest @testing-library/react @testing-library/user-event @testing-library/jest-dom jsdom @vickbk/tests
@@ -130,18 +129,6 @@ independently; supplied values override the defaults for that call.
 that dispatches a toggle event to the first matching element and returns that
 element (or `undefined` if no element matches).
 
-## React Server Components
-
-RSC tree resolution has its own entrypoint. It resolves nested synchronous and
-asynchronous server components while preserving client boundaries. Component
-errors reject the returned promise.
-
-```tsx
-import { resolveRscTree } from "@vickbk/tests/vitest/react";
-
-const resolvedTree = await resolveRscTree(<ServerPage />);
-```
-
 ## Promise helpers
 
 `resolvedPromise(value)` and `rejectedPromise(reason)` produce settled promises
@@ -180,9 +167,7 @@ Detailed module guides:
 
 - [DOM helpers](./modules/dom/README.md)
 - [Promise helpers](./modules/promises/README.md)
-- [React RSC helpers](./modules/react/README.md)
 - [Toggle event support](./modules/dom/modules/toggle-event/README.md)
 
-The package exports only the supported feature API from these entrypoints.
-Implementation utilities such as internal DOM queries and RSC traversal
-functions are not public exports.
+The package exports only the supported feature API from this entrypoint.
+Implementation utilities such as internal DOM queries are not public exports.

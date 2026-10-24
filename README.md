@@ -6,8 +6,9 @@
 [![Test Coverage](https://img.shields.io/badge/coverage-100%25-brightgreen.svg)](https://github.com/vickbk/tests)
 
 Reusable testing utilities for TypeScript projects: framework-agnostic shared
-helpers, a collection of Vitest utilities, and a Playwright DSL. Import only the
-entrypoint that matches the testing tools used by your project.
+helpers, a collection of Vitest utilities, React Server Component helpers, and
+a Playwright DSL. Import only the entrypoint that matches the testing tools
+and integrations used by your project.
 
 ## Overview
 
@@ -16,7 +17,7 @@ The package is organized around stable public entrypoints:
 - Shared text-pattern helpers and types are available from the package root.
 - Vitest utilities provide DOM assertions and interactions, console controls,
   promise helpers, and a package-provided toggle-event helper.
-- React Server Component helpers have a separate Vitest entrypoint.
+- React utilities provide React Server Component (RSC) tree resolution.
 - Playwright utilities provide assertions, locators, interactions, and a
   reusable runner.
 
@@ -41,12 +42,12 @@ TypeScript).
 
 ## Public entrypoints
 
-| Import path                  | Purpose                                                   |
-| ---------------------------- | --------------------------------------------------------- |
-| `@vickbk/tests`              | Shared text-pattern utilities and types                   |
-| `@vickbk/tests/vitest`       | Vitest console, DOM, promise, and toggle-event helpers    |
-| `@vickbk/tests/vitest/react` | React Server Component tree resolution                    |
-| `@vickbk/tests/playwright`   | Playwright assertions, locators, interactions, and runner |
+| Import path                | Purpose                                                   |
+| -------------------------- | --------------------------------------------------------- |
+| `@vickbk/tests`            | Shared text-pattern utilities and types                   |
+| `@vickbk/tests/vitest`     | Vitest console, DOM, promise, and toggle-event helpers    |
+| `@vickbk/tests/react`      | React Server Component tree resolution                    |
+| `@vickbk/tests/playwright` | Playwright assertions, locators, interactions, and runner |
 
 **Module format:** The `@vickbk/tests/vitest` entrypoint is ESM-only. Use
 `import` to consume it; CommonJS `require()` is not supported. The other
@@ -151,24 +152,24 @@ The Vitest entrypoint also exports `shouldNotSee`, `isChecked`,
 
 [For more details on Vitest API](./src/features/vitest/README.md)
 
-### React utilities
+## React utilities
 
 The React entrypoint exposes `resolveRscTree`:
 
 ```tsx
-import { resolveRscTree } from "@vickbk/tests/vitest/react";
+import { resolveRscTree } from "@vickbk/tests/react";
 
 const resolved = await resolveRscTree(<ServerPage />);
 ```
 
-[For more on react API](./src/features/vitest/modules/react/README.md)
+[For more on React API](./src/features/react/README.md)
 
 ## Playwright utilities
 
 Playwright helpers are imported from `@vickbk/tests/playwright`.
 
 ```ts
-import { except, test } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 import { clickButton, getButton, shouldSee } from "@vickbk/tests/playwright";
 
 test("saves the page", async ({ page }) => {
@@ -184,7 +185,7 @@ The public API also includes `shouldNotSee`, `isChecked`, `isNotChecked`,
 `setLocatorValue`, `setValueForLocators`, `clickLink`, `clickLabelInput`,
 `clickMultipleLabelInputs`, `clickBodyCorner`, and `runSimilarTests`.
 
-[For more details on the playwright API](./src/features/playwright/README.md)
+[For more details on the Playwright API](./src/features/playwright/README.md)
 
 ## License
 
