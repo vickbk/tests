@@ -4,6 +4,15 @@ const CONSOLES = ["log", "warn", "error"] as const;
 
 let activeSpies: MockInstance[] = [];
 
+/**
+ * Suppresses console.log, console.warn, and console.error until resetConsole runs.
+ *
+ * @example
+ * ```ts
+ * beforeEach(shutConsole);
+ * afterEach(resetConsole);
+ * ```
+ */
 export function shutConsole() {
   resetConsole();
 
@@ -12,6 +21,16 @@ export function shutConsole() {
   );
 }
 
+/**
+ * Restores the console methods most recently suppressed by shutConsole.
+ *
+ * @example
+ * ```ts
+ * shutConsole();
+ * // Run code whose console output should be ignored.
+ * resetConsole();
+ * ```
+ */
 export function resetConsole() {
   for (const spy of activeSpies) {
     spy.mockRestore(); // Restores native console behavior

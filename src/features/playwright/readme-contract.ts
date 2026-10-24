@@ -2,10 +2,10 @@ import type { DocumentationContract } from "@vickbk/ci-tools/docs";
 
 /** Documentation contract for the Playwright feature README. */
 export const playwrightReadmeContract: DocumentationContract = {
-  packageName: "@vickbk/ci-tools/playwright",
+  packageName: "@vickbk/tests/playwright",
   sections: [
     { id: "overview", heading: "Overview", required: true },
-    { id: "key-modules", heading: "Key modules", required: true },
+    { id: "modules", heading: "Modules", required: true },
     {
       id: "usage-example",
       heading: "Usage example",
@@ -13,22 +13,22 @@ export const playwrightReadmeContract: DocumentationContract = {
       requirements: { codeBlock: true },
     },
     {
-      id: "required-environment-variables",
-      heading: "Required environment variables",
+      id: "public-api",
+      heading: "Public API",
       required: true,
     },
   ],
   preferredSectionOrder: [
     "overview",
-    "key-modules",
+    "modules",
     "usage-example",
-    "required-environment-variables",
+    "public-api",
   ],
   requiredSectionIds: [
     "overview",
-    "key-modules",
+    "modules",
     "usage-example",
-    "required-environment-variables",
+    "public-api",
   ],
   recommendedSectionIds: [],
 };

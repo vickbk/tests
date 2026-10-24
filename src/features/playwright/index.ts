@@ -1,20 +1,4 @@
-export {
-  shouldSee,
-  shouldNotSee,
-  fillLocatorWith,
-  setLocatorValue,
-  setValueForLocators,
-  getLocatorByText,
-  getButton,
-  getLabel,
-  getLink,
-  clickButton,
-  clickLink,
-  clickLabelInput,
-  clickMultipleLabelInputs,
-  isChecked,
-  isNotChecked,
-  clickBodyCorner,
-  runSimilarTests,
-} from "./utils/dsl";
-export type { SimpleTest, TestRunner } from "./types";
+export * from "./modules/assertions";
+export * from "./modules/interactions";
+export * from "./modules/runners";
+export * from "./shared/locators";

@@ -1,226 +1,191 @@
-# @vickbk/ci-tools
+# @vickbk/tests
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![npm version](https://img.shields.io/npm/v/@vickbk/ci-tools.svg)](https://www.npmjs.com/package/@vickbk/ci-tools)
-[![Build Status](https://img.shields.io/github/actions/workflow/status/vickbk/ci-tools/lint-test-docs.yml?branch=main)](https://github.com/vickbk/ci-tools/actions)
-[![Test Coverage](https://img.shields.io/badge/coverage-100%25-brightgreen.svg)](https://github.com/vickbk/ci-tools)
+[![npm version](https://img.shields.io/npm/v/@vickbk/tests.svg)](https://www.npmjs.com/package/@vickbk/tests)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/vickbk/tests/lint-test-docs.yml?branch=main)](https://github.com/vickbk/tests/actions)
+[![Test Coverage](https://img.shields.io/badge/coverage-100%25-brightgreen.svg)](https://github.com/vickbk/tests)
 
-Programmatic CI utilities for documentation contracts, release metadata,
-GitHub Actions integration, and Vitest coverage reporting.
+Reusable testing utilities for TypeScript projects: framework-agnostic shared
+helpers, a collection of Vitest utilities, React Server Component helpers, and
+a Playwright DSL. Import only the entrypoint that matches the testing tools
+and integrations used by your project.
 
 ## Overview
 
-`@vickbk/ci-tools` provides zero-dependency, composable workflow utilities for GitHub Actions integration, PR coverage reporting, documentation contract checks, and automated releases.
+The package is organized around stable public entrypoints:
 
-
-## Features & Value Proposition
-
-- 📊 **Vitest PR Coverage Comments**: Parse `coverage-summary.json` and post
-  sticky, auto-updating coverage reports to pull requests.
-- 📜 **Documentation Contracts**: Enforce required headings and structural
-  rules across repository `README.md` files in CI.
-- 💬 **Sticky GitHub Comments**: Idempotently create, update, or remove
-  workflow status comments without spamming PR threads.
-- 📦 **Release Automation**: Extract clean Markdown release notes from
-  `CHANGELOG.md` for GitHub Releases and npm deployments.
+- Shared text-pattern helpers and types are available from the package root.
+- Vitest utilities provide DOM assertions and interactions, console controls,
+  promise helpers, and a package-provided toggle-event helper.
+- React utilities provide React Server Component (RSC) tree resolution.
+- Playwright utilities provide assertions, locators, interactions, and a
+  reusable runner.
 
 ## Installation
 
-```bash
-pnpm add -D @vickbk/ci-tools
+Install the package as a development dependency:
+
+```sh
+pnpm add -D @vickbk/tests
 ```
 
-## Workflow Setup & Task Orchestration
+The integrations are optional peer dependencies. Add the peers needed by your
+project; for Vitest DOM tests, for example:
 
-Put repository-specific orchestration in a small executable and use `runTask`
-as its process-aware adapter. This keeps feature helpers reusable while giving
-the CI entrypoint a predictable error boundary.
-
-### Add the workflow step
-
-```yaml
-- name: Verify Documentation Contracts
-  env:
-    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  run: pnpm enforce-rules
+```sh
+pnpm add -D vitest jsdom @testing-library/react @testing-library/user-event @testing-library/jest-dom
 ```
 
-### Define the package script
+For Playwright tests, install `@playwright/test`. For React Server Component
+helpers, install `react` and `react-dom` (and `@types/react` when using
+TypeScript).
 
-```json
-{
-  "scripts": {
-    "enforce-rules": "tsx scripts/pr-rules-helper.ts"
-  }
-}
-```
+## Public entrypoints
 
-### Task Orchestration with `runTask`
+| Import path                | Purpose                                                   |
+| -------------------------- | --------------------------------------------------------- |
+| `@vickbk/tests`            | Shared text-pattern utilities and types                   |
+| `@vickbk/tests/vitest`     | Vitest console, DOM, promise, and toggle-event helpers    |
+| `@vickbk/tests/react`      | React Server Component tree resolution                    |
+| `@vickbk/tests/playwright` | Playwright assertions, locators, interactions, and runner |
 
-The `runTask` utility provides a lightweight selector for CLI scripts and workflow entrypoints. It matches the task name passed in `process.argv` and executes the corresponding callback.
+**Module format:** The `@vickbk/tests/vitest` entrypoint is ESM-only. Use
+`import` to consume it; CommonJS `require()` is not supported. The other
+entrypoints retain their existing module-format support.
 
-#### Core Principles
-* **Natural CI Failure**: `runTask` does not catch or swallow errors. When a helper throws an error, it bubbles up naturally to fail the CI workflow step.
-* **Single Responsibility**: Keep workflow steps isolated—run policy updates, contract checks, and coverage reports in dedicated tasks.
-* **Optional Error Formatting**: Pass an optional error prefix or error formatter as the third argument to log clean, user-friendly CLI messages before process exit.
+## Shared text-pattern helpers
 
----
-
-#### 1. Define the PR Rule Helper (`scripts/pr-rules.ts`)
+The shared API provides `patternToRegex` and the `LABEL_LOCATOR`,
+`TEXT_MATCHER`, `TEXT_PATTERN`, and `TEXT_WITH_NTH` types.
 
 ```ts
-import { getCommentWithId, saveComment } from "@vickbk/ci-tools/github";
+import { patternToRegex, type TEXT_MATCHER } from "@vickbk/tests";
 
-const PR_RULES_IDENTIFIER = "<!-- ci-tools-pr-rules -->";
-
-export async function prRuleComment(): Promise<void> {
-  const existing = await getCommentWithId(PR_RULES_IDENTIFIER);
-
-  await saveComment({
-    id: existing?.id ?? null,
-    identifier: PR_RULES_IDENTIFIER,
-    body: [
-      PR_RULES_IDENTIFIER,
-      "### 📋 Pull Request Requirements",
-      "- [ ] All commits must be signed and follow conventional commits.",
-      "- [ ] Vitest coverage must satisfy minimum repository thresholds.",
-      "- [ ] Documentation contracts must pass without drift.",
-    ].join("\n"),
-  });
-
-  console.log("Successfully posted PR rules comment.");
-}
+const matcher: TEXT_MATCHER = ["Welcome", 0];
+const caseInsensitive = patternToRegex("Welcome");
 ```
 
-#### 2. Wrap with `runTask`
+## Vitest setup
+
+The package supports Node.js 20 and newer. Its peer dependency ranges are:
+
+| Peer dependency               | Supported range        | Used for                                              |
+| ----------------------------- | ---------------------- | ----------------------------------------------------- |
+| `vitest`                      | `^5.0.4`               | Vitest helpers                                        |
+| `@testing-library/react`      | `^16.0.0`              | DOM queries, interactions, and toggle events          |
+| `@testing-library/user-event` | `^14.6.8`              | User-like DOM interactions                            |
+| `@testing-library/jest-dom`   | `^7.0.1`               | DOM matcher setup used by the DOM assertion helpers   |
+| `@playwright/test`            | `^1.64.0`              | Playwright helpers and direct `test`/`expect` exports |
+| `react`, `react-dom`          | `^18.0.0` or `^19.0.0` | React integrations and RSC helpers                    |
+| `@types/react`                | `^18.0.0` or `^19.0.0` | React TypeScript types                                |
+
+All peers are optional at the package level. Install the peers for the
+entrypoints your project imports.
+
+Configure Vitest to use a DOM environment for DOM tests, and load the
+jest-dom Vitest matchers from a setup file:
 
 ```ts
-// scripts/pr-rules.ts
-import { runTask } from "@vickbk/ci-tools/core";
-import { prRuleComment } from "./pr-rules-helper";
+// vitest.config.ts
+import { defineConfig } from "vitest/config";
 
-await runTask(
-  "pr-rules",
-  async () => {
-    await prRuleComment();
+export default defineConfig({
+  test: {
+    environment: "jsdom",
+    setupFiles: ["./tests/setup.ts"],
   },
-  (error) => `[PR Rules Failure] ${error.message}`
-);
-```
-
-
-## Standalone Module Examples
-
-Each subpath can be imported directly from ESM TypeScript or JavaScript.
-
-### Vitest Coverage (`@vickbk/ci-tools/vitest`)
-
-Generate the workflow summary and create or update the sticky pull-request
-coverage comment:
-
-```ts
-import {
-  generateCoverageSummary,
-  postCoverageComment,
-} from "@vickbk/ci-tools/vitest";
-
-generateCoverageSummary("coverage/coverage-summary.json");
-await postCoverageComment();
-```
-
-[📖 Read more in the Vitest Module README](src/features/vitest/README.md)
-
-### Documentation Contracts (`@vickbk/ci-tools/docs`)
-
-Define a contract map and validate the repository README files:
-
-```ts
-import { checkReadmeFiles } from "@vickbk/ci-tools/docs";
-import type { DocumentationContract } from "@vickbk/ci-tools/docs";
-
-const contract: DocumentationContract = {
-  packageName: "my-project",
-  sections: [
-    { id: "identity", heading: "my-project", required: true },
-    { id: "usage", heading: "Usage", required: true },
-  ],
-  preferredSectionOrder: ["identity", "usage"],
-  requiredSectionIds: ["identity", "usage"],
-  recommendedSectionIds: [],
-};
-
-const results = await checkReadmeFiles({ "./README.md": contract });
-console.log(results.every(({ result }) => result?.isValid));
-```
-
-[📖 Read more in the Docs Module README](src/features/docs/README.md)
-
-### GitHub PR Primitives (`@vickbk/ci-tools/github`)
-
-Create or update a sticky custom status comment using a stable identifier:
-
-```ts
-import {
-  getCommentWithId,
-  getGithubParams,
-  saveComment,
-} from "@vickbk/ci-tools/github";
-
-const identifier = "<!-- ci-tools-status -->";
-const { repository, prNumber } = getGithubParams();
-const existing = await getCommentWithId(identifier);
-
-await saveComment({
-  id: existing?.id ?? null,
-  identifier,
-  body: `Checks for ${repository} PR #${prNumber} are complete.`,
 });
 ```
 
-[📖 Read more in the GitHub Module README](src/core/github/README.md)
-
-### Release Automation (`@vickbk/ci-tools/releases`)
-
-Extract a versioned Markdown section from `CHANGELOG.md` into a release-note
-file:
-
 ```ts
-import { extractReleaseNotes } from "@vickbk/ci-tools/releases";
-
-const releaseNotesPath = extractReleaseNotes({ versionTag: "0.1.0" });
-console.log(`Release notes written to ${releaseNotesPath}`);
+// tests/setup.ts
+import "@testing-library/jest-dom/vitest";
 ```
 
-[📖 Read more in the Releases Module README](src/features/releases/README.md)
+## Vitest utilities
 
-### Core Primitives (`@vickbk/ci-tools/core`)
+Import DOM helpers and console controls from `@vickbk/tests/vitest`.
+`shouldSee` returns the matched elements, while `shouldHaveTestId` returns the
+elements located by test ID.
 
-The core entrypoint provides process-aware task orchestration through `runTask`
-plus shared error, file, and workflow utility surfaces used by the feature
-modules.
+```tsx
+import { render } from "@testing-library/react";
+import { shouldHaveTestId, shouldSee } from "@vickbk/tests/vitest";
 
-[📖 Read more in the Core Module README](src/core/README.md)
+render(
+  <main>
+    <h1>Welcome</h1>
+    <button data-testid="save-button">Save</button>
+  </main>,
+);
 
-## Environment Variables
+const [heading] = shouldSee("Welcome");
+const [saveButton] = shouldHaveTestId("save-button");
+```
 
-GitHub Actions workflows using GitHub-backed helpers provide these standard
-context variables:
+To suppress console output during a test, pair `shutConsole` with
+`resetConsole`:
 
-| Variable            | Purpose                                                  |
-| ------------------- | -------------------------------------------------------- |
-| `GITHUB_TOKEN`      | Token used for GitHub API requests and PR comments.      |
-| `GITHUB_EVENT_PATH` | Path to the event JSON containing pull-request metadata. |
-| `GITHUB_REPOSITORY` | Repository identifier in `owner/name` format.            |
+```ts
+import { afterEach, beforeEach } from "vitest";
+import { resetConsole, shutConsole } from "@vickbk/tests/vitest";
 
-## Subpath Export Reference
+beforeEach(shutConsole);
+afterEach(resetConsole);
+```
 
-| Import path                 | Primary capabilities                          |
-| --------------------------- | --------------------------------------------- |
-| `@vickbk/ci-tools/core`     | Task orchestration and shared error utilities |
-| `@vickbk/ci-tools/docs`     | README contract validation and reporting      |
-| `@vickbk/ci-tools/github`   | GitHub Actions context and sticky comments    |
-| `@vickbk/ci-tools/releases` | Changelog extraction and npm release metadata |
-| `@vickbk/ci-tools/vitest`   | Coverage summaries and pull-request comments  |
+The Vitest entrypoint provides its own `fireEvent`, combining standard Testing
+Library event helpers with `toggle`. Import it directly; no separate toggle
+installation is needed:
+
+```ts
+import { fireEvent } from "@vickbk/tests/vitest";
+
+fireEvent.click(document.body);
+fireEvent.toggle(document.body);
+```
+
+The Vitest entrypoint also exports `shouldNotSee`, `isChecked`,
+`isNotChecked`, `shouldHaveAttributes`, `shouldNotHaveTestId`, `userClicks`,
+`userTypes`, `userTypesMultiple`, `togglePopover`, `resolvedPromise`, and
+`rejectedPromise`.
+
+[For more details on Vitest API](./src/features/vitest/README.md)
+
+## React utilities
+
+The React entrypoint exposes `resolveRscTree`:
+
+```tsx
+import { resolveRscTree } from "@vickbk/tests/react";
+
+const resolved = await resolveRscTree(<ServerPage />);
+```
+
+[For more on React API](./src/features/react/README.md)
+
+## Playwright utilities
+
+Playwright helpers are imported from `@vickbk/tests/playwright`.
+
+```ts
+import { expect, test } from "@playwright/test";
+import { clickButton, getButton, shouldSee } from "@vickbk/tests/playwright";
+
+test("saves the page", async ({ page }) => {
+  await page.goto("/");
+  await shouldSee(page, "Welcome");
+  await clickButton(page, "Save");
+  await expect(getButton(page, "Save")).toBeVisible();
+});
+```
+
+The public API also includes `shouldNotSee`, `isChecked`, `isNotChecked`,
+`getLocatorByText`, `getLabel`, `getLink`, `fillLocatorWith`,
+`setLocatorValue`, `setValueForLocators`, `clickLink`, `clickLabelInput`,
+`clickMultipleLabelInputs`, `clickBodyCorner`, and `runSimilarTests`.
+
+[For more details on the Playwright API](./src/features/playwright/README.md)
 
 ## License
 

@@ -43,20 +43,20 @@
         "default": "./dist/index.cjs"
       }
     },
-    "./shared": {
-      "import": {
-        "types": "./dist/shared.d.mts",
-        "default": "./dist/shared.mjs"
-      },
-      "require": {
-        "types": "./dist/shared.d.cts",
-        "default": "./dist/shared.cjs"
-      }
-    },
     "./vitest": {
       "import": {
         "types": "./dist/vitest.d.mts",
         "default": "./dist/vitest.mjs"
+      }
+    },
+    "./react": {
+      "import": {
+        "types": "./dist/react.d.mts",
+        "default": "./dist/react.mjs"
+      },
+      "require": {
+        "types": "./dist/react.d.cts",
+        "default": "./dist/react.cjs"
       }
     },
     "./playwright": {
@@ -135,8 +135,9 @@
     "eslint": "^10.13.0",
     "eslint-import-resolver-typescript": "^4.4.5",
     "eslint-plugin-boundaries": "^7.2.0",
-    "react": "^19.3.1",
-    "react-dom": "^19.3.1",
+    "jsdom": "^30.1.3",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
     "tsdown": "^0.23.1",
     "tsx": "^4.23.13",
     "typescript": "^6.0.0",

@@ -1,16 +1,8 @@
-import { defineConfig } from "tsdown";
+import { defineConfig, type OutExtensionContext } from "tsdown";
 
-export default defineConfig({
-  entry: {
-    index: "src/index.ts",
-    shared: "src/shared/index.ts",
-    vitest: "src/features/vitest/index.ts",
-    playwright: "src/features/playwright/index.ts",
-  },
-  format: ["cjs", "esm"],
+const shared = {
   dts: true,
   sourcemap: true,
-  clean: true,
   target: "node20",
   treeshake: true,
   deps: {
@@ -24,7 +16,28 @@ export default defineConfig({
       "@playwright/test",
     ],
   },
-  outExtensions({ format }) {
+  outExtensions({ format }: OutExtensionContext) {
     return { js: format === "cjs" ? ".cjs" : ".mjs" };
   },
-});
+};
+
+export default defineConfig([
+  {
+    ...shared,
+    entry: {
+      index: "src/index.ts",
+      react: "src/features/react/index.ts",
+      playwright: "src/features/playwright/index.ts",
+    },
+    format: ["cjs", "esm"],
+    clean: true,
+  },
+  {
+    ...shared,
+    entry: {
+      vitest: "src/features/vitest/index.ts",
+    },
+    format: ["esm"],
+    clean: false,
+  },
+]);

@@ -1,46 +1,40 @@
-# Vitest Coverage Reporting
+# @vickbk/tests/playwright
 
-This entrypoint converts Vitest coverage output into GitHub-friendly summary
-content and pull-request comments.
+The Playwright entrypoint provides reusable assertions, locators, interactions,
+and a runner for defining similar page tests.
 
 ## Overview
 
-The coverage subsystem is responsible for:
+Import helpers from `@vickbk/tests/playwright`. Each utility is isolated in its
+own module file, with domain barrels re-exported through the package entrypoint.
 
-- reading the generated coverage summary JSON,
-- building markdown tables and step-summary output,
-- exporting `TOTAL_PCT` into the workflow environment,
-- finding or updating a sticky PR comment for the current run,
-- keeping the report content deterministic and readable.
+## Modules
 
-## Key modules
-
-| File                                                                       | Responsibility                                             |
-| -------------------------------------------------------------------------- | ---------------------------------------------------------- |
-| [index.ts](./index.ts)                                                     | Public export surface for coverage workflow actions.       |
-| [types.ts](./types.ts)                                                     | Type contracts for coverage metrics and report payloads.   |
-| [utils/format.ts](./utils/format.ts)                                       | Builds markdown rows for coverage tables.                  |
-| [utils/report.ts](./utils/report.ts)                                       | Parses coverage JSON and assembles summary/comment output. |
-| [utils/generate-coverage-summary.ts](./utils/generate-coverage-summary.ts) | Writes summary output and env export data.                 |
-| [utils/post-coverage-comment.ts](./utils/post-coverage-comment.ts)         | Creates or updates the PR coverage comment.                |
+| Module | Responsibility |
+| --- | --- |
+| `assertions` | Visibility and checked-state assertions |
+| `locators` | Text, button, label, and link locator queries |
+| `interactions` | Filling, clicking, and setting values |
+| `runners` | Reusable groups of page tests |
 
 ## Usage example
 
 ```ts
 import {
-  generateCoverageSummary,
-  postCoverageComment,
-} from "@vickbk/ci-tools/vitest";
+  clickButton,
+  getButton,
+  shouldSee,
+} from "@vickbk/tests/playwright";
 
-generateCoverageSummary();
-await postCoverageComment();
+await shouldSee(page, "Welcome");
+const saveButton = getButton(page, "Save");
+await clickButton(page, "Save");
 ```
 
-## Required environment variables
+## Public API
 
-- `GITHUB_TOKEN`
-- `GITHUB_REPOSITORY`
-- `GITHUB_EVENT_PATH`
-- `GITHUB_ENV`
-- `GITHUB_STEP_SUMMARY`
-- optionally `COVERAGE_PATH`
+The entrypoint exports all atomic utilities from the `assertions`, `locators`,
+`interactions`, and `runners` modules. `SimpleTest` and `TestRunner` are also
+available as types, along with `LocatorWithText`, `TEXT_MATCHER`,
+`TEXT_WITH_NTH`, `TEXT_PATTERN`, and `LABEL_LOCATOR`. The `test` and `expect`
+exports are direct re-exports from `@playwright/test`.

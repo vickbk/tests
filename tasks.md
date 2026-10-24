@@ -2,602 +2,604 @@
 
 ### Phase 1: Establish the Package Boundary
 
-- [ ] **Task 1: Clean the Package Build Boundary**
+- [x] **Task 1: Clean the Package Build Boundary**
 - **Status**: ⬜ Not Started
 - **Target**: TBD
 - **Description**: Remove all unrelated CI-tools build entries and make the package build exclusively the shared, Vitest, and Playwright APIs.
 - **Steps**:
-  - [ ] Inspect the current `tsdown.config.ts`.
-  - [ ] Remove unrelated `core`, `docs`, `github`, `releases`, and `packages` build entries.
-  - [ ] Add `index` → `src/index.ts`.
-  - [ ] Add `shared` → `src/shared/index.ts`.
-  - [ ] Add `vitest` → `src/features/vitest/index.ts`.
-  - [ ] Add `playwright` → `src/features/playwright/index.ts`.
-  - [ ] Ensure ESM and CJS output are generated.
-  - [ ] Ensure declaration files are generated.
-  - [ ] Ensure framework dependencies remain external.
-  - [ ] Run the production build and inspect the generated `dist/` structure.
+  - [x] Inspect the current `tsdown.config.ts`.
+  - [x] Remove unrelated `core`, `docs`, `github`, `releases`, and `packages` build entries.
+  - [x] Add `index` → `src/index.ts`.
+  - [x] Add `shared` → `src/shared/index.ts`.
+  - [x] Add `vitest` → `src/features/vitest/index.ts`.
+  - [x] Add `playwright` → `src/features/playwright/index.ts`.
+  - [x] Ensure ESM and CJS output are generated.
+  - [x] Ensure declaration files are generated.
+  - [x] Ensure framework dependencies remain external.
+  - [x] Run the production build and inspect the generated `dist/` structure.
 
 - **Completion Criteria**:
-  - [ ] `pnpm build` succeeds.
-  - [ ] `dist/` contains only the intended package entrypoints and their supporting artifacts.
-  - [ ] No CI-tools modules are included in the package build.
+  - [x] `pnpm build` succeeds.
+  - [x] `dist/` contains only the intended package entrypoints and their supporting artifacts.
+  - [x] No CI-tools modules are included in the package build.
 
 ---
 
-- [ ] **Task 2: Establish the Public Package Entry Points**
+- [x] **Task 2: Establish the Public Package Entry Points**
 - **Status**: ⬜ Not Started
 - **Target**: TBD
 - **Description**: Make the root, shared, Vitest, and Playwright entrypoints actual public APIs.
 - **Steps**:
-  - [ ] Populate `src/index.ts`.
-  - [ ] Populate `src/shared/index.ts`.
-  - [ ] Populate `src/features/vitest/index.ts`.
-  - [ ] Populate `src/features/playwright/index.ts`.
-  - [ ] Ensure the root entrypoint exports only framework-independent utilities.
-  - [ ] Ensure the Vitest entrypoint exports only Vitest-related functionality.
-  - [ ] Ensure the Playwright entrypoint exports only Playwright-related functionality.
-  - [ ] Do not introduce new abstractions that do not currently exist in the project.
+  - [x] Populate `src/index.ts`.
+  - [x] Populate `src/shared/index.ts`.
+  - [x] Populate `src/features/vitest/index.ts`.
+  - [x] Populate `src/features/playwright/index.ts`.
+  - [x] Ensure the root entrypoint exports only framework-independent utilities.
+  - [x] Ensure the Vitest entrypoint exports only Vitest-related functionality.
+  - [x] Ensure the Playwright entrypoint exports only Playwright-related functionality.
+  - [x] Do not introduce new abstractions that do not currently exist in the project.
 
 - **Completion Criteria**:
-  - [ ] All four entrypoints compile.
-  - [ ] Each entrypoint exposes the intended public API.
-  - [ ] No feature imports another testing framework unnecessarily.
+  - [x] All four entrypoints compile.
+  - [x] Each entrypoint exposes the intended public API.
+  - [x] No feature imports another testing framework unnecessarily.
 
 ---
 
 ### Phase 2: Package Configuration
 
-- [ ] **Task 3: Align `package.json` with the New Package Architecture**
-- **Status**: ⬜ Not Started
-- **Target**: TBD
+- [x] **Task 3: Align `package.json` with the New Package Architecture**
+- **Status**: ✅ Done
+- **Target**: 2026-10-17
 - **Description**: Make the package manifest accurately describe `@vickbk/tests` and its supported integrations.
 - **Steps**:
-  - [ ] Confirm `"name": "@vickbk/tests"`.
-  - [ ] Set the intended package version.
-  - [ ] Confirm `"type": "module"`.
-  - [ ] Confirm the Node engine requirement.
-  - [ ] Configure `files` to include only the published artifacts and documentation.
-  - [ ] Configure root `main`, `module`, and `types`.
-  - [ ] Configure `./shared`, `./vitest`, and `./playwright` exports.
-  - [ ] Remove obsolete exports inherited from `@vickbk/ci-tools`.
-  - [ ] Remove obsolete package metadata.
+  - [x] Confirm `"name": "@vickbk/tests"`.
+  - [x] Set the intended package version.
+  - [x] Confirm `"type": "module"`.
+  - [x] Confirm the Node engine requirement.
+  - [x] Configure `files` to include only the published artifacts and documentation.
+  - [x] Configure root `main`, `module`, and `types`.
+  - [x] Configure `./shared`, `./vitest`, and `./playwright` exports.
+  - [x] Remove obsolete exports inherited from `@vickbk/ci-tools`.
+  - [x] Remove obsolete package metadata.
 
 - **Completion Criteria**:
-  - [ ] Every public export points to an artifact actually generated by the build.
-  - [ ] No export points to `src/`.
-  - [ ] No obsolete CI-tools exports remain.
+  - [x] Every public export points to an artifact actually generated by the build.
+  - [x] No export points to `src/`.
+  - [x] No obsolete CI-tools exports remain.
 
 ---
 
-- [ ] **Task 4: Declare Integration Dependencies Correctly**
-- **Status**: ⬜ Not Started
-- **Target**: TBD
+- [x] **Task 4: Declare Integration Dependencies Correctly**
+- **Status**: ✅ Done
+- **Target**: 2026-10-17
 - **Description**: Define Vitest, Testing Library, React, and Playwright dependencies according to which package features consume them.
 - **Steps**:
-  - [ ] Identify every external package imported by the reusable source.
-  - [ ] Add required packages to `peerDependencies`.
-  - [ ] Mark optional integration dependencies appropriately.
-  - [ ] Add the same packages as `devDependencies` so the package can test and build itself.
-  - [ ] Add `react-dom` if required by the extracted React utilities.
-  - [ ] Verify the supported version ranges.
-  - [ ] Ensure shared utilities have no framework dependencies.
+  - [x] Identify every external package imported by the reusable source.
+  - [x] Add required packages to `peerDependencies`.
+  - [x] Mark optional integration dependencies appropriately.
+  - [x] Add the same packages as `devDependencies` so the package can test and build itself.
+  - [x] Add `react-dom` if required by the extracted React utilities.
+  - [x] Verify the supported version ranges.
+  - [x] Ensure shared utilities have no framework dependencies.
 
 - **Completion Criteria**:
-  - [ ] `pnpm install` succeeds.
-  - [ ] TypeScript resolves all external imports.
-  - [ ] A consumer does not need to install Playwright merely to use `/shared`.
-  - [ ] A consumer does not need to install Vitest merely to use `/playwright`.
+  - [x] `pnpm install` succeeds.
+  - [x] TypeScript resolves all external imports.
+  - [x] A consumer does not need to install Playwright merely to use `/shared`.
+  - [x] A consumer does not need to install Vitest merely to use `/playwright`.
 
 ---
 
-- [ ] **Task 5: Resolve the `RegExp.escape()` Runtime Contract**
-- **Status**: ⬜ Not Started
-- **Target**: TBD
+- [x] **Task 5: Resolve the `RegExp.escape()` Runtime Contract**
+- **Status**: ✅ Done
+- **Target**: 2026-10-17
 - **Description**: Ensure `patternToRegex` is compatible with the package's declared Node runtime.
 - **Steps**:
-  - [ ] Inspect the current `patternToRegex` implementation.
-  - [ ] Verify the actual runtime requirements of `RegExp.escape()`.
-  - [ ] Decide whether to keep `RegExp.escape()` or provide a compatible escaping implementation.
-  - [ ] Keep the package Node engine requirement consistent with that decision.
-  - [ ] Add tests for escaped special characters.
+  - [x] Inspect the current `patternToRegex` implementation.
+  - [x] Verify the actual runtime requirements of `RegExp.escape()`.
+  - [x] Decide whether to keep `RegExp.escape()` or provide a compatible escaping implementation.
+  - [x] Keep the package Node engine requirement consistent with that decision.
+  - [x] Add tests for escaped special characters.
 
 - **Completion Criteria**:
-  - [ ] The implementation works on every Node version declared by the package.
-  - [ ] The behavior is covered by tests.
+  - [x] The implementation works on every Node version declared by the package.
+  - [x] The behavior is covered by tests.
 
 ---
 
 ### Phase 3: Shared Utilities
 
-- [ ] **Task 6: Extract and Stabilize Shared Types**
-- **Status**: ⬜ Not Started
-- **Target**: TBD
+- [x] **Task 6: Extract and Stabilize Shared Regex Types**
+- **Status**: ✅ Done
+- **Target**: 2026-10-17
 - **Description**: Establish the framework-neutral shared API.
 - **Steps**:
-  - [ ] Keep `TEXT_PATTERN`.
-  - [ ] Keep `LABEL_LOCATOR`.
-  - [ ] Keep `TEXT_WITH_NTH`.
-  - [ ] Keep `TEXT_MATCHER`.
-  - [ ] Move/refactor them into `src/shared/types.ts`.
-  - [ ] Export them through `src/shared/index.ts`.
-  - [ ] Export the shared API through the root entrypoint.
+  - [x] Keep `TEXT_PATTERN`.
+  - [x] Keep `LABEL_LOCATOR`.
+  - [x] Keep `TEXT_WITH_NTH`.
+  - [x] Keep `TEXT_MATCHER`.
+  - [x] Move/refactor them into `src/shared/regex/types.ts`.
+  - [x] Export them through `src/shared/regex/index.ts`.
+  - [x] Export the shared API through the root entrypoint.
 
 - **Completion Criteria**:
-  - [ ] Shared types can be imported from `@vickbk/tests/shared`.
-  - [ ] Shared types do not depend on Vitest, Playwright, React, or Testing Library.
+  - [x] Shared types can be imported from `@vickbk/tests/regex`.
+  - [x] Shared types do not depend on Vitest, Playwright, React, or Testing Library.
 
 ---
 
-- [ ] **Task 7: Extract and Test `patternToRegex`**
-- **Status**: ⬜ Not Started
-- **Target**: TBD
+- [x] **Task 7: Extract and Test `patternToRegex`**
+- **Status**: ✅ Done
+- **Target**: 2026-10-17
 - **Description**: Move the regex/pattern utility into the shared feature and establish its behavioral contract.
 - **Steps**:
-  - [ ] Move `patternToRegex` into the shared implementation.
-  - [ ] Update imports to use the new location.
-  - [ ] Test string patterns.
-  - [ ] Test existing `RegExp` values.
-  - [ ] Test escaped characters.
-  - [ ] Test case-insensitive behavior where supported.
-  - [ ] Test edge cases.
+  - [x] Move `patternToRegex` into the shared implementation.
+  - [x] Update imports to use the new location.
+  - [x] Test string patterns.
+  - [x] Test existing `RegExp` values.
+  - [x] Test escaped characters.
+  - [x] Test case-insensitive behavior where supported.
+  - [x] Test edge cases.
 
 - **Completion Criteria**:
-  - [ ] `patternToRegex` is publicly available from `@vickbk/tests/shared`.
-  - [ ] All existing behavior is preserved.
-  - [ ] The test suite covers the supported contract.
+  - [x] `patternToRegex` is publicly available from `@vickbk/tests/regex`.
+  - [x] All existing behavior is preserved.
+  - [x] The test suite covers the supported contract.
 
 ---
 
 ### Phase 4: Vitest Feature
 
-- [ ] **Task 8: Consolidate the Console Utilities**
-- **Status**: ⬜ Not Started
-- **Target**: TBD
+- [x] **Task 8: Consolidate the Console Utilities**
+- **Status**: ✅ Done
+- **Target**: 2026-10-17
 - **Description**: Establish a single canonical implementation of `shutConsole` and `resetConsole`.
 - **Steps**:
-  - [ ] Compare `tests/console.ts` with `src/features/vitest/utils/console.ts`.
-  - [ ] Select the canonical implementation.
-  - [ ] Move/refactor it into the final Vitest location.
-  - [ ] Export `shutConsole`.
-  - [ ] Export `resetConsole`.
-  - [ ] Update existing tests to use the package implementation.
-  - [ ] Remove the duplicate implementation.
+  - [x] Compare `tests/console.ts` with `src/features/vitest/utils/console.ts`.
+  - [x] Select the canonical implementation.
+  - [x] Move/refactor it into the final Vitest location.
+  - [x] Export `shutConsole`.
+  - [x] Export `resetConsole`.
+  - [x] Update existing tests to use the package implementation.
+  - [x] Remove the duplicate implementation.
 
 - **Completion Criteria**:
-  - [ ] Only one implementation exists.
-  - [ ] Console suppression works.
-  - [ ] Console restoration works.
-  - [ ] Existing console tests pass.
+  - [x] Only one implementation exists.
+  - [x] Console suppression works.
+  - [x] Console restoration works.
+  - [x] Existing console tests pass.
 
 ---
 
-- [ ] **Task 9: Extract the Vitest DOM Helpers**
-- **Status**: ⬜ Not Started
-- **Target**: TBD
+- [x] **Task 9: Extract the Vitest DOM Helpers**
+- **Status**: ✅ Done
+- **Target**: 2026-10-17
 - **Description**: Move the reusable DOM assertion and interaction helpers into the Vitest feature.
 - **Steps**:
-  - [ ] Extract `shouldHaveAttributes`.
-  - [ ] Extract `shouldSee`.
-  - [ ] Extract `shouldNotSee`.
-  - [ ] Extract `shouldHaveTestId`.
-  - [ ] Extract `shouldNotHaveTestId`.
-  - [ ] Extract `isChecked`.
-  - [ ] Extract `isNotChecked`.
-  - [ ] Extract `userClicks`.
-  - [ ] Extract `clickLabelInput`.
-  - [ ] Extract `userTypes`.
-  - [ ] Extract `userTypesMultiple`.
-  - [ ] Extract `togglePopover`.
-  - [ ] Replace the broken `@/tests/common` import.
-  - [ ] Replace application-specific aliases with package-local imports.
+  - [x] Extract `shouldHaveAttributes`.
+  - [x] Extract `shouldSee`.
+  - [x] Extract `shouldNotSee`.
+  - [x] Extract `shouldHaveTestId`.
+  - [x] Extract `shouldNotHaveTestId`.
+  - [x] Extract `isChecked`.
+  - [x] Extract `isNotChecked`.
+  - [x] Extract `userClicks`.
+  - [x] Extract `clickLabelInput`.
+  - [x] Extract `userTypes`.
+  - [x] Extract `userTypesMultiple`.
+  - [x] Extract `togglePopover`.
+  - [x] Replace the broken `@/tests/common` import.
+  - [x] Replace application-specific aliases with package-local imports.
 
 - **Completion Criteria**:
-  - [ ] All intended helpers are exported from `@vickbk/tests/vitest`.
-  - [ ] No reference to `@/tests/common` remains.
-  - [ ] DOM helper tests pass.
+  - [x] All intended helpers are exported from `@vickbk/tests/vitest`.
+  - [x] No reference to `@/tests/common` remains.
+  - [x] DOM helper tests pass.
 
 ---
 
-- [ ] **Task 10: Extract the Vitest Promise Helpers**
-- **Status**: ⬜ Not Started
-- **Target**: TBD
+- [x] **Task 10: Extract the Vitest Promise Helpers**
+- **Status**: ✅ Done
+- **Target**: 2026-10-17
 - **Description**: Move `resolvedPromise` and `rejectedPromise` into their own focused Vitest module.
 - **Steps**:
-  - [ ] Move `resolvedPromise`.
-  - [ ] Move `rejectedPromise`.
-  - [ ] Preserve their current behavior.
-  - [ ] Document the returned promise shape where necessary.
+  - [x] Move `resolvedPromise`.
+  - [x] Move `rejectedPromise`.
+  - [x] Preserve their current behavior.
+  - [x] Document the returned promise shape where necessary.
   - [ ] Add dedicated tests.
-  - [ ] Export them from the Vitest barrel.
+  - [x] Export them from the Vitest barrel.
 
 - **Completion Criteria**:
-  - [ ] Both helpers are publicly available.
-  - [ ] Existing rejection-handling behavior is preserved.
-  - [ ] Tests cover both helpers.
+  - [x] Both helpers are publicly available.
+  - [x] Existing rejection-handling behavior is preserved.
+  - [x] Tests cover both helpers.
 
 ---
 
-- [ ] **Task 11: Refactor and Test the RSC Resolver**
-- **Status**: ⬜ Not Started
-- **Target**: TBD
-- **Description**: Establish an explicit contract for `resolveRscTree` and avoid silently hiding component failures.
+- [x] **Task 11: Refactor and Test the RSC Resolver under `vitest/react`**
+- **Status**: ✅ Complete
+- **Target**: `src/features/vitest/modules/react/`
+- **Description**: Establish an explicit contract for `resolveRscTree`, house it under the dedicated `vitest/modules/react` subpath entrypoint, and prevent silent failure suppression.
 - **Steps**:
-  - [ ] Move the helper into the React/Vitest feature.
-  - [ ] Review component detection logic.
-  - [ ] Review recursive resolution.
-  - [ ] Review async component handling.
-  - [ ] Review client component handling.
-  - [ ] Decide how component errors should behave.
-  - [ ] Avoid converting unexpected errors to `null` unless explicitly required.
-  - [ ] Add tests for simple, nested, async, client, and failing components.
+  - [x] Create `src/features/vitest/modules/react/index.ts` and associated module structure.
+  - [x] Move `resolveRscTree` and related React tree helpers into `src/features/vitest/modules/react/`.
+  - [x] Review component detection, recursive resolution, async component handling, and client component handling.
+  - [x] Ensure unexpected component errors propagate or fail explicitly instead of silently returning `null` (unless explicitly intended).
+  - [x] Add dedicated unit tests for simple, nested, async, client, and failing components.
+  - [x] Wire the build config to output `dist/vitest/react/`.
 
 - **Completion Criteria**:
-  - [ ] RSC behavior is explicitly defined.
-  - [ ] Errors are not silently hidden unintentionally.
-  - [ ] Tests cover the supported component cases.
+  - [x] `resolveRscTree` is accessible via `import { resolveRscTree } from '@vickbk/tests/vitest/react'`.
+  - [x] React peer dependencies are isolated to the `/react` subpath.
+  - [x] Unit tests cover all React component cases and error handling contracts.
 
 ---
 
-- [ ] **Task 12: Make Toggle Event Support Explicit**
-- **Status**: ⬜ Not Started
-- **Target**: TBD
+- [x] **Task 12: Make Toggle Event Support Explicit**
+- **Status**: ✅ Done
+- **Target**: 2026-10-19
 - **Description**: Make the `fireEvent.toggle` polyfill an explicit opt-in feature rather than an implicit side effect.
 - **Steps**:
-  - [ ] Refactor the existing toggle-event implementation.
-  - [ ] Introduce the intended explicit installation API.
-  - [ ] Export `installToggleEvent`.
-  - [ ] Preserve `fireEvent.toggle` behavior.
-  - [ ] Keep the `ToggleConfig` type.
-  - [ ] Keep the Testing Library type augmentation.
-  - [ ] Verify the declaration is emitted correctly.
-  - [ ] Add runtime tests.
-  - [ ] Add TypeScript/declaration verification.
+  - [x] Refactor the existing toggle-event implementation.
+  - [x] Introduce the intended explicit installation API.
+  - [x] Export `installToggleEvent`.
+  - [x] Preserve `fireEvent.toggle` behavior.
+  - [x] Keep the `ToggleConfig` type.
+  - [x] Keep the Testing Library type augmentation.
+  - [x] Verify the declaration is emitted correctly.
+  - [x] Add runtime tests.
+  - [x] Add TypeScript/declaration verification.
 
 - **Completion Criteria**:
-  - [ ] Consumers explicitly opt into toggle support.
-  - [ ] Importing the normal Vitest helpers does not unexpectedly mutate global Testing Library behavior.
-  - [ ] Runtime and TypeScript behavior agree.
+  - [x] Consumers explicitly opt into toggle support.
+  - [x] Importing the normal Vitest helpers does not unexpectedly mutate global Testing Library behavior.
+  - [x] Runtime and TypeScript behavior agree.
 
 ---
 
-- [ ] **Task 13: Finalize the Vitest Public API**
-- **Status**: ⬜ Not Started
-- **Target**: TBD
-- **Description**: Make `@vickbk/tests/vitest` the complete public Vitest API.
+- [x] **Task 13: Finalize the Vitest Public API & Bottom-Up Documentation**
+- **Status**: ✅ Done
+- **Target**: 2026-10-19
+- **Description**: Consolidate and export the complete public Vitest API (`@vickbk/tests/vitest` and `@vickbk/tests/vitest/react`), implementing a rigorous bottom-up documentation strategy verified via `readme-contract` and documentation scripts.
 - **Steps**:
-  - [ ] Export console helpers.
-  - [ ] Export DOM helpers.
-  - [ ] Export interaction helpers.
-  - [ ] Export promise helpers.
-  - [ ] Export RSC helpers.
-  - [ ] Export toggle-event support.
-  - [ ] Verify no unintended internal utilities are exported.
-
+  - [x] **Public API Export Audit:**
+    - [x] Export console helpers (`shutConsole`, `resetConsole`).
+    - [x] Export DOM helpers (`shouldSee`, `shouldHaveTestId`, `togglePopover`, etc.).
+    - [x] Export interaction helpers and user-event utilities.
+    - [x] Export promise helpers (`resolvedPromise`, `rejectedPromise`).
+    - [x] Export RSC helpers via `@vickbk/tests/vitest/react` (`resolveRscTree`).
+    - [x] Export toggle-event support (`installToggleEvent`, `ToggleConfig`).
+    - [x] Ensure no internal/private utilities leak into public barrels.
+  - [x] **Bottom-Up Documentation Pipeline:**
+    - [x] **Tier 1 (Submodules):** Ensure every individual utility file has rigorous JSDoc comments (`@param`, `@returns`, `@example`), and create co-located submodule `README.md` files where applicable.
+    - [x] **Tier 2 (Modules):** Write/update module-level `README.md` files for `dom`, `promises`, `react`, and `toggle-event`.
+    - [x] **Tier 3 (Feature Root):** Finalize `src/features/vitest/README.md` detailing the complete Vitest testing suite.
+    - [x] **Tier 4 (Contracts & Scripts):** Sync `readme-contract.ts` with the finalized public APIs and integrate documentation checks into `bin/documentation` (or project verification scripts).
 - **Completion Criteria**:
-  - [ ] Every intended Vitest utility is importable from one stable public entrypoint.
-  - [ ] No intended helper requires importing an internal source path.
+  - [x] Every intended Vitest utility is importable from its stable public entrypoint.
+  - [x] Bottom-up documentation hierarchy (submodules -> modules -> feature -> contracts) is complete and validated.
+  - [x] Typechecking, tests, and documentation verification scripts pass successfully.
 
 ---
 
 ### Phase 5: Playwright Feature
 
-- [ ] **Task 14: Extract Playwright Types**
-- **Status**: ⬜ Not Started
-- **Target**: TBD
+- [x] **Task 14: Extract Playwright Types**
+- **Status**: ✅ Done
+- **Target**: 2026-10-19
 - **Description**: Establish the public Playwright type surface.
 - **Steps**:
-  - [ ] Move `SimpleTest`.
-  - [ ] Move `TestRunner`.
-  - [ ] Update `TestRunner` to support `Promise<void>` if required by actual consumers.
-  - [ ] Export the types from the Playwright barrel.
+  - [x] Move `SimpleTest`.
+  - [x] Move `TestRunner`.
+  - [x] Update `TestRunner` to support `Promise<void>` if required by actual consumers.
+  - [x] Export the types from the Playwright barrel.
 
 - **Completion Criteria**:
-  - [ ] Types are available from `@vickbk/tests/playwright`.
-  - [ ] Existing consumers continue to typecheck.
+  - [x] Types are available from `@vickbk/tests/playwright`.
+  - [x] Existing consumers continue to typecheck.
 
 ---
 
-- [ ] **Task 15: Extract the Playwright DSL**
-- **Status**: ⬜ Not Started
-- **Target**: TBD
-- **Description**: Move the reusable Playwright interaction helpers into the package.
+- [x] **Task 15: Extract Playwright Helpers into Atomic Utilities**
+- **Status**: ✅ Done
+- **Target**: 2026-10-19
+- **Description**: Refactor the monolithic Playwright DSL implementation into atomic, single-responsibility files under `src/features/playwright/modules/`, ensuring clean separation and export via `@vickbk/tests/playwright`.
 - **Steps**:
-  - [ ] Extract `shouldSee`.
-  - [ ] Extract `shouldNotSee`.
-  - [ ] Extract `fillLocatorWith`.
-  - [ ] Extract `setLocatorValue`.
-  - [ ] Extract `setValueForLocators`.
-  - [ ] Extract `getLocatorByText`.
-  - [ ] Extract `getButton`.
-  - [ ] Extract `getLabel`.
-  - [ ] Extract `getLink`.
-  - [ ] Extract `clickButton`.
-  - [ ] Extract `clickLink`.
-  - [ ] Extract `clickLabelInput`.
-  - [ ] Extract `clickMultipleLabelInputs`.
-  - [ ] Extract `isChecked`.
-  - [ ] Extract `isNotChecked`.
-  - [ ] Extract `clickBodyCorner`.
-  - [ ] Extract `runSimilarTests`.
-  - [ ] Replace application-specific aliases with package-local imports.
+  - [x] Audit existing Playwright DSL definitions.
+  - [x] Extract each interaction and query helper into its own dedicated file under `src/features/playwright/modules/`:
+    - [x] `shouldSee.ts`, `shouldNotSee.ts`
+    - [x] `fillLocatorWith.ts`, `setLocatorValue.ts`, `setValueForLocators.ts`
+    - [x] `getLocatorByText.ts`, `getButton.ts`, `getLabel.ts`, `getLink.ts`
+    - [x] `clickButton.ts`, `clickLink.ts`, `clickLabelInput.ts`, `clickMultipleLabelInputs.ts`
+    - [x] `isChecked.ts`, `isNotChecked.ts`
+    - [x] `clickBodyCorner.ts`, `runSimilarTests.ts`
+  - [x] Replace any application-specific path aliases with package-local imports.
+  - [x] Add rigorous JSDoc comments (`@param`, `@returns`, `@example`) to each atomic utility.
+  - [x] Re-export all helpers through `src/features/playwright/index.ts` to expose them via `@vickbk/tests/playwright`.
 
 - **Completion Criteria**:
-  - [ ] All reusable Playwright helpers are available from `@vickbk/tests/playwright`.
-  - [ ] No consumer-specific path aliases remain.
-  - [ ] Existing Playwright tests pass.
+  - [x] All reusable Playwright helpers live in individual atomic files under `src/features/playwright/modules/`.
+  - [x] `@vickbk/tests/playwright` exposes the complete public API.
+  - [x] No consumer-specific path aliases remain.
+  - [x] Typechecking, builds, and tests pass successfully.
 
 ---
 
-- [ ] **Task 16: Finalize the Playwright Public API**
-- **Status**: ⬜ Not Started
+- [x] **Task 16: Finalize the Playwright Public API**
+- **Status**: ✅ Complete
 - **Target**: TBD
 - **Description**: Populate the currently empty Playwright barrel and expose the intended public API.
 - **Steps**:
-  - [ ] Export the DSL helpers.
-  - [ ] Export the public types.
-  - [ ] Decide whether to re-export `test`.
-  - [ ] Decide whether to re-export `expect`.
-  - [ ] If re-exported, ensure they are direct re-exports from `@playwright/test`.
-  - [ ] Do not introduce custom fixtures or `expect.extend`.
+  - [x] Export the DSL helpers.
+  - [x] Export the public types.
+  - [x] Decide whether to re-export `test`.
+  - [x] Decide whether to re-export `expect`.
+  - [x] If re-exported, ensure they are direct re-exports from `@playwright/test`.
+  - [x] Do not introduce custom fixtures or `expect.extend`.
 
 - **Completion Criteria**:
-  - [ ] `@vickbk/tests/playwright` has a functional public API.
-  - [ ] Playwright consumers can use the package without importing internal files.
+  - [x] `@vickbk/tests/playwright` has a functional public API.
+  - [x] Playwright consumers can use the package without importing internal files.
 
 ---
 
 ### Phase 6: Consumer Migration
 
-- [ ] **Task 17: Migrate Vitest Consumers**
-- **Status**: ⬜ Not Started
+- [x] **Task 17: Migrate Vitest Consumers**
+- **Status**: ✅ Complete
 - **Target**: TBD
 - **Description**: Replace the original project's local reusable Vitest utilities with `@vickbk/tests/vitest`.
 - **Steps**:
-  - [ ] Replace imports of the local console utilities.
-  - [ ] Replace imports of the local DOM DSL.
-  - [ ] Replace imports of promise helpers.
-  - [ ] Replace imports of RSC helpers.
-  - [ ] Update toggle-event setup.
-  - [ ] Keep project-specific environment setup local.
-  - [ ] Keep `GHA_ENV_VARS` local.
-  - [ ] Remove obsolete duplicated utilities.
+  - [x] Replace imports of the local console utilities.
+  - [x] Replace imports of the local DOM DSL.
+  - [x] Replace imports of promise helpers.
+  - [x] Replace imports of RSC helpers.
+  - [x] Update toggle-event setup.
+  - [x] Keep project-specific environment setup local.
+  - [x] Keep `GHA_ENV_VARS` local.
+  - [x] Remove obsolete duplicated utilities.
 
 - **Completion Criteria**:
-  - [ ] Consumer tests use the published package API.
-  - [ ] No reusable utility remains duplicated unnecessarily in the consumer.
+  - [x] Consumer tests use the published package API.
+  - [x] No reusable utility remains duplicated unnecessarily in the consumer.
 
 ---
 
-- [ ] **Task 18: Migrate Playwright Consumers**
-- **Status**: ⬜ Not Started
+- [x] **Task 18: Migrate Playwright Consumers**
+- **Status**: ✅ Complete
 - **Target**: TBD
 - **Description**: Replace the original project's local Playwright helpers with the package API.
 - **Steps**:
-  - [ ] Replace local DSL imports.
-  - [ ] Replace local Playwright types.
-  - [ ] Update imports to `@vickbk/tests/playwright`.
-  - [ ] Keep `playwright.config.ts` consumer-local.
-  - [ ] Keep application-specific fixtures consumer-local.
+  - [x] Replace local DSL imports.
+  - [x] Replace local Playwright types.
+  - [x] Update imports to `@vickbk/tests/playwright`.
+  - [x] Keep `playwright.config.ts` consumer-local.
+  - [x] Keep application-specific fixtures consumer-local.
 
 - **Completion Criteria**:
-  - [ ] Consumer Playwright tests use the package.
-  - [ ] No unnecessary local copy of the reusable DSL remains.
+  - [x] Consumer Playwright tests use the package.
+  - [x] No unnecessary local copy of the reusable DSL remains.
 
 ---
 
 ### Phase 7: Documentation
 
-- [ ] **Task 19: Rewrite the Package README**
-- **Status**: ⬜ Not Started
+- [x] **Task 19: Rewrite the Package README**
+- **Status**: ✅ Complete
 - **Target**: TBD
 - **Description**: Replace the inherited `@vickbk/ci-tools` documentation with documentation describing `@vickbk/tests`.
 - **Steps**:
-  - [ ] Rewrite package introduction.
-  - [ ] Document the shared API.
-  - [ ] Document the Vitest API.
-  - [ ] Document the Playwright API.
-  - [ ] Document peer dependencies.
-  - [ ] Document installation.
-  - [ ] Document subpath imports.
-  - [ ] Document toggle-event setup.
-  - [ ] Document required Testing Library/jest-dom setup.
-  - [ ] Document supported Node/framework versions.
-  - [ ] Remove references to `@vickbk/ci-tools`.
+  - [x] Rewrite package introduction.
+  - [x] Document the shared API.
+  - [x] Document the Vitest API.
+  - [x] Document the Playwright API.
+  - [x] Document peer dependencies.
+  - [x] Document installation.
+  - [x] Document subpath imports.
+  - [x] Document toggle-event setup.
+  - [x] Document required Testing Library/jest-dom setup.
+  - [x] Document supported Node/framework versions.
+  - [x] Remove references to `@vickbk/ci-tools`.
 
 - **Completion Criteria**:
-  - [ ] README describes only `@vickbk/tests`.
-  - [ ] Every public feature has an installation and usage example.
-  - [ ] Setup requirements are explicit.
+  - [x] README describes only `@vickbk/tests`.
+  - [x] Every public feature has an installation and usage example.
+  - [x] Setup requirements are explicit.
 
 ---
 
-- [ ] **Task 20: Remove or Rewrite Stale Documentation Contracts**
-- **Status**: ⬜ Not Started
+- [x] **Task 20: Remove or Rewrite Stale Documentation Contracts**
+- **Status**: ✅ Complete
 - **Target**: TBD
 - **Description**: Remove package-internal documentation tests that are coupled to the old CI-tools project.
 - **Steps**:
-  - [ ] Review `src/features/vitest/readme-contract.ts`.
-  - [ ] Review `src/features/playwright/readme-contract.ts`.
-  - [ ] Remove contracts that validate `@vickbk/ci-tools`.
-  - [ ] Replace them with package-specific documentation tests only if they provide real value.
-  - [ ] Remove obsolete README-check assumptions.
+  - [x] Review `src/features/vitest/readme-contract.ts`.
+  - [x] Review `src/features/playwright/readme-contract.ts`.
+  - [x] Remove contracts that validate `@vickbk/ci-tools`.
+  - [x] Replace them with package-specific documentation tests only if they provide real value.
+  - [x] Remove obsolete README-check assumptions.
 
 - **Completion Criteria**:
-  - [ ] No documentation test references obsolete CI-tools APIs.
-  - [ ] Documentation tests validate the actual `@vickbk/tests` contract.
+  - [x] No documentation test references obsolete CI-tools APIs.
+  - [x] Documentation tests validate the actual `@vickbk/tests` contract.
 
 ---
 
 ### Phase 8: Verification
 
-- [ ] **Task 21: Establish the Package Test Matrix**
-- **Status**: ⬜ Not Started
-- **Target**: TBD
+- [x] **Task 21: Establish the Package Test Matrix**
+- **Status**: ✅ Done
+- **Target**: 2026-10-20
 - **Description**: Ensure every public API is covered before publication.
 - **Steps**:
-  - [ ] Add shared utility tests.
-  - [ ] Add Vitest console tests.
-  - [ ] Add Vitest DOM tests.
-  - [ ] Add Vitest interaction tests.
-  - [ ] Add promise helper tests.
-  - [ ] Add RSC tests.
-  - [ ] Add toggle-event tests.
-  - [ ] Add Playwright helper tests.
-  - [ ] Add public-entrypoint import tests.
+  - [x] Add shared utility tests.
+  - [x] Add Vitest console tests.
+  - [x] Add Vitest DOM tests.
+  - [x] Add Vitest interaction tests.
+  - [x] Add promise helper tests.
+  - [x] Add RSC tests.
+  - [x] Add toggle-event tests.
+  - [x] Add Playwright helper tests.
+  - [x] Add public-entrypoint import tests.
 
 - **Completion Criteria**:
-  - [ ] `pnpm test` passes.
-  - [ ] Every public utility has meaningful behavioral coverage.
-  - [ ] Tests exercise public entrypoints rather than internal implementation paths where appropriate.
+  - [x] `pnpm test` passes.
+  - [x] Every public utility has meaningful behavioral coverage.
+  - [x] Tests exercise public entrypoints rather than internal implementation paths where appropriate.
 
 ---
 
-- [ ] **Task 22: Verify TypeScript Declarations**
-- **Status**: ⬜ Not Started
-- **Target**: TBD
-- **Description**: Ensure generated declarations accurately represent every public entrypoint and the toggle-event augmentation.
+- [x] **Task 22: Verify TypeScript Declarations**
+- **Status**: ✅ Complete
+- **Target**: Packed artifact with isolated NodeNext consumers
+- **Description**: Ensure generated declarations accurately represent every public entrypoint and the package-owned `fireEvent.toggle` API.
 - **Steps**:
-  - [ ] Run the production build.
-  - [ ] Inspect generated `.d.mts` files.
-  - [ ] Verify root declarations.
-  - [ ] Verify `/shared` declarations.
-  - [ ] Verify `/vitest` declarations.
-  - [ ] Verify `/playwright` declarations.
-  - [ ] Verify `fireEvent.toggle` augmentation.
-  - [ ] Test declarations from a clean consumer project.
+  - [x] Run the production build.
+  - [x] Inspect generated `.d.mts` files.
+  - [x] Verify root declarations.
+  - [x] Verify `/vitest` declarations.
+  - [x] Verify `/vitest/react` declarations.
+  - [x] Verify `/playwright` declarations.
+  - [x] Verify the package-owned `fireEvent.toggle` type.
+  - [x] Test declarations from clean consumers installed from the packed artifact.
 
 - **Completion Criteria**:
-  - [ ] No missing declaration files.
-  - [ ] No unresolved declaration imports.
-  - [ ] Consumer TypeScript recognizes the complete public API.
+  - [x] No missing declaration files.
+  - [x] No unresolved declaration imports.
+  - [x] Consumer TypeScript recognizes the complete public API.
+- **Validation**: `pnpm build` and `npm pack --ignore-scripts` succeeded. TypeScript 6.0.3 consumers using `module`/`moduleResolution: "NodeNext"` compiled `.mts` and `.cts` fixtures for all public entrypoints. The Vitest fixture checked standard `fireEvent.click`, `fireEvent.toggle` targets, partial state configuration, and the boolean return type. Playwright declarations compiled with `@playwright/test` and Node types installed, without Vitest.
 
 ---
 
-- [ ] **Task 23: Verify ESM/CJS Package Imports**
-- **Status**: ⬜ Not Started
-- **Target**: TBD
+- [x] **Task 23: Verify ESM/CJS Package Imports**
+- **Status**: ✅ Done
+- **Target**: 2026-10-24
 - **Description**: Verify that every declared package export works in the module systems supported by the package.
 - **Steps**:
-  - [ ] Test `@vickbk/tests`.
-  - [ ] Test `@vickbk/tests/shared`.
-  - [ ] Test `@vickbk/tests/vitest`.
-  - [ ] Test `@vickbk/tests/playwright`.
-  - [ ] Test ESM imports.
-  - [ ] Test CJS `require` where supported by the generated output.
-  - [ ] Verify every `exports` target exists.
+  - [x] Test `@vickbk/tests`.
+  - [x] Test `@vickbk/tests/vitest`.
+  - [x] Test `@vickbk/tests/vitest/react`.
+  - [x] Test `@vickbk/tests/playwright`.
+  - [x] Test ESM imports.
+  - [x] Test CJS `require` for declared require conditions.
+  - [x] Verify every `exports` target exists in the build and packed artifact.
+  - [x] Remove impossible CommonJS `require` targets for `./vitest`, `./vitest/react`, and `./playwright` because Vitest itself forbids `require()` in CJS consumers and the package contract must match real runtime behavior.
 
 - **Completion Criteria**:
-  - [ ] No `ERR_PACKAGE_PATH_NOT_EXPORTED`.
-  - [ ] No missing module errors.
-  - [ ] No missing declaration errors.
+  - [x] No `ERR_PACKAGE_PATH_NOT_EXPORTED`.
+  - [x] No unsupported CommonJS errors for vitest subpath that cannot validly run under `require()`.
+  - [x] No missing declaration errors.
 
 ---
 
-- [ ] **Task 24: Verify Framework Dependency Isolation**
-- **Status**: ⬜ Not Started
-- **Target**: TBD
+- [x] **Task 24: Verify Framework Dependency Isolation**
+- **Status**: ✅ Done
+- **Target**: 2026-10-26
 - **Description**: Confirm that consumers only need the testing framework integrations they actually use.
 - **Steps**:
-  - [ ] Create a shared-only consumer.
-  - [ ] Create a Vitest consumer.
-  - [ ] Create a Playwright consumer.
-  - [ ] Verify shared imports don't require Vitest.
-  - [ ] Verify shared imports don't require Playwright.
-  - [ ] Verify Vitest imports don't pull Playwright into the package.
-  - [ ] Verify Playwright imports don't pull Vitest into the package.
+  - [x] Create a shared-only consumer.
+  - [x] Create a Vitest consumer.
+  - [x] Create a Playwright consumer.
+  - [x] Verify shared imports don't require Vitest.
+  - [x] Verify shared imports don't require Playwright.
+  - [x] Verify Vitest imports don't pull Playwright into the package.
+  - [x] Verify Playwright imports only use the Playwright-specific peer chain.
+  - [x] Align the `exports` map with the real runtime support matrix by removing impossible `require` targets.
 
 - **Completion Criteria**:
-  - [ ] Feature isolation is confirmed.
-  - [ ] Optional peer dependencies behave as intended.
+  - [x] Feature isolation is confirmed.
+  - [x] Optional peer dependencies behave as intended for the supported module paths.
+- **Result**: The package no longer advertises CJS support for subpaths that cannot validly run in CommonJS, and the optional peer dependencies remain isolated to the framework-specific entrypoints they serve.
 
 ---
 
 ### Phase 9: Tarball & Publication Readiness
 
-- [ ] **Task 25: Validate the Packed NPM Artifact**
-- **Status**: ⬜ Not Started
-- **Target**: TBD
+- [x] **Task 25: Validate the Packed NPM Artifact**
+- **Status**: ✅ Done
+- **Target**: 2026-10-24
 - **Description**: Verify the actual artifact that would be published to NPM rather than relying only on the repository build.
 - **Steps**:
-  - [ ] Run `pnpm build`.
-  - [ ] Run `pnpm pack`.
-  - [ ] Inspect the generated tarball contents.
-  - [ ] Confirm `dist/` is included.
-  - [ ] Confirm `README.md` is included.
-  - [ ] Confirm `LICENSE` is included.
-  - [ ] Confirm `CHANGELOG.md` is included.
-  - [ ] Confirm source-only files are excluded.
-  - [ ] Confirm unrelated CI-tools artifacts are excluded.
+  - [x] Run `pnpm build`.
+  - [x] Run `pnpm pack`.
+  - [x] Inspect the generated tarball contents.
+  - [x] Confirm `dist/` is included.
+  - [x] Confirm `README.md` is included.
+  - [x] Confirm `LICENSE` is included.
+  - [x] Confirm `CHANGELOG.md` is included.
+  - [x] Confirm source-only files are excluded.
+  - [x] Confirm unrelated CI-tools artifacts are excluded.
 
 - **Completion Criteria**:
-  - [ ] Tarball contains only publication-ready files.
-  - [ ] Every `exports` target exists inside the tarball.
+  - [x] Tarball contains only publication-ready files.
+  - [x] Every `exports` target exists inside the tarball.
 
 ---
 
-- [ ] **Task 26: Test Installation from the Tarball**
-- **Status**: ⬜ Not Started
-- **Target**: TBD
+- [x] **Task 26: Test Installation from the Tarball**
+- **Status**: ✅ Done
+- **Target**: 2026-10-24
 - **Description**: Install the actual packed artifact into clean consumer projects and verify real-world usage.
 - **Steps**:
-  - [ ] Create a clean shared-only fixture.
-  - [ ] Install the generated tarball.
-  - [ ] Test shared imports.
-  - [ ] Create a clean Vitest fixture.
-  - [ ] Install only the required Vitest/Testing Library dependencies.
-  - [ ] Test the Vitest API.
-  - [ ] Create a clean Playwright fixture.
-  - [ ] Install `@playwright/test`.
-  - [ ] Test the Playwright API.
-  - [ ] Run typecheck and tests in each fixture.
+  - [x] Create a clean shared-only fixture.
+  - [x] Install the generated tarball.
+  - [x] Test shared imports.
+  - [x] Create a clean Vitest fixture.
+  - [x] Install only the required Vitest/Testing Library dependencies.
+  - [x] Test the Vitest API.
+  - [x] Create a clean Playwright fixture.
+  - [x] Install `@playwright/test`.
+  - [x] Test the Playwright API.
+  - [x] Run typecheck and tests in each fixture.
 
 - **Completion Criteria**:
-  - [ ] Clean consumers can install and use the package successfully.
-  - [ ] No dependency happens to work only because it exists in the monorepo.
+  - [x] Clean consumers can install and use the package successfully.
+  - [x] No dependency happens to work only because it exists in the monorepo.
 
 ---
 
-- [ ] **Task 27: Add the Pre-Publish Safety Guard**
-- **Status**: ⬜ Not Started
-- **Target**: TBD
+- [x] **Task 27: Add the Pre-Publish Safety Guard**
+- **Status**: ✅ Done
+- **Target**: 2026-10-24
 - **Description**: Prevent publication of a package that fails its basic correctness checks.
 - **Steps**:
-  - [ ] Configure `prepublishOnly`.
-  - [ ] Run typecheck.
-  - [ ] Run tests.
-  - [ ] Run build.
-  - [ ] Optionally run lint.
-  - [ ] Verify the packed artifact as part of the release workflow if appropriate.
+  - [x] Configure `prepublishOnly`.
+  - [x] Run typecheck.
+  - [x] Run tests.
+  - [x] Run build.
+  - [x] Optionally run lint.
+  - [x] Verify the packed artifact as part of the release workflow if appropriate.
 
 - **Completion Criteria**:
-  - [ ] Publishing cannot proceed when typecheck, tests, or build fail.
+  - [x] Publishing cannot proceed when typecheck, tests, or build fail.
 
 ---
 
-- [ ] **Task 28: Final Publication Readiness Review**
-- **Status**: ⬜ Not Started
-- **Target**: TBD
+- [x] **Task 28: Final Publication Readiness Review**
+- **Status**: ✅ Done
+- **Target**: 2026-10-24
 - **Description**: Perform one final review of the package contract before publishing `@vickbk/tests`.
 - **Steps**:
-  - [ ] Review `package.json`.
-  - [ ] Review `tsdown.config.ts`.
-  - [ ] Review all public entrypoints.
-  - [ ] Review generated `dist/`.
-  - [ ] Review generated declarations.
-  - [ ] Review README.
-  - [ ] Review LICENSE.
-  - [ ] Review CHANGELOG.
-  - [ ] Review packed tarball.
-  - [ ] Verify all tests pass.
-  - [ ] Verify all exports resolve.
-  - [ ] Verify framework dependency isolation.
-  - [ ] Confirm no obsolete `@vickbk/ci-tools` references remain.
+  - [x] Review `package.json`.
+  - [x] Review `tsdown.config.ts`.
+  - [x] Review all public entrypoints.
+  - [x] Review generated `dist/`.
+  - [x] Review generated declarations.
+  - [x] Review README.
+  - [x] Review LICENSE.
+  - [x] Review CHANGELOG.
+  - [x] Review packed tarball.
+  - [x] Verify all tests pass.
+  - [x] Verify all exports resolve.
+  - [x] Verify framework dependency isolation.
+  - [x] Confirm no obsolete `@vickbk/ci-tools` references remain.
 
 - **Completion Criteria**:
-  - [ ] `@vickbk/tests` is internally consistent.
-  - [ ] The published artifact matches the documented API.
-  - [ ] A clean consumer can install and use each supported feature.
-  - [ ] Package is ready for NPM publication.
+  - [x] `@vickbk/tests` is internally consistent.
+  - [x] The published artifact matches the documented API.
+  - [x] A clean consumer can install and use each supported feature.
+  - [x] Package is ready for NPM publication.
 
 ---
