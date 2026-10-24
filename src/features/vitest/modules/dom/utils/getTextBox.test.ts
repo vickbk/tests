@@ -46,19 +46,21 @@ describe("getTextBox", () => {
     document.body.innerHTML = `
       <section aria-label="dialog">
         <label for="inside">Email</label><input id="inside" type="email" />
-        <input placeholder="Search here" />
+        <input placeholder="Search here" contenteditable="true" role="textbox" />
       </section>
       <label for="outside">Email</label><input id="outside" type="text" />
     `;
     const container = document.querySelector("section") as HTMLElement;
 
     expect(getTextBox("Email", container).id).toBe("inside");
-    expect(getTextBox("Search here", container)).toBeInstanceOf(HTMLInputElement);
+    expect(getTextBox("Search here", container)).toBeInstanceOf(
+      HTMLInputElement,
+    );
     expect(() => getTextBox("Missing", container)).toThrow();
   });
 
   it("propagates a useful query error when no matching textbox exists", () => {
-    document.body.innerHTML = '<button>Continue</button>';
+    document.body.innerHTML = "<button>Continue</button>";
 
     expect(() => getTextBox("Missing")).toThrow(/textbox/i);
   });

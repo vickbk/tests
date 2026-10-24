@@ -1,5 +1,5 @@
-import * as React from "react";
 import type { ReactNode } from "react";
+import * as React from "react";
 import { executeServerComponent } from "./executeServerComponent";
 import { isClientComponent } from "./isClientComponent";
 import { resolveProps } from "./resolveProps";
@@ -26,7 +26,7 @@ export async function resolveElement(
   if (typeof type === "function" && !isClientComponent(type)) {
     const serverResult = await executeServerComponent(
       type as React.ComponentType<Record<string, unknown>>,
-      (props ?? {}) as Record<string, unknown>,
+      props as Record<string, unknown>,
     );
     return resolveTree(serverResult);
   }

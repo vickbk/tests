@@ -1,5 +1,5 @@
-import * as React from "react";
 import type { ReactNode } from "react";
+import * as React from "react";
 import type { ResolveTree } from "./types";
 
 /**
@@ -24,7 +24,7 @@ export async function resolveArrayChild(
   if (React.isValidElement(resolvedChild)) {
     const keyToUse =
       resolvedChild.key ??
-      (React.isValidElement(child) ? child.key : null) ??
+      (child as { key?: string })?.key ??
       `rsc-key-${index}`;
     return React.cloneElement(resolvedChild, { key: keyToUse });
   }

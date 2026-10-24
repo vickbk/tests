@@ -20,4 +20,11 @@ describe("clickLabelInput", () => {
     await expect(clickLabelInput("")).resolves.toBeUndefined();
     await expect(clickLabelInput("Missing")).rejects.toThrow();
   });
+
+  it("supports an empty label and rejects a missing input", async () => {
+    document.body.innerHTML = '<label><input type="text" /></label>';
+
+    await expect(clickLabelInput("")).resolves.toBeUndefined();
+    await expect(clickLabelInput("Missing")).rejects.toThrow();
+  });
 });

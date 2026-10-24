@@ -1,7 +1,7 @@
 import type { TEXT_PATTERN } from "@/shared/regex";
 import { patternToRegex } from "@/shared/regex";
-import { screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { getSearchArea } from "./getSearchArea";
 
 /**
  * Simulates clicking an input found by its label or placeholder.
@@ -20,7 +20,7 @@ export async function clickLabelInput(
 ) {
   const user = userEvent.setup();
   const regex = patternToRegex(label);
-  const searchArea = container ? within(container) : screen;
+  const searchArea = getSearchArea(container);
   const element =
     typeof label === "string" && label.length === 0
       ? searchArea.queryByPlaceholderText(regex) ||
