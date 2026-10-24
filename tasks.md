@@ -517,89 +517,89 @@
 
 ### Phase 9: Tarball & Publication Readiness
 
-- [ ] **Task 25: Validate the Packed NPM Artifact**
-- **Status**: ⬜ Not Started
-- **Target**: TBD
+- [x] **Task 25: Validate the Packed NPM Artifact**
+- **Status**: ✅ Done
+- **Target**: 2026-10-24
 - **Description**: Verify the actual artifact that would be published to NPM rather than relying only on the repository build.
 - **Steps**:
-  - [ ] Run `pnpm build`.
-  - [ ] Run `pnpm pack`.
-  - [ ] Inspect the generated tarball contents.
-  - [ ] Confirm `dist/` is included.
-  - [ ] Confirm `README.md` is included.
-  - [ ] Confirm `LICENSE` is included.
-  - [ ] Confirm `CHANGELOG.md` is included.
-  - [ ] Confirm source-only files are excluded.
-  - [ ] Confirm unrelated CI-tools artifacts are excluded.
+  - [x] Run `pnpm build`.
+  - [x] Run `pnpm pack`.
+  - [x] Inspect the generated tarball contents.
+  - [x] Confirm `dist/` is included.
+  - [x] Confirm `README.md` is included.
+  - [x] Confirm `LICENSE` is included.
+  - [x] Confirm `CHANGELOG.md` is included.
+  - [x] Confirm source-only files are excluded.
+  - [x] Confirm unrelated CI-tools artifacts are excluded.
 
 - **Completion Criteria**:
-  - [ ] Tarball contains only publication-ready files.
-  - [ ] Every `exports` target exists inside the tarball.
+  - [x] Tarball contains only publication-ready files.
+  - [x] Every `exports` target exists inside the tarball.
 
 ---
 
-- [ ] **Task 26: Test Installation from the Tarball**
-- **Status**: ⬜ Not Started
-- **Target**: TBD
+- [x] **Task 26: Test Installation from the Tarball**
+- **Status**: ✅ Done
+- **Target**: 2026-10-24
 - **Description**: Install the actual packed artifact into clean consumer projects and verify real-world usage.
 - **Steps**:
-  - [ ] Create a clean shared-only fixture.
-  - [ ] Install the generated tarball.
-  - [ ] Test shared imports.
-  - [ ] Create a clean Vitest fixture.
-  - [ ] Install only the required Vitest/Testing Library dependencies.
-  - [ ] Test the Vitest API.
-  - [ ] Create a clean Playwright fixture.
-  - [ ] Install `@playwright/test`.
-  - [ ] Test the Playwright API.
-  - [ ] Run typecheck and tests in each fixture.
+  - [x] Create a clean shared-only fixture.
+  - [x] Install the generated tarball.
+  - [x] Test shared imports.
+  - [x] Create a clean Vitest fixture.
+  - [x] Install only the required Vitest/Testing Library dependencies.
+  - [x] Test the Vitest API.
+  - [x] Create a clean Playwright fixture.
+  - [x] Install `@playwright/test`.
+  - [x] Test the Playwright API.
+  - [x] Run typecheck and tests in each fixture.
 
 - **Completion Criteria**:
-  - [ ] Clean consumers can install and use the package successfully.
-  - [ ] No dependency happens to work only because it exists in the monorepo.
+  - [x] Clean consumers can install and use the package successfully.
+  - [x] No dependency happens to work only because it exists in the monorepo.
 
 ---
 
-- [ ] **Task 27: Add the Pre-Publish Safety Guard**
-- **Status**: ⬜ Not Started
-- **Target**: TBD
+- [x] **Task 27: Add the Pre-Publish Safety Guard**
+- **Status**: ✅ Done
+- **Target**: 2026-10-24
 - **Description**: Prevent publication of a package that fails its basic correctness checks.
 - **Steps**:
-  - [ ] Configure `prepublishOnly`.
-  - [ ] Run typecheck.
-  - [ ] Run tests.
-  - [ ] Run build.
-  - [ ] Optionally run lint.
-  - [ ] Verify the packed artifact as part of the release workflow if appropriate.
+  - [x] Configure `prepublishOnly`.
+  - [x] Run typecheck.
+  - [x] Run tests.
+  - [x] Run build.
+  - [x] Optionally run lint.
+  - [x] Verify the packed artifact as part of the release workflow if appropriate.
 
 - **Completion Criteria**:
-  - [ ] Publishing cannot proceed when typecheck, tests, or build fail.
+  - [x] Publishing cannot proceed when typecheck, tests, or build fail.
 
 ---
 
-- [ ] **Task 28: Final Publication Readiness Review**
-- **Status**: ⬜ Not Started
-- **Target**: TBD
+- [x] **Task 28: Final Publication Readiness Review**
+- **Status**: ✅ Done
+- **Target**: 2026-10-24
 - **Description**: Perform one final review of the package contract before publishing `@vickbk/tests`.
 - **Steps**:
-  - [ ] Review `package.json`.
-  - [ ] Review `tsdown.config.ts`.
-  - [ ] Review all public entrypoints.
-  - [ ] Review generated `dist/`.
-  - [ ] Review generated declarations.
-  - [ ] Review README.
-  - [ ] Review LICENSE.
-  - [ ] Review CHANGELOG.
-  - [ ] Review packed tarball.
-  - [ ] Verify all tests pass.
-  - [ ] Verify all exports resolve.
-  - [ ] Verify framework dependency isolation.
-  - [ ] Confirm no obsolete `@vickbk/ci-tools` references remain.
+  - [x] Review `package.json`.
+  - [x] Review `tsdown.config.ts`.
+  - [x] Review all public entrypoints.
+  - [x] Review generated `dist/`.
+  - [x] Review generated declarations.
+  - [x] Review README.
+  - [x] Review LICENSE.
+  - [x] Review CHANGELOG.
+  - [x] Review packed tarball.
+  - [x] Verify all tests pass.
+  - [x] Verify all exports resolve.
+  - [x] Verify framework dependency isolation.
+  - [x] Confirm no obsolete `@vickbk/ci-tools` references remain.
 
 - **Completion Criteria**:
-  - [ ] `@vickbk/tests` is internally consistent.
-  - [ ] The published artifact matches the documented API.
-  - [ ] A clean consumer can install and use each supported feature.
-  - [ ] Package is ready for NPM publication.
+  - [x] `@vickbk/tests` is internally consistent.
+  - [x] The published artifact matches the documented API.
+  - [x] A clean consumer can install and use each supported feature.
+  - [x] Package is ready for NPM publication.
 
 ---
