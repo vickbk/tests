@@ -474,8 +474,8 @@
 ---
 
 - [x] **Task 23: Verify ESM/CJS Package Imports**
-- **Status**: ✅ Done — unsupported CJS subpath exports removed
-- **Target**: Built package entrypoints and manifest contract
+- **Status**: ✅ Done
+- **Target**: 2026-10-24
 - **Description**: Verify that every declared package export works in the module systems supported by the package.
 - **Steps**:
   - [x] Test `@vickbk/tests`.
@@ -489,15 +489,14 @@
 
 - **Completion Criteria**:
   - [x] No `ERR_PACKAGE_PATH_NOT_EXPORTED`.
-  - [x] No unsupported CommonJS errors for subpaths that cannot validly run under `require()`.
+  - [x] No unsupported CommonJS errors for vitest subpath that cannot validly run under `require()`.
   - [x] No missing declaration errors.
-- **Result**: The package contract now matches actual runtime behavior: the root and framework-specific ESM entrypoints remain valid, while the invalid CJS-only conditions were removed rather than misrepresenting support that Vitest itself rejects.
 
 ---
 
 - [x] **Task 24: Verify Framework Dependency Isolation**
-- **Status**: ✅ Done — framework-specific paths are bounded to their actual runtime peers
-- **Target**: Built package entrypoints and peer dependency contract
+- **Status**: ✅ Done
+- **Target**: 2026-10-26
 - **Description**: Confirm that consumers only need the testing framework integrations they actually use.
 - **Steps**:
   - [x] Create a shared-only consumer.

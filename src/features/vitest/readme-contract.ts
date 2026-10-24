@@ -6,8 +6,8 @@ export const vitestReadmeContract: DocumentationContract = {
   sections: [
     { id: "overview", heading: "Overview", required: true },
     {
-      id: "public-entrypoints",
-      heading: "Public entrypoints",
+      id: "public-entrypoint",
+      heading: "Public entrypoint",
       required: true,
       requirements: { publicEntryPoints: true },
     },
@@ -30,12 +30,6 @@ export const vitestReadmeContract: DocumentationContract = {
       requirements: { codeBlock: true },
     },
     {
-      id: "react-server-components",
-      heading: "React Server Components",
-      required: true,
-      requirements: { codeBlock: true },
-    },
-    {
       id: "promise-helpers",
       heading: "Promise helpers",
       required: true,
@@ -51,7 +45,7 @@ export const vitestReadmeContract: DocumentationContract = {
   ],
   preferredSectionOrder: [
     "overview",
-    "public-entrypoints",
+    "public-entrypoint",
     "installation-setup",
     "dom-assertions-interactions",
     "toggle-events",
@@ -62,11 +56,10 @@ export const vitestReadmeContract: DocumentationContract = {
   ],
   requiredSectionIds: [
     "overview",
-    "public-entrypoints",
+    "public-entrypoint",
     "installation-setup",
     "dom-assertions-interactions",
     "toggle-events",
-    "react-server-components",
     "promise-helpers",
     "console-control",
     "api-reference",
@@ -98,15 +91,6 @@ export const vitestDomReadmeContract: DocumentationContract = {
 /** Contract for the promise helpers guide. */
 export const vitestPromisesReadmeContract: DocumentationContract = {
   packageName: "@vickbk/tests/vitest",
-  sections: moduleSections,
-  preferredSectionOrder: ["overview", "public-api", "usage", "dependencies"],
-  requiredSectionIds: ["overview", "public-api", "usage", "dependencies"],
-  recommendedSectionIds: [],
-};
-
-/** Contract for the isolated React module guide. */
-export const vitestReactReadmeContract: DocumentationContract = {
-  packageName: "@vickbk/tests/vitest/react",
   sections: moduleSections,
   preferredSectionOrder: ["overview", "public-api", "usage", "dependencies"],
   requiredSectionIds: ["overview", "public-api", "usage", "dependencies"],
