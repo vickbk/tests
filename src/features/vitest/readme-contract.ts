@@ -6,8 +6,8 @@ export const vitestReadmeContract: DocumentationContract = {
   sections: [
     { id: "overview", heading: "Overview", required: true },
     {
-      id: "public-entrypoint",
-      heading: "Public entrypoint",
+      id: "public-api",
+      heading: "Public API",
       required: true,
       requirements: { publicEntryPoints: true },
     },
@@ -45,7 +45,7 @@ export const vitestReadmeContract: DocumentationContract = {
   ],
   preferredSectionOrder: [
     "overview",
-    "public-entrypoint",
+    "public-api",
     "installation-setup",
     "dom-assertions-interactions",
     "toggle-events",
@@ -56,7 +56,7 @@ export const vitestReadmeContract: DocumentationContract = {
   ],
   requiredSectionIds: [
     "overview",
-    "public-entrypoint",
+    "public-api",
     "installation-setup",
     "dom-assertions-interactions",
     "toggle-events",

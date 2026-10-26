@@ -19,7 +19,8 @@ await runTask(
       "./src/bin/README.md": binReadmeContract,
       "./README.md": rootReadmeContract,
       "./src/features/vitest/README.md": vitestReadmeContract,
-      "./src/features/vitest/modules/console": vitestConsoleReadmeContract,
+      "./src/features/vitest/modules/console/README.md":
+        vitestConsoleReadmeContract,
       "./src/features/vitest/modules/dom/README.md": vitestDomReadmeContract,
       "./src/features/vitest/modules/dom/modules/toggle-event/README.md":
         vitestToggleEventReadmeContract,
