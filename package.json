@@ -49,6 +49,28 @@
         "default": "./dist/vitest.mjs"
       }
     },
+    "./vitest/console": {
+      "import": {
+        "types": "./dist/vitest/console.d.mts",
+        "default": "./dist/vitest/console.mjs"
+      }
+    },
+    "./vitest/dom": {
+      "import": {
+        "types": "./dist/vitest/dom.d.mts",
+        "default": "./dist/vitest/dom.mjs"
+      }
+    },
+    "./promises": {
+      "import": {
+        "types": "./dist/promises.d.mts",
+        "default": "./dist/promises.mjs"
+      },
+      "require": {
+        "types": "./dist/promises.d.cts",
+        "default": "./dist/promises.cjs"
+      }
+    },
     "./react": {
       "import": {
         "types": "./dist/react.d.mts",

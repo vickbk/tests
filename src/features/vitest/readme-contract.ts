@@ -88,15 +88,6 @@ export const vitestDomReadmeContract: DocumentationContract = {
   recommendedSectionIds: [],
 };
 
-/** Contract for the promise helpers guide. */
-export const vitestPromisesReadmeContract: DocumentationContract = {
-  packageName: "@vickbk/tests/vitest",
-  sections: moduleSections,
-  preferredSectionOrder: ["overview", "public-api", "usage", "dependencies"],
-  requiredSectionIds: ["overview", "public-api", "usage", "dependencies"],
-  recommendedSectionIds: [],
-};
-
 /** Contract for the opt-in toggle-event module guide. */
 export const vitestToggleEventReadmeContract: DocumentationContract = {
   packageName: "@vickbk/tests/vitest",

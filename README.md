@@ -5,21 +5,19 @@
 [![Build Status](https://img.shields.io/github/actions/workflow/status/vickbk/tests/lint-test-docs.yml?branch=main)](https://github.com/vickbk/tests/actions)
 [![Test Coverage](https://img.shields.io/badge/coverage-100%25-brightgreen.svg)](https://github.com/vickbk/tests)
 
-Reusable testing utilities for TypeScript projects: framework-agnostic shared
-helpers, a collection of Vitest utilities, React Server Component helpers, and
-a Playwright DSL. Import only the entrypoint that matches the testing tools
-and integrations used by your project.
+Reusable testing utilities for TypeScript projects: framework-agnostic shared helpers, promise helpers, Vitest utilities, React Server Component helpers, and a Playwright DSL. Import only the entrypoint that matches the functionality and integrations your project needs.
 
 ## Overview
 
-The package is organized around stable public entrypoints:
+The package is organized around focused public entrypoints:
 
-- Shared text-pattern helpers and types are available from the package root.
-- Vitest utilities provide DOM assertions and interactions, console controls,
-  promise helpers, and a package-provided toggle-event helper.
-- React utilities provide React Server Component (RSC) tree resolution.
-- Playwright utilities provide assertions, locators, interactions, and a
-  reusable runner.
+- **Shared utilities** provide text-pattern helpers and types.
+- **Promise helpers** provide settled-promise utilities without requiring Vitest or Testing Library.
+- **Vitest utilities** provide console controls, DOM assertions and interactions, and toggle-event support.
+- **React utilities** provide React Server Component (RSC) tree resolution.
+- **Playwright utilities** provide assertions, locators, interactions, and a reusable runner.
+
+> The Vitest aggregate entrypoint continues to re-export console, DOM, and promise helpers for compatibility. For dependency isolation, prefer the specialized entrypoint that matches your needs.
 
 ## Installation
 
@@ -29,34 +27,38 @@ Install the package as a development dependency:
 pnpm add -D @vickbk/tests
 ```
 
-The integrations are optional peer dependencies. Add the peers needed by your
-project; for Vitest DOM tests, for example:
+Install the peer dependencies required by the integrations you use.
+
+For Vitest DOM tests:
 
 ```sh
 pnpm add -D vitest jsdom @testing-library/react @testing-library/user-event @testing-library/jest-dom
 ```
 
-For Playwright tests, install `@playwright/test`. For React Server Component
-helpers, install `react` and `react-dom` (and `@types/react` when using
-TypeScript).
+For console helpers, install Vitest.
+
+For promise helpers, no Vitest or Testing Library dependency is required by the promises entrypoint.
+
+For Playwright tests, install `@playwright/test`.
+For React Server Component helpers, install `react` and `react-dom` (and `@types/react` when using TypeScript).
 
 ## Public entrypoints
 
-| Import path                | Purpose                                                   |
-| -------------------------- | --------------------------------------------------------- |
-| `@vickbk/tests`            | Shared text-pattern utilities and types                   |
-| `@vickbk/tests/vitest`     | Vitest console, DOM, promise, and toggle-event helpers    |
-| `@vickbk/tests/react`      | React Server Component tree resolution                    |
-| `@vickbk/tests/playwright` | Playwright assertions, locators, interactions, and runner |
+| Import path                    | Purpose                                                                          |
+| ------------------------------ | -------------------------------------------------------------------------------- |
+| `@vickbk/tests`                | Shared text-pattern utilities and types                                          |
+| `@vickbk/tests/promises`       | Framework-independent settled-promise helpers                                    |
+| `@vickbk/tests/vitest`         | Aggregate Vitest API: console, DOM, toggle-event, and deprecated promise exports |
+| `@vickbk/tests/vitest/console` | Console controls using Vitest spies                                              |
+| `@vickbk/tests/vitest/dom`     | DOM queries, assertions, interactions, and toggle-event support                  |
+| `@vickbk/tests/react`          | React Server Component tree resolution                                           |
+| `@vickbk/tests/playwright`     | Playwright assertions, locators, interactions, and runner                        |
 
-**Module format:** The `@vickbk/tests/vitest` entrypoint is ESM-only. Use
-`import` to consume it; CommonJS `require()` is not supported. The other
-entrypoints retain their existing module-format support.
+**Module format:** The `@vickbk/tests/vitest` entrypoints are ESM-only. Use `import` to consume them; CommonJS `require()` is not supported. Other entrypoints retain their existing module-format support.
 
 ## Shared text-pattern helpers
 
-The shared API provides `patternToRegex` and the `LABEL_LOCATOR`,
-`TEXT_MATCHER`, `TEXT_PATTERN`, and `TEXT_WITH_NTH` types.
+The shared API provides `patternToRegex` and the `LABEL_LOCATOR`, `TEXT_MATCHER`, `TEXT_PATTERN`, and `TEXT_WITH_NTH` types.
 
 ```ts
 import { patternToRegex, type TEXT_MATCHER } from "@vickbk/tests";
@@ -65,25 +67,42 @@ const matcher: TEXT_MATCHER = ["Welcome", 0];
 const caseInsensitive = patternToRegex("Welcome");
 ```
 
+## Promise helpers
+
+The dedicated promises entrypoint provides `resolvedPromise` and `rejectedPromise`. These helpers produce settled promises with Vitest-style `status` and `value`/`reason` properties, useful when testing consumers that inspect promise state.
+
+```ts
+import { rejectedPromise, resolvedPromise } from "@vickbk/tests/promises";
+
+const ready = resolvedPromise({ id: "item-1" });
+expect(ready.status).toBe("fulfilled");
+expect(ready.value.id).toBe("item-1");
+
+await expect(rejectedPromise(new Error("unavailable"))).rejects.toThrow(
+  "unavailable",
+);
+```
+
+Prefer `@vickbk/tests/promises` for all new code. The same helpers remain exported from `@vickbk/tests/vitest` for backward compatibility, but those re-exports are deprecated. Migrate existing imports to the dedicated promises entrypoint.
+
 ## Vitest setup
 
 The package supports Node.js 20 and newer. Its peer dependency ranges are:
 
 | Peer dependency               | Supported range        | Used for                                              |
 | ----------------------------- | ---------------------- | ----------------------------------------------------- |
-| `vitest`                      | `^5.0.4`               | Vitest helpers                                        |
+| `vitest`                      | `^5.0.4`               | Vitest helpers, including console controls            |
 | `@testing-library/react`      | `^16.0.0`              | DOM queries, interactions, and toggle events          |
 | `@testing-library/user-event` | `^14.6.8`              | User-like DOM interactions                            |
-| `@testing-library/jest-dom`   | `^7.0.1`               | DOM matcher setup used by the DOM assertion helpers   |
+| `@testing-library/jest-dom`   | `^7.0.1`               | DOM matcher setup used by assertion helpers           |
 | `@playwright/test`            | `^1.64.0`              | Playwright helpers and direct `test`/`expect` exports |
 | `react`, `react-dom`          | `^18.0.0` or `^19.0.0` | React integrations and RSC helpers                    |
 | `@types/react`                | `^18.0.0` or `^19.0.0` | React TypeScript types                                |
 
-All peers are optional at the package level. Install the peers for the
-entrypoints your project imports.
+All peers are optional at the package level. Install the peers required by the entrypoints your project imports.
+In particular, the promises entrypoint does not require any Library, and the console entrypoint requires vitest only.
 
-Configure Vitest to use a DOM environment for DOM tests, and load the
-jest-dom Vitest matchers from a setup file:
+Configure Vitest to use a DOM environment for tests that render components, and load the jest-dom Vitest matchers from a setup file:
 
 ```ts
 // vitest.config.ts
@@ -104,13 +123,29 @@ import "@testing-library/jest-dom/vitest";
 
 ## Vitest utilities
 
-Import DOM helpers and console controls from `@vickbk/tests/vitest`.
-`shouldSee` returns the matched elements, while `shouldHaveTestId` returns the
-elements located by test ID.
+The aggregate entrypoint, `@vickbk/tests/vitest`, re-exports the Vitest helper categories. For smaller dependency footprints, import from `@vickbk/tests/vitest/console` or `@vickbk/tests/vitest/dom` instead.
+
+### Console controls
+
+The console entrypoint exports `shutConsole` and `resetConsole`. These helpers suppress `console.log`, `console.warn`, and `console.error` during tests, then restore the original implementations.
+
+```ts
+import { afterEach, beforeEach } from "vitest";
+import { resetConsole, shutConsole } from "@vickbk/tests/vitest/console";
+
+beforeEach(shutConsole);
+afterEach(resetConsole);
+```
+
+Console output is not suppressed merely by importing the module. Call `shutConsole()` to activate the spies and `resetConsole()` to restore the methods.
+
+### DOM assertions and interactions
+
+Import DOM helpers from the dedicated DOM entrypoint:
 
 ```tsx
 import { render } from "@testing-library/react";
-import { shouldHaveTestId, shouldSee } from "@vickbk/tests/vitest";
+import { shouldHaveTestId, shouldSee } from "@vickbk/tests/vitest/dom";
 
 render(
   <main>
@@ -123,38 +158,40 @@ const [heading] = shouldSee("Welcome");
 const [saveButton] = shouldHaveTestId("save-button");
 ```
 
-To suppress console output during a test, pair `shutConsole` with
-`resetConsole`:
+`shouldSee` returns the matched elements, while `shouldHaveTestId` returns the elements located by test ID.
+
+Other DOM helpers include `shouldNotSee`, `isChecked`, `isNotChecked`, `shouldHaveAttributes`, `shouldNotHaveTestId`, `userClicks`, `userTypes`, `userTypesMultiple`, and `togglePopover`.
+
+### Toggle events
+
+The DOM entrypoint provides its own `fireEvent`, combining standard Testing Library event helpers with the package's `toggle` helper. No separate toggle-event installation is needed.
 
 ```ts
-import { afterEach, beforeEach } from "vitest";
-import { resetConsole, shutConsole } from "@vickbk/tests/vitest";
-
-beforeEach(shutConsole);
-afterEach(resetConsole);
-```
-
-The Vitest entrypoint provides its own `fireEvent`, combining standard Testing
-Library event helpers with `toggle`. Import it directly; no separate toggle
-installation is needed:
-
-```ts
-import { fireEvent } from "@vickbk/tests/vitest";
+import { fireEvent } from "@vickbk/tests/vitest/dom";
 
 fireEvent.click(document.body);
 fireEvent.toggle(document.body);
+fireEvent.toggle(document.body, {
+  oldState: "open",
+  newState: "closed",
+});
 ```
 
-The Vitest entrypoint also exports `shouldNotSee`, `isChecked`,
-`isNotChecked`, `shouldHaveAttributes`, `shouldNotHaveTestId`, `userClicks`,
-`userTypes`, `userTypesMultiple`, `togglePopover`, `resolvedPromise`, and
-`rejectedPromise`.
+`fireEvent.toggle(element, config?)` defaults to `oldState: "closed"` and `newState: "open"`. Either state can be overridden independently. The package-owned `fireEvent` does not augment or modify Testing Library's original export.
 
-[For more details on Vitest API](./src/features/vitest/README.md)
+### Aggregate entrypoint and compatibility
+
+The `@vickbk/tests/vitest` entrypoint continues to export the console and DOM helpers, along with `resolvedPromise` and `rejectedPromise`.
+
+The promise re-exports are deprecated. Import these helpers from `@vickbk/tests/promises` in new code and when migrating existing imports.
+
+The aggregate entrypoint is convenient when a project uses all the Vitest helper categories. It is not intended to provide the same dependency isolation as the specialized entrypoints.
+
+[For more details on the Vitest API](./src/features/vitest/README.md)
 
 ## React utilities
 
-The React entrypoint exposes `resolveRscTree`:
+The React entrypoint exposes `resolveRscTree` for resolving React Server Component trees.
 
 ```tsx
 import { resolveRscTree } from "@vickbk/tests/react";
@@ -162,7 +199,7 @@ import { resolveRscTree } from "@vickbk/tests/react";
 const resolved = await resolveRscTree(<ServerPage />);
 ```
 
-[For more on React API](./src/features/react/README.md)
+[For more on the React API](./src/features/react/README.md)
 
 ## Playwright utilities
 
@@ -180,10 +217,7 @@ test("saves the page", async ({ page }) => {
 });
 ```
 
-The public API also includes `shouldNotSee`, `isChecked`, `isNotChecked`,
-`getLocatorByText`, `getLabel`, `getLink`, `fillLocatorWith`,
-`setLocatorValue`, `setValueForLocators`, `clickLink`, `clickLabelInput`,
-`clickMultipleLabelInputs`, `clickBodyCorner`, and `runSimilarTests`.
+The public API also includes `shouldNotSee`, `isChecked`, `isNotChecked`, `getLocatorByText`, `getLabel`, `getLink`, `fillLocatorWith`, `setLocatorValue`, `setValueForLocators`, `clickLink`, `clickLabelInput`, `clickMultipleLabelInputs`, `clickBodyCorner`, and `runSimilarTests`.
 
 [For more details on the Playwright API](./src/features/playwright/README.md)
 
