@@ -1,6 +1,6 @@
 {
   "name": "@vickbk/tests",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Testing helpers for Vitest and Playwright.",
   "publishConfig": {
     "access": "public"
@@ -47,6 +47,28 @@
       "import": {
         "types": "./dist/vitest.d.mts",
         "default": "./dist/vitest.mjs"
+      }
+    },
+    "./vitest/console": {
+      "import": {
+        "types": "./dist/vitest/console.d.mts",
+        "default": "./dist/vitest/console.mjs"
+      }
+    },
+    "./vitest/dom": {
+      "import": {
+        "types": "./dist/vitest/dom.d.mts",
+        "default": "./dist/vitest/dom.mjs"
+      }
+    },
+    "./promises": {
+      "import": {
+        "types": "./dist/promises.d.mts",
+        "default": "./dist/promises.mjs"
+      },
+      "require": {
+        "types": "./dist/promises.d.cts",
+        "default": "./dist/promises.cjs"
       }
     },
     "./react": {

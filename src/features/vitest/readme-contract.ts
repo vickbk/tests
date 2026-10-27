@@ -1,3 +1,4 @@
+import { moduleSections } from "@/shared/docs";
 import type { DocumentationContract } from "@vickbk/ci-tools/docs";
 
 /** Contract for the Vitest feature guide and its supported entrypoints. */
@@ -6,8 +7,8 @@ export const vitestReadmeContract: DocumentationContract = {
   sections: [
     { id: "overview", heading: "Overview", required: true },
     {
-      id: "public-entrypoint",
-      heading: "Public entrypoint",
+      id: "public-api",
+      heading: "Public API",
       required: true,
       requirements: { publicEntryPoints: true },
     },
@@ -45,7 +46,7 @@ export const vitestReadmeContract: DocumentationContract = {
   ],
   preferredSectionOrder: [
     "overview",
-    "public-entrypoint",
+    "public-api",
     "installation-setup",
     "dom-assertions-interactions",
     "toggle-events",
@@ -56,7 +57,7 @@ export const vitestReadmeContract: DocumentationContract = {
   ],
   requiredSectionIds: [
     "overview",
-    "public-entrypoint",
+    "public-api",
     "installation-setup",
     "dom-assertions-interactions",
     "toggle-events",
@@ -67,29 +68,8 @@ export const vitestReadmeContract: DocumentationContract = {
   recommendedSectionIds: [],
 };
 
-const moduleSections = [
-  { id: "overview", heading: "Overview", required: true },
-  { id: "public-api", heading: "Public API", required: true },
-  {
-    id: "usage",
-    heading: "Usage",
-    required: true,
-    requirements: { codeBlock: true },
-  },
-  { id: "dependencies", heading: "Dependencies", required: true },
-];
-
 /** Contract for the DOM module guide. */
 export const vitestDomReadmeContract: DocumentationContract = {
-  packageName: "@vickbk/tests/vitest",
-  sections: moduleSections,
-  preferredSectionOrder: ["overview", "public-api", "usage", "dependencies"],
-  requiredSectionIds: ["overview", "public-api", "usage", "dependencies"],
-  recommendedSectionIds: [],
-};
-
-/** Contract for the promise helpers guide. */
-export const vitestPromisesReadmeContract: DocumentationContract = {
   packageName: "@vickbk/tests/vitest",
   sections: moduleSections,
   preferredSectionOrder: ["overview", "public-api", "usage", "dependencies"],

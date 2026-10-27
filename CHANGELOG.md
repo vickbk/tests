@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-10-27
+
+### Added
+
+- Add `@vickbk/tests/vitest/console` as a dedicated entrypoint for console controls.
+- Add `@vickbk/tests/vitest/dom` as a dedicated entrypoint for DOM queries, assertions, interactions, and toggle-event support.
+- Add `@vickbk/tests/promises` as a framework-independent entrypoint for `resolvedPromise` and `rejectedPromise`.
+
+### Changed
+
+- Organize Vitest helpers into specialized entrypoints so consumers can import only the helper categories they need.
+- Update the root README and Vitest documentation to describe the public entrypoints, their intended use, and their dependency requirements.
+
+### Deprecated
+
+- Deprecate `resolvedPromise` and `rejectedPromise` when imported from `@vickbk/tests/vitest`. Use `@vickbk/tests/promises` instead.
+- Retain the deprecated promise exports from the aggregate Vitest entrypoint for backward compatibility.
+
 ## [0.1.0] - 2026-10-24
 
 ### Added
