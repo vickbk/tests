@@ -2,7 +2,7 @@ import { DocumentationContract } from "@vickbk/ci-tools/docs";
 
 /** Contract for the promise helpers guide. */
 export const vitestPromisesReadmeContract: DocumentationContract = {
-  packageName: "@vickbk/tests/vitest",
+  packageName: "@vickbk/tests/promises",
   sections: [
     { id: "overview", heading: "Overview", required: true },
     { id: "public-api", heading: "Public API", required: true },

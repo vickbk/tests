@@ -15,12 +15,11 @@ The main `@vickbk/tests/vitest` entrypoint re-exports the supported Vitest helpe
 
 ### Public entrypoints
 
-| Import                         | Purpose                                                                             |
-| ------------------------------ | ----------------------------------------------------------------------------------- |
-| `@vickbk/tests/vitest`         | Aggregate Vitest API: console, DOM, toggle-event, and deprecated promise helpers    |
-| `@vickbk/tests/vitest/console` | Console controls                                                                    |
-| `@vickbk/tests/vitest/dom`     | DOM queries, assertions, interactions, and toggle-event support                     |
-| `@vickbk/tests/promises`       | Framework-independent promise helpers; preferred over the deprecated Vitest exports |
+| Import                         | Purpose                                                                          |
+| ------------------------------ | -------------------------------------------------------------------------------- |
+| `@vickbk/tests/vitest`         | Aggregate Vitest API: console, DOM, toggle-event, and deprecated promise helpers |
+| `@vickbk/tests/vitest/console` | Console controls                                                                 |
+| `@vickbk/tests/vitest/dom`     | DOM queries, assertions, interactions, and toggle-event support                  |
 
 The `@vickbk/tests/vitest`, `@vickbk/tests/vitest/console` and `@vickbk/tests/vitest/dom` entrypoints are ESM-only. Use `import` to consume them; CommonJS `require()` is not supported.
 

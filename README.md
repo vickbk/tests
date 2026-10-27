@@ -17,7 +17,7 @@ The package is organized around focused public entrypoints:
 - **React utilities** provide React Server Component (RSC) tree resolution.
 - **Playwright utilities** provide assertions, locators, interactions, and a reusable runner.
 
-> The Vitest aggregate entrypoint continues to re-export console, DOM, and promise helpers for compatibility. For dependency isolation, prefer the specialized entrypoint that matches your needs.
+> The Vitest Aggregate entrypoint re-exports console, DOM, and promises (Deprecated) helpers. For dependency isolation, prefer the specialized entrypoint that matches your needs.
 
 ## Installation
 
@@ -37,7 +37,7 @@ pnpm add -D vitest jsdom @testing-library/react @testing-library/user-event @tes
 
 For console helpers, install Vitest.
 
-For promise helpers, no Vitest or Testing Library dependency is required by the promises entrypoint.
+For promise helpers, no dependency is required by the promises entrypoint.
 
 For Playwright tests, install `@playwright/test`.
 For React Server Component helpers, install `react` and `react-dom` (and `@types/react` when using TypeScript).
@@ -54,7 +54,7 @@ For React Server Component helpers, install `react` and `react-dom` (and `@types
 | `@vickbk/tests/react`          | React Server Component tree resolution                                           |
 | `@vickbk/tests/playwright`     | Playwright assertions, locators, interactions, and runner                        |
 
-**Module format:** The `@vickbk/tests/vitest` entrypoints are ESM-only. Use `import` to consume them; CommonJS `require()` is not supported. Other entrypoints retain their existing module-format support.
+**Module format:** The `@vickbk/tests/vitest`, `@vickbk/tests/vitest/console` and `@vickbk/tests/vitest/dom` entrypoints are ESM-only. Use `import` to consume them; CommonJS `require()` is not supported. Other entrypoints support dual module format.
 
 ## Shared text-pattern helpers
 

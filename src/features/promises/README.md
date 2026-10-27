@@ -1,22 +1,18 @@
-# Vitest promise helpers
+# Promise helpers
 
 ## Overview
 
-The promise module provides settled promises with Vitest-compatible status
-metadata. Import helpers from `@vickbk/tests/vitest`.
+The promises module provides settled promises with status metadata. Import the helpers from `@vickbk/tests/promises`.
 
 ## Public API
 
-- `resolvedPromise(value)` returns a fulfilled promise with `status` and
-  `value`.
-- `rejectedPromise(reason)` returns a rejected promise with `status` and
-  `reason`. It attaches a rejection handler to avoid unhandled-rejection noise
-  before the promise is asserted.
+- `resolvedPromise(value)` returns a fulfilled promise with `status` and `value`.
+- `rejectedPromise(reason)` returns a rejected promise with `status` and `reason`. It attaches a rejection handler to avoid unhandled-rejection noise before the promise is asserted.
 
 ## Usage
 
 ```ts
-import { rejectedPromise, resolvedPromise } from "@vickbk/tests/vitest";
+import { rejectedPromise, resolvedPromise } from "@vickbk/tests/promises";
 
 const success = resolvedPromise({ result: "ok" });
 expect(success.status).toBe("fulfilled");
@@ -29,5 +25,4 @@ await expect(failure).rejects.toThrow("network unavailable");
 
 ## Dependencies
 
-The promise helpers have no runtime framework imports. Vitest is commonly used
-to assert the returned promise but is not imported by the helper implementation.
+The promise helpers have no runtime framework imports. You can use them independently of Vitest or another testing framework. The example above uses Vitest's `expect` only to demonstrate how to assert the returned promise.
