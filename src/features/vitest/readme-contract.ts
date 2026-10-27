@@ -1,3 +1,4 @@
+import { moduleSections } from "@/shared/docs";
 import type { DocumentationContract } from "@vickbk/ci-tools/docs";
 
 /** Contract for the Vitest feature guide and its supported entrypoints. */
@@ -66,18 +67,6 @@ export const vitestReadmeContract: DocumentationContract = {
   ],
   recommendedSectionIds: [],
 };
-
-const moduleSections = [
-  { id: "overview", heading: "Overview", required: true },
-  { id: "public-api", heading: "Public API", required: true },
-  {
-    id: "usage",
-    heading: "Usage",
-    required: true,
-    requirements: { codeBlock: true },
-  },
-  { id: "dependencies", heading: "Dependencies", required: true },
-];
 
 /** Contract for the DOM module guide. */
 export const vitestDomReadmeContract: DocumentationContract = {
