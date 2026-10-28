@@ -1,3 +1,5 @@
+import { mayUseHooks } from "./mayUseHooks";
+
 /**
  * Determines whether a component should be kept behind a client boundary.
  * React client/module references and functions containing hook calls are not
@@ -11,7 +13,10 @@
  * ```
  */
 export function isClientComponent(type: unknown): boolean {
-  if (type === null || (typeof type !== "function" && typeof type !== "object")) {
+  if (
+    type === null ||
+    (typeof type !== "function" && typeof type !== "object")
+  ) {
     return false;
   }
 
@@ -24,8 +29,5 @@ export function isClientComponent(type: unknown): boolean {
     return true;
   }
 
-  return (
-    typeof type === "function" &&
-    /\buse[A-Z0-9_]\w*\s*\(/.test(Function.prototype.toString.call(type))
-  );
+  return typeof type === "function" && mayUseHooks(type as never);
 }
