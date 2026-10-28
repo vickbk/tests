@@ -64,4 +64,37 @@ describe("getTextBox", () => {
 
     expect(() => getTextBox("Missing")).toThrow(/textbox/i);
   });
+
+  it("finds a labeled search input", () => {
+    document.body.innerHTML = `
+      <label for="site-search">Search</label>
+      <input id="site-search" type="search" />
+    `;
+
+    const result = getTextBox("Search");
+
+    expect(result).toBeInstanceOf(HTMLInputElement);
+    expect((result as HTMLInputElement).type).toBe("search");
+  });
+
+  it("rejects a labeled non-text control", () => {
+    document.body.innerHTML = `
+      <label for="notifications">Enable notifications</label>
+      <input id="notifications" type="checkbox" />
+    `;
+
+    expect(() => getTextBox("Enable notifications")).toThrow(
+      /label.*not a text-entry control/i,
+    );
+  });
+
+  it("prefers a label match over a placeholder match", () => {
+    document.body.innerHTML = `
+      <label for="name">Name</label>
+      <input id="name" type="text" />
+      <input id="other" type="text" placeholder="Name" />
+    `;
+
+    expect(getTextBox("Name").id).toBe("name");
+  });
 });

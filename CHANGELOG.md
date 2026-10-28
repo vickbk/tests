@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Restored label-based lookup in `getTextBox` and validated label and
+  placeholder matches to prevent non-text controls from being returned.
+  Labeled search inputs are supported even though they use the `searchbox`
+  role rather than `textbox`.
+
 ## [0.2.1] - 2026-10-28
 
 ### Fixed
