@@ -1,31 +1,6 @@
 import { patternToRegex, TEXT_PATTERN } from "@/shared/regex";
+import { assertTextEntryControl } from "./assertTextEntryControl";
 import { getSearchArea } from "./getSearchArea";
-
-function isTextEntryControl(element: HTMLElement): boolean {
-  const isTextInput =
-    element instanceof HTMLInputElement &&
-    ["text", "search", "email", "url", "tel", "password"].includes(
-      element.type,
-    );
-  const isTextArea = element instanceof HTMLTextAreaElement;
-  const isContentEditable =
-    element.getAttribute("contenteditable") === "true" &&
-    element.getAttribute("role") === "textbox";
-
-  return isTextInput || isTextArea || isContentEditable;
-}
-
-function assertTextEntryControl(
-  element: HTMLElement,
-  target: TEXT_PATTERN,
-  source: "label" | "placeholder",
-): HTMLElement {
-  if (isTextEntryControl(element)) return element;
-
-  throw new Error(
-    `Element matching ${source} "${String(target)}" is not a text-entry control.`,
-  );
-}
 
 /**
  * Finds a text-entry control by its accessible name or placeholder.
