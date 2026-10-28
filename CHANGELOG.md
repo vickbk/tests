@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.1] - 2026-10-28
+
+### Fixed
+
+- Prevented `resolveRscTree` from directly invoking components whose source appears to contain React hook calls, including hooks in Vite-transformed import expressions.
+
 ## [0.2.0] - 2026-10-27
 
 ### Added
