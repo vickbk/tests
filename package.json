@@ -1,6 +1,6 @@
 {
   "name": "@vickbk/tests",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Testing helpers for Vitest and Playwright.",
   "publishConfig": {
     "access": "public"
