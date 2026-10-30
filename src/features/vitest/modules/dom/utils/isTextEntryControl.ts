@@ -1,3 +1,18 @@
+export const textInputList = [
+  "text",
+  "search",
+  "email",
+  "url",
+  "tel",
+  "password",
+  "number",
+  "date",
+  "datetime-local",
+  "time",
+  "month",
+  "week",
+];
+
 /**
  * Determines whether an element is a supported text-entry control.
  *
@@ -9,10 +24,7 @@
  */
 export function isTextEntryControl(element: HTMLElement): boolean {
   const isTextInput =
-    element instanceof HTMLInputElement &&
-    ["text", "search", "email", "url", "tel", "password"].includes(
-      element.type,
-    );
+    element instanceof HTMLInputElement && textInputList.includes(element.type);
 
   const isTextArea = element instanceof HTMLTextAreaElement;
 

@@ -1,19 +1,16 @@
 // @vitest-environment jsdom
 import { describe, expect, it } from "vitest";
-import { isTextEntryControl } from "./isTextEntryControl";
+import { isTextEntryControl, textInputList } from "./isTextEntryControl";
 
 describe("isTextEntryControl", () => {
-  it.each(["text", "search", "email", "url", "tel", "password"])(
-    "accepts input[type=%s]",
-    (type) => {
-      const input = document.createElement("input");
-      input.type = type;
+  it.each(textInputList)("accepts input[type=%s]", (type) => {
+    const input = document.createElement("input");
+    input.type = type;
 
-      expect(isTextEntryControl(input)).toBe(true);
-    },
-  );
+    expect(isTextEntryControl(input)).toBe(true);
+  });
 
-  it.each(["checkbox", "radio", "button", "submit", "number", "hidden"])(
+  it.each(["checkbox", "radio", "button", "submit", "hidden"])(
     "rejects input[type=%s]",
     (type) => {
       const input = document.createElement("input");
