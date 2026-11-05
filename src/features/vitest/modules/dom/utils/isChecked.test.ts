@@ -39,4 +39,18 @@ describe("isChecked", () => {
 
     expect(() => isChecked("Name")).toThrow(/checkbox or radio/i);
   });
+
+  it("supports label lookup when role lookup cannot find the control", () => {
+    document.body.innerHTML =
+      '<label for="terms">Accept terms</label><input id="terms" type="checkbox" role="presentation" checked />';
+
+    expect(() => isChecked("Accept terms")).not.toThrow();
+  });
+
+  it("rejects a matching label associated with a non-checkbox/radio input", () => {
+    document.body.innerHTML =
+      '<label for="name">Name</label><input id="name" type="text" />';
+
+    expect(() => isChecked("Name")).toThrow(/checkbox or radio/i);
+  });
 });

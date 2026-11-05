@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.4] - 2026-11-05
+
+### Fixed
+
+- Restored label-based lookup as a fallback for `isChecked` and `isNotChecked`.
+- Restricted fallback matches to native checkbox and radio inputs, preventing unrelated labeled form controls from being accepted.
+- Preserved role-based lookup support for custom ARIA checkbox and radio controls.
+
 ## [0.2.3] - 2026-10-30
 
 ### Fixed
